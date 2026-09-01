@@ -1,0 +1,243 @@
+==================================================================
+HACKERA.ONLINE — GITHUB + CLOUDFLARE PAGES / ИНСТРУКЦИИ ЗА МИГРАЦИЯ
+==================================================================
+
+------------------------------------------------------------------
+BULGARIAN (Български)
+------------------------------------------------------------------
+
+ОБЩА ИДЕЯ
+
+  GitHub пази кода (версии, история на промените).
+  Cloudflare Pages чете от GitHub и автоматично публикува сайта при
+  всеки push — това е механизмът, който ти дава "редактирам тук →
+  живее на сайта", без чакане на "security проверки" от 2 дни.
+  Сайтът е чисто статичен (HTML/CSS/JS, без build стъпка), затова
+  Cloudflare Pages няма какво да компилира — просто копира файловете.
+
+  ВАЖНО: GitHub Pages и Cloudflare Pages НЕ изпълняват PHP. Папката
+  /api/ (Stripe backend) няма да работи там. Това засега не е
+  проблем, защото Stripe е на пауза (виж api/README.md) — но когато
+  се стигне до активиране на Stripe, ще трябва или (а) тази малка
+  PHP част да остане на Namecheap като отделен subdomain
+  (api.hackera.online), докато останалото е в Cloudflare, или (б)
+  да пренапишем /api/ като Cloudflare Pages Functions (JavaScript,
+  изпълнява се на самия Cloudflare, без Namecheap). И двата варианта
+  са лесни — просто трябва решение преди да пуснем плащанията.
+
+  --------------------------------------------------------------
+  СТЪПКА 1 — Качване в GitHub
+  --------------------------------------------------------------
+
+  1. Отиди на https://github.com/new и създай ново repository:
+       Name: hackera-online
+       Visibility: Private (препоръчвам, тъй като е бизнес сайт —
+                   Cloudflare Pages работи еднакво добре с private
+                   repo, така че public не е нужно)
+       НЕ добавяй README/gitignore от GitHub интерфейса — вече ги има
+       в тази папка.
+
+  2. На твоя компютър, вътре в тази папка (hackera-online/):
+
+       git init
+       git add .
+       git commit -m "Initial commit — migrate from Namecheap"
+       git branch -M main
+       git remote add origin https://github.com/ТВОЯ-USERNAME/hackera-online.git
+       git push -u origin main
+
+     (Ако git поиска логин — GitHub вече не приема паролата directно,
+     трябва Personal Access Token: Settings → Developer settings →
+     Personal access tokens → генерирай и го ползвай вместо парола,
+     или инсталирай GitHub Desktop за графичен интерфейс без команди.)
+
+  --------------------------------------------------------------
+  СТЪПКА 2 — Свързване с Cloudflare Pages
+  --------------------------------------------------------------
+
+  1. Влез/регистрирай се в https://dash.cloudflare.com
+  2. Ляво меню → "Workers & Pages" → "Create" → раздел "Pages" →
+     "Connect to Git"
+  3. Избери GitHub, разреши достъп до repo-то hackera-online
+  4. Build настройки:
+       Build command:      (остави празно — няма build стъпка)
+       Build output directory:  /   (root на repo-то)
+  5. Save and Deploy — Cloudflare ще ти даде временен адрес
+     (нещо като hackera-online.pages.dev) на който сайтът вече е
+     жив, преди дори да сменим домейна.
+
+  От този момент нататък: всеки git push към main автоматично
+  тригерва нов build + deploy, обикновено за под минута. Виждаш
+  прогреса в реално време в Cloudflare Pages dashboard-а.
+
+  --------------------------------------------------------------
+  СТЪПКА 3 — Свързване на домейна hackera.online
+  --------------------------------------------------------------
+
+  1. В Cloudflare Pages проекта → "Custom domains" → добави
+     hackera.online и www.hackera.online (ако го ползваш).
+  2. Ако домейнът ВЕЧЕ Е в Cloudflare (DNS зона), стъпката приключва
+     тук — Cloudflare сам добавя нужните DNS записи.
+  3. Ако домейнът е все още на Namecheap DNS (какъвто е случаят
+     сега), трябва:
+       а) Добави сайта в Cloudflare: Dashboard → "Add a site" →
+          въведи hackera.online → Cloudflare сканира текущите ти
+          DNS записи (A, CNAME, MX за имейла и т.н.) — провери
+          списъка внимателно, особено ако имейлът ти
+          (ivan@hackera.online) минава през друг доставчик — MX
+          записите трябва да се пренесат правилно.
+       б) Cloudflare ще ти даде 2 нови nameserver адреса
+          (напр. bob.ns.cloudflare.com, kate.ns.cloudflare.com).
+       в) В Namecheap: Domain List → до hackera.online → "Manage" →
+          "Nameservers" → смени от "Namecheap BasicDNS" на "Custom
+          DNS" → въведи двата Cloudflare nameserver адреса.
+       г) Изчакай propagation — обикновено 10-60 минути, по рядко до
+          24ч ако предишният TTL е бил зададен висок. Домейнът
+          продължава да работи през цялото време (просто сочи към
+          стария hosting, докато не се завърши прехвърлянето).
+
+  --------------------------------------------------------------
+  СТЪПКА 4 — SSL
+  --------------------------------------------------------------
+
+  Щом nameserver-ите сочат към Cloudflare, SSL сертификатът се
+  издава автоматично и безплатно (Cloudflare Universal SSL) —
+  обикновено активен до час, понякога по-бързо. Няма нужда от
+  ръчна стъпка. Препоръка: в Cloudflare → SSL/TLS → задай режим
+  "Full (strict)" след като сайтът е потвърдено достъпен по HTTPS
+  през Cloudflare Pages (Pages винаги сървира по HTTPS автоматично).
+
+  Единствената реална "пречка", която може да отнеме повече от час,
+  е DNS propagation с висок стар TTL — не е свързано със самия SSL.
+
+  --------------------------------------------------------------
+  РЕЗУЛТАТ
+  --------------------------------------------------------------
+
+  - Redактираш файл (тук или локално) → push към GitHub → сайтът е
+    жив след ~30-60 секунди, автоматично, без ръчно качване.
+  - Namecheap остава само regisтrar за домейна (или спираш и
+    хостинг плана там изцяло, ако /api/ не се ползва все още).
+  - Когато Stripe е готов, решаваме тогава между "малък PHP subdomain
+    на Namecheap" или "пренаписване като Cloudflare Pages Function".
+
+------------------------------------------------------------------
+ENGLISH
+------------------------------------------------------------------
+
+OVERVIEW
+
+  GitHub stores the code (version history). Cloudflare Pages reads
+  from GitHub and auto-publishes the site on every push — that's
+  what gives you "edit here → live on the site" with no 2-day wait.
+  The site is fully static (HTML/CSS/JS, no build step), so
+  Cloudflare Pages has nothing to compile — it just copies the files.
+
+  IMPORTANT: GitHub Pages and Cloudflare Pages do NOT run PHP. The
+  /api/ folder (Stripe backend) won't work there. Not a problem right
+  now since Stripe is paused (see api/README.md) — but once Stripe
+  is switched back on, you'll need either (a) keep that small PHP
+  piece on Namecheap as a separate subdomain (api.hackera.online)
+  while everything else lives on Cloudflare, or (b) rewrite /api/ as
+  Cloudflare Pages Functions (JavaScript, runs on Cloudflare itself,
+  no Namecheap needed). Both are straightforward — just needs a
+  decision before payments go live.
+
+  --------------------------------------------------------------
+  STEP 1 — Push to GitHub
+  --------------------------------------------------------------
+
+  1. Go to https://github.com/new and create a new repository:
+       Name: hackera-online
+       Visibility: Private (recommended for a business site —
+                   Cloudflare Pages works the same with a private
+                   repo, so public isn't required)
+       Do NOT add a README/gitignore from GitHub's UI — this folder
+       already has them.
+
+  2. On your computer, inside this folder (hackera-online/):
+
+       git init
+       git add .
+       git commit -m "Initial commit — migrate from Namecheap"
+       git branch -M main
+       git remote add origin https://github.com/YOUR-USERNAME/hackera-online.git
+       git push -u origin main
+
+     (If git asks for a password — GitHub no longer accepts your
+     account password directly, you need a Personal Access Token:
+     Settings → Developer settings → Personal access tokens →
+     generate one and use it instead of a password. Or install
+     GitHub Desktop for a no-command-line option.)
+
+  --------------------------------------------------------------
+  STEP 2 — Connect Cloudflare Pages
+  --------------------------------------------------------------
+
+  1. Sign in / sign up at https://dash.cloudflare.com
+  2. Left menu → "Workers & Pages" → "Create" → "Pages" tab →
+     "Connect to Git"
+  3. Choose GitHub, grant access to the hackera-online repo
+  4. Build settings:
+       Build command:            (leave empty — no build step)
+       Build output directory:   /   (repo root)
+  5. Save and Deploy — Cloudflare gives you a temporary URL
+     (something like hackera-online.pages.dev) where the site is
+     already live, even before switching the real domain over.
+
+  From this point on: every git push to main automatically triggers
+  a new build + deploy, usually in under a minute. You can watch it
+  happen live in the Cloudflare Pages dashboard.
+
+  --------------------------------------------------------------
+  STEP 3 — Point hackera.online at it
+  --------------------------------------------------------------
+
+  1. In the Cloudflare Pages project → "Custom domains" → add
+     hackera.online and www.hackera.online (if you use it).
+  2. If the domain is ALREADY on Cloudflare DNS, you're done —
+     Cloudflare adds the needed records automatically.
+  3. If the domain is still on Namecheap DNS (the current setup):
+       a) Add the site to Cloudflare: Dashboard → "Add a site" →
+          enter hackera.online → Cloudflare scans your current DNS
+          records (A, CNAME, MX for email, etc.) — check that list
+          carefully, especially if your email (ivan@hackera.online)
+          runs through a different provider — the MX records need
+          to carry over correctly.
+       b) Cloudflare gives you 2 new nameserver addresses
+          (e.g. bob.ns.cloudflare.com, kate.ns.cloudflare.com).
+       c) In Namecheap: Domain List → next to hackera.online →
+          "Manage" → "Nameservers" → switch from "Namecheap BasicDNS"
+          to "Custom DNS" → enter the two Cloudflare nameservers.
+       d) Wait for propagation — usually 10-60 minutes, occasionally
+          up to 24h if the old TTL was set high. The domain keeps
+          working the whole time (it just still points at the old
+          host until the switch finishes).
+
+  --------------------------------------------------------------
+  STEP 4 — SSL
+  --------------------------------------------------------------
+
+  Once the nameservers point to Cloudflare, an SSL certificate is
+  issued automatically and free (Cloudflare Universal SSL) — usually
+  active within an hour, often faster. No manual step needed.
+  Recommendation: in Cloudflare → SSL/TLS, set mode to
+  "Full (strict)" once the site is confirmed reachable over HTTPS
+  via Cloudflare Pages (Pages always serves over HTTPS by default).
+
+  The only real "obstacle" that can take more than an hour is DNS
+  propagation with a high old TTL — that's unrelated to SSL itself.
+
+  --------------------------------------------------------------
+  RESULT
+  --------------------------------------------------------------
+
+  - Edit a file (here or locally) → push to GitHub → the site is
+    live in ~30-60 seconds, automatically, no manual upload.
+  - Namecheap stays only as the domain registrar (or you can cancel
+    the hosting plan there entirely, as long as /api/ isn't in use
+    yet).
+  - Once Stripe is ready, we'll decide then between "small PHP
+    subdomain on Namecheap" or "rewrite as a Cloudflare Pages
+    Function".
+==================================================================
