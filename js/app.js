@@ -1408,11 +1408,6 @@ function renderFooter() {
           ${wordmark("var(--ink)")}
         </div>
         <p class="mt-3" style="font-size:13px;color:var(--muted);max-width:300px;line-height:1.6">${state.lang === "bg" ? "Дигиталните услуги на бизнеса ти — на едно място, с ясни цени и един контакт за всичко." : "Your business's digital services — in one place, with clear pricing and a single point of contact."}</p>
-        <div class="flex gap-2 mt-5">
-          ${["instagram", "facebook", "linkedin"].map((n) => `<div class="w-9 h-9 rounded-full flex items-center justify-center" style="border:1px solid var(--line)">${icon(n, "w-4 h-4")}</div>`).join("")}
-        </div>
-      </div>
-      <div>
         <span class="font-mono uppercase" style="font-size:11px;color:var(--muted);letter-spacing:0.06em">${state.lang === "bg" ? "Контакт" : "Contact"}</span>
         <div class="flex flex-col gap-2.5 mt-4">
           <span style="font-size:13px;color:var(--ink)">ivan@hackera.online</span>
