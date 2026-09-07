@@ -1192,12 +1192,7 @@ function renderPricing() {
         </div>`).join("")}
       </div>
       <div class="px-8 pb-8 pt-2 text-center" style="background:var(--paper)">
-        <button class="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${state.lang === "bg" ? "Заяви безплатна консултация" : "Request a free consultation"}</button>
-        ${STRIPE_CHECKOUT_ENABLED ? `
-        <button id="pricingSubscribeBtn" data-lang="${state.lang}" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm mt-3" style="background:var(--ink);color:#fff;border:1px solid var(--line)">
-          <span id="pricingSubscribeBtnLabel">${state.lang === "bg" ? "Абонирай се — 13€/месец" : "Subscribe — €13/month"}</span>
-        </button>
-        <p style="font-size:11px;color:var(--muted);margin-top:10px">${state.lang === "bg" ? "Сигурно плащане чрез Stripe" : "Secure payment via Stripe"}</p>` : ""}
+                <button class="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${state.lang === "bg" ? "Заяви безплатна консултация" : "Request a free consultation"}</button>
       </div>
     </div>
   </section>`;
