@@ -21,7 +21,6 @@ js/
   app.js              App logic — renders everything into #root
   chatbot.js          Floating "AI assistant" chat widget
   icons.js            Self-hosted icon set (no CDN)
-api/                  Stripe backend scaffolding (PHP, currently unused — see api/README.md)
 favicon.svg, og-image.png, robots.txt, sitemap.xml, llms.txt
 ```
 
