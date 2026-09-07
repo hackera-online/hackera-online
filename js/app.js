@@ -1645,8 +1645,6 @@ function renderApp() {
   wireFAQ();
   wireFinalCTA();
   wireFooter();
-  wirePricing();
-
   refreshIcons();
   setupCountUps();
   setupReveals();
