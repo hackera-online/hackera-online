@@ -9,10 +9,7 @@ Service" subscription package.
   bundler, no `npm install` — the files in this repo are exactly what gets
   served. That's intentional: it keeps hosting cheap and deploys instant
   (see below).
-- **Status:** Stripe subscription checkout is scaffolded in `/api/` but
-  switched off (`STRIPE_CHECKOUT_ENABLED = false` in `js/app.js`) until the
-  Stripe account is approved. See `api/README.md`.
-
+  
 ## Structure
 
 ```
