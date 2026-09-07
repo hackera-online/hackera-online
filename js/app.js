@@ -42,10 +42,6 @@
      Main app assembly                 — renderApp(), renderModals()
    ========================================================================= */
 
-/* Stripe subscription checkout is built (see /api/) but kept OFF the live
-   site until the Stripe account is approved and real keys are in place.
-   Flip to true and the "Subscribe" button reappears on the pricing card —
-   no other change needed. */
 const STRIPE_CHECKOUT_ENABLED = false;
 
 const state = {
