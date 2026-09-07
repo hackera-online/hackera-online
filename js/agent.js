@@ -219,8 +219,10 @@ function agBubble(m) {
     return `<div class="ag-msg ag-msg-bot">
       <p>${agt("askMoreOrCapture")}</p>
       <form id="agCaptureForm" class="ag-capture-form">
-        <input id="agName" placeholder="${agt("namePh")}" class="ag-input" autocomplete="name"/>
-        <input id="agEmail" type="email" placeholder="${agt("emailPh")}" class="ag-input" autocomplete="email"/>
+        <div class="ag-capture-fields">
+          <input id="agName" placeholder="${agt("namePh")}" class="ag-input" autocomplete="name"/>
+          <input id="agEmail" type="email" placeholder="${agt("emailPh")}" class="ag-input" autocomplete="email"/>
+        </div>
         <div class="ag-capture-row">
           <button type="submit" class="ag-capture-send">${agt("captureSend")}</button>
           <button type="button" id="agCaptureSkip" class="ag-capture-skip">${agt("captureSkip")}</button>
@@ -243,8 +245,14 @@ function agRender() {
   }
   agent._el.innerHTML = `
     <div class="ag-card-outer" style="--ag-font:${agFontStack()}">
-      <span class="ag-eyebrow">${icon("sparkles", "w-3.5 h-3.5")} ${agt("eyebrow")}</span>
-      <h3 class="ag-title">${agt("title")}</h3>
+      <div class="ag-glow" aria-hidden="true"></div>
+      <div class="ag-header-row">
+        <div class="ag-avatar">${icon("sparkles", "w-4 h-4")}</div>
+        <div class="ag-header-text">
+          <span class="ag-eyebrow">${agt("eyebrow")}</span>
+          <h3 class="ag-title">${agt("title")}</h3>
+        </div>
+      </div>
       <div id="agBody" class="ag-body">
         ${agent.messages.map(agBubble).join("")}
       </div>
@@ -269,37 +277,65 @@ function agEnsureStyles() {
   style.id = "agStyles";
   style.textContent = `
     #hkAgentWidget{width:100%}
-    .ag-card-outer{position:relative;font-family:var(--ag-font);border-radius:24px;padding:22px 20px 18px;width:100%;max-width:640px;margin:0 auto;
-      background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);text-align:left}
+
+    /* ---------- outer panel: wide, translucent, layered "Apple Intelligence" card ---------- */
+    .ag-card-outer{position:relative;font-family:var(--ag-font);border-radius:28px;padding:26px 26px 20px;
+      width:100%;max-width:820px;margin:0 auto;overflow:hidden;text-align:left;
+      background:linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.035));
+      -webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
+      border:1px solid rgba(255,255,255,0.14);
+      box-shadow:0 1px 0 0 rgba(255,255,255,0.08) inset,0 24px 60px -16px rgba(0,0,0,0.55),0 8px 22px -10px rgba(0,0,0,0.35)}
     .ag-card-outer input,.ag-card-outer button,.ag-card-outer textarea{font-family:inherit}
-    .ag-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.04em;
-      text-transform:uppercase;color:var(--orange);margin-bottom:8px}
-    .ag-title{font-size:16px;font-weight:700;color:#fff;margin:0 0 12px}
-    .ag-body{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px;margin-bottom:12px}
+    .ag-glow{position:absolute;top:-70px;right:-60px;width:240px;height:240px;border-radius:50%;pointer-events:none;
+      background:radial-gradient(circle,rgba(255,90,31,0.28),transparent 70%)}
+
+    /* ---------- header: avatar + eyebrow/title lockup ---------- */
+    .ag-header-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative}
+    .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      background:var(--gradient);color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
+    .ag-header-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+    .ag-eyebrow{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,90,31,0.9)}
+    .ag-title{font-size:17.5px;font-weight:700;color:#fff;margin:0;letter-spacing:-0.01em;line-height:1.25}
+
+    /* ---------- message thread ---------- */
+    .ag-body{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px 4px 2px 2px;margin-bottom:14px;
+      -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14px,#000 calc(100% - 6px),transparent 100%);
+      mask-image:linear-gradient(to bottom,transparent 0,#000 14px,#000 calc(100% - 6px),transparent 100%)}
     .ag-body::-webkit-scrollbar{width:5px}
     .ag-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:3px}
-    .ag-msg{font-size:13.5px;line-height:1.55;max-width:88%;padding:10px 13px;border-radius:14px}
+    .ag-msg{font-size:14px;line-height:1.6;max-width:82%;padding:11px 15px;border-radius:17px}
     .ag-msg p{margin:0}
-    .ag-msg-bot{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);align-self:flex-start;border-bottom-left-radius:4px}
-    .ag-msg-user{background:var(--gradient);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+    .ag-msg-bot{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.92);align-self:flex-start;
+      border:1px solid rgba(255,255,255,0.07);border-bottom-left-radius:5px}
+    .ag-msg-user{background:var(--gradient);color:#fff;align-self:flex-end;border-bottom-right-radius:5px;
+      box-shadow:0 6px 16px -4px rgba(255,90,31,0.35)}
     .ag-typing{display:inline-flex;gap:4px;padding:2px 0}
     .ag-typing span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:agBlink 1.2s infinite ease-in-out}
     .ag-typing span:nth-child(2){animation-delay:.15s}.ag-typing span:nth-child(3){animation-delay:.3s}
     @keyframes agBlink{0%,80%,100%{opacity:.25}40%{opacity:1}}
-    .ag-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-    @media (max-width:520px){.ag-cards{grid-template-columns:1fr}}
-    .ag-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 11px}
-    .ag-card-cat{font-size:9.5px;font-family:monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--orange);margin-bottom:3px}
-    .ag-card-name{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:3px;line-height:1.3}
-    .ag-card-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;margin-bottom:8px}
+
+    /* ---------- recommendation cards ---------- */
+    .ag-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    @media (max-width:480px){.ag-cards{grid-template-columns:1fr}}
+    .ag-card{background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:13px 14px 12px;
+      transition:transform .22s cubic-bezier(.22,1,.36,1),border-color .22s ease,background .22s ease}
+    .ag-card:hover{transform:translateY(-2px);border-color:rgba(255,90,31,0.35);background:rgba(255,255,255,0.07)}
+    .ag-card-cat{font-size:9.5px;font-family:monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--orange);margin-bottom:4px}
+    .ag-card-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.3}
+    .ag-card-desc{font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.45;margin-bottom:10px}
     .ag-card-row{display:flex;gap:6px}
-    .ag-card-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:10.5px;font-weight:600;
-      padding:6px 8px;border-radius:8px;border:none;cursor:pointer}
+    .ag-card-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;
+      padding:7px 8px;border-radius:9px;border:none;cursor:pointer;transition:opacity .18s ease,transform .18s ease}
+    .ag-card-btn:hover{transform:translateY(-1px)}
     .ag-card-add{background:var(--gradient);color:#fff}
-    .ag-card-add:disabled{opacity:.6;cursor:default}
+    .ag-card-add:disabled{opacity:.6;cursor:default;transform:none}
     .ag-card-details{background:rgba(255,255,255,0.1);color:#fff}
-    .ag-see-catalog{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--orange);text-decoration:none}
-    .ag-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .ag-see-catalog{display:inline-flex;align-items:center;gap:4px;margin-top:12px;font-size:12.5px;font-weight:600;
+      color:var(--orange);text-decoration:none;transition:gap .18s ease}
+    .ag-see-catalog:hover{gap:8px}
+
+    /* ---------- quick chips ---------- */
+    .ag-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
     .ag-chip{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;
       border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.14);
       background:linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03));
@@ -314,20 +350,38 @@ function agEnsureStyles() {
       box-shadow:0 10px 22px rgba(255,90,31,0.16),0 2px 6px rgba(0,0,0,0.18)}
     .ag-chip:hover .ag-chip-emoji{background:rgba(255,90,31,0.16);transform:scale(1.08)}
     .ag-chip:active{transform:translateY(0) scale(.97)}
-    .ag-form{display:flex;gap:8px}
-    .ag-main-input{flex:1;min-width:0;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);
-      border-radius:14px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none}
+
+    /* ---------- composer: single pill, input + send fused ---------- */
+    .ag-form{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:5px 5px 5px 18px;
+      transition:border-color .2s ease,box-shadow .2s ease}
+    .ag-form:focus-within{border-color:rgba(255,90,31,0.55);box-shadow:0 0 0 4px rgba(255,90,31,0.13)}
+    .ag-main-input{flex:1;min-width:0;background:transparent;border:none;padding:11px 0;font-size:14px;color:#fff;outline:none}
     .ag-main-input::placeholder{color:rgba(255,255,255,0.4)}
-    .ag-send-btn{width:44px;border-radius:14px;border:none;background:var(--gradient);color:#fff;display:flex;
-      align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-    .ag-capture-form{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-    .ag-input{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);border-radius:10px;
-      padding:9px 11px;font-size:12.5px;color:#fff;outline:none}
+    .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:var(--gradient);color:#fff;display:flex;
+      align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .18s cubic-bezier(.22,1,.36,1)}
+    .ag-send-btn:hover{transform:scale(1.08)}
+    .ag-send-btn:active{transform:scale(.94)}
+
+    /* ---------- lead-capture mini form ---------- */
+    .ag-capture-form{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+    .ag-capture-fields{display:flex;flex-direction:column;gap:8px}
+    @media (min-width:480px){.ag-capture-fields{flex-direction:row}}
+    .ag-input{flex:1;min-width:0;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);border-radius:12px;
+      padding:10px 13px;font-size:13px;color:#fff;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+    .ag-input:focus{border-color:rgba(255,90,31,0.55);box-shadow:0 0 0 3px rgba(255,90,31,0.12)}
     .ag-input::placeholder{color:rgba(255,255,255,0.4)}
-    .ag-capture-row{display:flex;gap:8px;align-items:center}
-    .ag-capture-send{flex:1;background:var(--gradient);color:#fff;border:none;border-radius:10px;padding:9px;font-size:12.5px;font-weight:600;cursor:pointer}
-    .ag-capture-skip{background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:11.5px;cursor:pointer}
-    .ag-capture-err{font-size:11px;color:var(--orange)}
+    .ag-capture-row{display:flex;gap:10px;align-items:center}
+    .ag-capture-send{flex:1;background:var(--gradient);color:#fff;border:none;border-radius:12px;padding:11px;
+      font-size:13px;font-weight:600;cursor:pointer;transition:transform .18s ease}
+    .ag-capture-send:hover{transform:translateY(-1px)}
+    .ag-capture-skip{background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer}
+    .ag-capture-err{font-size:11.5px;color:var(--orange)}
+
+    @media (max-width:520px){
+      .ag-card-outer{padding:20px 18px 16px;border-radius:22px}
+      .ag-body{max-height:320px}
+    }
   `;
   document.head.appendChild(style);
 }
