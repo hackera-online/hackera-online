@@ -30,7 +30,6 @@
      Why Hackera
      Projects (example placeholders)
      Pricing                           — renderPricing(), the €13/month card
-     Stripe subscribe button           — off by default, see STRIPE_CHECKOUT_ENABLED
      Client results (honest placeholder)
      Testimonials (labeled examples)
      FAQ
