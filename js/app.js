@@ -1198,40 +1198,6 @@ function renderPricing() {
   </section>`;
 }
 
-/* ---------- Stripe subscribe button (pricing card) ----------
-   Posts to a small PHP endpoint that creates a Stripe Checkout Session
-   server-side (the Price ID is fixed server-side — never sent by the
-   browser) and redirects to Stripe's hosted Checkout page. */
-function wirePricing() {
-  if (!STRIPE_CHECKOUT_ENABLED) return;
-  const btn = document.getElementById("pricingSubscribeBtn");
-  if (!btn) return;
-  btn.addEventListener("click", async () => {
-    const label = document.getElementById("pricingSubscribeBtnLabel");
-    const originalLabel = label.innerHTML;
-    btn.disabled = true;
-    btn.style.opacity = "0.7";
-    label.innerHTML = `${icon("loader-2", "w-4 h-4 spin")} ${state.lang === "bg" ? "Зареждане…" : "Loading…"}`;
-    refreshIcons();
-    try {
-      const res = await fetch("/api/create-checkout-session.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lang: state.lang }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.url) throw new Error(data.error || "checkout_failed");
-      window.location.href = data.url;
-    } catch (err) {
-      btn.disabled = false;
-      btn.style.opacity = "1";
-      label.innerHTML = originalLabel;
-      alert(state.lang === "bg"
-        ? "Възникна грешка при стартиране на плащането. Моля, опитайте отново или се свържете с нас на ivan@hackera.online."
-        : "Something went wrong starting checkout. Please try again or contact us at ivan@hackera.online.");
-    }
-  });
-}
 
 /* ---------- Client results (honest placeholder) ---------- */
 function renderClientResults() {
