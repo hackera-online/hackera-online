@@ -1,11 +1,14 @@
-/* Hackera — AI recommendation agent (embedded, full-width, hero)
-   + floating launcher that surfaces the SAME conversation from anywhere
-   on the page (see "Floating launcher" section near the bottom). */
+/* Hackera — AI Recommendation Agent (Hero + Floating Launcher)
+   File: /js/agent.js
+*/
 
 const AG_T = {
-  eyebrow: { bg: "Hackera Agent", en: "Hackera Agent" },
+  eyebrow: { bg: "Hackera Асистент", en: "Hackera Agent" },
   title: { bg: "Кажи ми какво ти трябва", en: "Tell me what you need" },
-  placeholder: { bg: 'напр. "трябва ми онлайн магазин" или "сайтът ми е бавен"…', en: 'e.g. "I need an online store" or "my site is slow"…' },
+  placeholder: {
+    bg: 'напр. "трябва ми онлайн магазин" или "сайтът ми е бавен"…',
+    en: 'e.g. "I need an online store" or "my site is slow"…'
+  },
   chips: {
     bg: [
       { l: "Онлайн магазин" },
@@ -25,19 +28,28 @@ const AG_T = {
     ]
   },
   matchIntro: { bg: "Ето какво препоръчвам:", en: "Here's what I'd recommend:" },
-  noMatch: { bg: "Нямам точно попадение — можеш да опиташ с други думи, или разгледай пълния каталог по-долу.", en: "Nothing matched exactly. Try different words or browse the full catalog below." },
+  noMatch: {
+    bg: "Нямам точно попадение — можеш да опиташ с други думи, или разгледай пълния каталог по-долу.",
+    en: "Nothing matched exactly. Try different words or browse the full catalog below."
+  },
   addBtn: { bg: "добави", en: "add" },
   addedBtn: { bg: "добавено ✓", en: "added ✓" },
   detailsBtn: { bg: "детайли", en: "details" },
   seeCatalog: { bg: "Разгледай целия каталог →", en: "Browse the full catalog →" },
-  askMoreOrCapture: { bg: "Искаш ли да ти изпратим персонална оферта? Остави име и имейл:", en: "Want a tailored offer sent your way? Leave your name and email:" },
+  askMoreOrCapture: {
+    bg: "Искаш ли да ти изпратим персонална оферта? Остави име и имейл:",
+    en: "Want a tailored offer sent your way? Leave your name and email:"
+  },
   namePh: { bg: "Име", en: "Name" },
   emailPh: { bg: "Имейл", en: "Email" },
   captureSend: { bg: "Изпрати", en: "Send" },
   captureSkip: { bg: "не сега", en: "not now" },
   errEmail: { bg: "Въведи валиден имейл.", en: "Enter a valid email." },
   errName: { bg: "Въведи име.", en: "Enter your name." },
-  capturedThanks: { bg: "Готово! Ще се свържем с теб скоро на посочения имейл с персонална оферта.", en: "Done! We'll reach out soon at that email with a tailored offer." },
+  capturedThanks: {
+    bg: "Готово! Ще се свържем с теб скоро на посочения имейл с персонална оферта.",
+    en: "Done! We'll reach out soon at that email with a tailored offer."
+  },
   typing: { bg: "пише…", en: "typing…" },
   pkgHit: {
     bg: 'Между другото — ако търсиш цялостно решение (сайт + хостинг + поддръжка), имаме и пакет "Сайт като услуга" на €13/месец по-надолу.',
@@ -49,28 +61,35 @@ const AG_T = {
 
 const AG_STOPWORDS = new Set([
   "the", "a", "an", "for", "and", "or", "of", "to", "my", "our", "is", "are", "i", "we", "need", "want", "with",
-  "аз", "ние", "ми", "ни", "за", "на", "и", "или", "искам", "трябва", "нужен", "нужна", "нужно", "със", "си"
+  "аз", "ние", "ми", "ни", "за", "на", "и", "или", "искам", "трябва", "нужен", "нужна", "нужно", "със", "си", "ме"
 ]);
 
+// Trained synonyms covering 20 core service categories (Bulgarian & English)
 const AG_SYNONYMS = [
-  { hit: ["shop", "store", "ecommerce", "e-commerce", "sell online", "магазин", "продавам"], cat: "ecommerce" },
-  { hit: ["logo", "brand", "branding", "лого", "бранд"], cat: "design" },
-  { hit: ["seo", "ranking", "google rank", "класиране", "класирам"], cat: "seo" },
-  { hit: ["ads", "advertising", "facebook", "instagram ads", "google ads", "реклама", "рекламa"], cat: "marketing" },
-  { hit: ["slow", "speed", "бавен", "бавно", "скорост"], cat: "web" },
-  { hit: ["app", "mobile app", "приложение"], cat: "mobile" },
-  { hit: ["chatbot", "ai", "чатбот"], cat: "ai" },
-  { hit: ["video", "видео"], cat: "video" },
-  { hit: ["photo", "снимк", "фотограф"], cat: "photo" },
-  { hit: ["hack", "security", "хакнат", "сигурност"], cat: "security" },
-  { hit: ["gdpr", "privacy", "поверителност"], cat: "legal" }
+  { hit: ["shop", "store", "ecommerce", "e-commerce", "sell online", "woocommerce", "shopify", "магазин", "продавам", "търговия", "количка"], cat: "ecommerce" },
+  { hit: ["logo", "brand", "branding", "identity", "лого", "бранд", "брандинг", "визия", "идентичност"], cat: "design" },
+  { hit: ["seo", "ranking", "google rank", "search", "класиране", "класирам", "оптимизация", "позиции", "гугъл"], cat: "seo" },
+  { hit: ["ads", "advertising", "facebook ads", "instagram ads", "google ads", "ppc", "meta", "реклама", "реклами", "трафик", "промотиране"], cat: "marketing" },
+  { hit: ["slow", "speed", "performance", "optimization", "бавен", "бавно", "скорост", "зареждане", "ускоряване"], cat: "web" },
+  { hit: ["app", "mobile app", "android", "ios", "приложение", "мобилно"], cat: "mobile" },
+  { hit: ["chatbot", "ai", "artificial intelligence", "chat", "чатбот", "изкуствен интелект", "автоматизация"], cat: "ai" },
+  { hit: ["video", "reels", "tiktok", "editing", "видео", "клип", "монтаж"], cat: "video" },
+  { hit: ["photo", "photography", "photoshoot", "снимка", "снимки", "фотография", "фотограф"], cat: "photo" },
+  { hit: ["hack", "hacked", "security", "ssl", "malware", "virus", "хакнат", "сигурност", "защита", "вирус"], cat: "security" },
+  { hit: ["gdpr", "privacy", "policy", "terms", "поверителност", "общи условия", "правни"], cat: "legal" },
+  { hit: ["hosting", "domain", "server", "dns", "хостинг", "домейн", "сървър"], cat: "hosting" },
+  { hit: ["text", "copywriting", "content", "articles", "blog", "копирайтинг", "текст", "текстове", "статии", "блог"], cat: "copywriting" },
+  { hit: ["ui", "ux", "redesign", "redesigning", "дизайн на сайт", "редизайн", "интерфейс"], cat: "uiux" },
+  { hit: ["analytics", "ga4", "pixels", "tracking", "анализ", "статистика", "тракинг"], cat: "analytics" },
+  { hit: ["social media", "smm", "instagram", "facebook page", "социални мрежи", "поддръжка на страница"], cat: "smm" },
+  { hit: ["software", "custom system", "crm", "erp", "софтуер", "система"], cat: "software" },
+  { hit: ["maintenance", "support", "update", "поддръжка", "обновяване", "поправка"], cat: "maintenance" },
+  { hit: ["email", "newsletter", "mailchimp", "имейл", "бюлетин"], cat: "email" },
+  { hit: ["automation", "zapier", "make", "n8n", "автоматизиране", "процеси"], cat: "automation" }
 ];
 
-const AG_PRICE_WORDS = ["price", "cost", "how much", "quote", "консултация", "цена", "струва", "оферта", "обадете", "call me", "talk to"];
+const AG_PRICE_WORDS = ["price", "cost", "how much", "quote", "консултация", "цена", "струва", "оферта", "обадете", "call me", "talk to", "колко"];
 
-/* Hand-drawn robot mark for the floating launcher — plain white line-art,
-   no emoji font (renders identically across every OS/browser instead of
-   depending on each platform's emoji set). */
 const AG_ROBOT_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M12 2.2v2.1" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
   <circle cx="12" cy="1.75" r="1.05" fill="#fff"/>
@@ -90,14 +109,8 @@ const agent = {
   seq: 0
 };
 
-// FIX: the previous guard used `void 0 !== typeof state`, which compares
-// `undefined` to a STRING (typeof always returns a string) and is therefore
-// always true — it never actually protected against `state` being
-// undeclared, and threw "ReferenceError: state is not defined" the moment
-// this ran before the host page's `state` global existed. The correct
-// idiom compares two strings: `typeof state !== "undefined"`.
 function agLang() {
-  return (typeof state !== "undefined" && state.lang) || document.documentElement.lang || "en";
+  return (typeof state !== "undefined" && state.lang) || document.documentElement.lang || "bg";
 }
 
 function agt(key) {
@@ -124,7 +137,7 @@ function agTokenize(str) {
 function agMatchServices(query, limit = 4) {
   const lang = agLang();
   const tokens = agTokenize(query);
-  if (!tokens.length) return [];
+  if (!tokens.length || typeof SERVICES === "undefined") return [];
 
   const qLower = query.toLowerCase();
   const boostedCats = new Set();
@@ -133,9 +146,9 @@ function agMatchServices(query, limit = 4) {
   });
 
   return SERVICES.map(svc => {
-    const cat = catOf(svc.cat);
-    const name = (svc.name[lang] || "").toLowerCase();
-    const desc = (svc.desc[lang] || "").toLowerCase();
+    const cat = typeof catOf === "function" ? catOf(svc.cat) : { name: { bg: svc.cat, en: svc.cat } };
+    const name = (svc.name?.[lang] || "").toLowerCase();
+    const desc = (svc.desc?.[lang] || "").toLowerCase();
     const catName = (cat?.name?.[lang] || "").toLowerCase();
     let score = 0;
 
@@ -163,8 +176,6 @@ function agPush(from, kind, payload) {
   agent.messages.push({ id: agent.seq, from, kind, payload });
   agRender();
   agScrollToEnd();
-  // Any new message is a good moment to draw a first-time visitor's eye to
-  // the floating launcher too, in case they've scrolled past the hero.
   agPingFab();
 }
 
@@ -202,15 +213,16 @@ function agBubble(m) {
       <p>${agt("matchIntro")}</p>
       <div class="ag-cards">
         ${cards.map(({ svc, cat }) => {
-          // FIX: same typeof bug as agLang() — corrected below.
-          const added = agent.addedIds.has(svc.id) || (typeof state !== "undefined" && state.selectedIds.has(svc.id));
+          const added = agent.addedIds.has(svc.id) || (typeof state !== "undefined" && state.selectedIds?.has(svc.id));
+          const escFn = typeof esc === "function" ? esc : str => str;
+          const iconFn = typeof icon === "function" ? icon : () => "";
           return `<div class="ag-card">
             <div class="ag-card-cat">${cat?.name?.[agLang()] || ""}</div>
-            <div class="ag-card-name">${esc(svc.name[agLang()])}</div>
-            <div class="ag-card-desc">${esc(svc.desc[agLang()])}</div>
+            <div class="ag-card-name">${escFn(svc.name?.[agLang()] || "")}</div>
+            <div class="ag-card-desc">${escFn(svc.desc?.[agLang()] || "")}</div>
             <div class="ag-card-row">
               <button class="ag-card-btn ag-card-add" data-add="${svc.id}" ${added ? "disabled" : ""}>
-                ${icon(added ? "check" : "plus", "w-3 h-3")} <span>${added ? agt("addedBtn") : agt("addBtn")}</span>
+                ${iconFn(added ? "check" : "plus", "w-3 h-3")} <span>${added ? agt("addedBtn") : agt("addBtn")}</span>
               </button>
               <button class="ag-card-btn ag-card-details" data-details="${svc.id}">${agt("detailsBtn")}</button>
             </div>
@@ -248,11 +260,14 @@ function agRender() {
     agent._el = document.createElement("div");
     agent._el.id = "hkAgentWidget";
   }
+  const escFn = typeof esc === "function" ? esc : str => str;
+  const iconFn = typeof icon === "function" ? icon : () => "";
+
   agent._el.innerHTML = `
     <div class="ag-card-outer" style="--ag-font:${agFontStack()}">
       <div class="ag-glow" aria-hidden="true"></div>
       <div class="ag-header-row">
-        <div class="ag-avatar">${icon("sparkles", "w-4 h-4")}</div>
+        <div class="ag-avatar">${iconFn("sparkles", "w-4 h-4")}</div>
         <div class="ag-header-text">
           <span class="ag-eyebrow">${agt("eyebrow")}</span>
           <h3 class="ag-title">${agt("title")}</h3>
@@ -262,14 +277,15 @@ function agRender() {
         ${agent.messages.map(agBubble).join("")}
       </div>
       <div class="ag-chip-row">
-        ${agt("chips").map(c => `<button class="ag-chip" data-chip="${esc(c.l)}"><span class="ag-chip-label">${esc(c.l)}</span></button>`).join("")}
+        ${agt("chips").map(c => `<button class="ag-chip" data-chip="${escFn(c.l)}"><span class="ag-chip-label">${escFn(c.l)}</span></button>`).join("")}
       </div>
       <form id="agForm" class="ag-form">
         <input id="agInput" autocomplete="off" placeholder="${agt("placeholder")}" class="ag-main-input"/>
-        <button type="submit" class="ag-send-btn" aria-label="send">${icon("arrow-up", "w-4 h-4")}</button>
+        <button type="submit" class="ag-send-btn" aria-label="send">${iconFn("arrow-up", "w-4 h-4")}</button>
       </form>
     </div>`;
-  refreshIcons();
+
+  if (typeof refreshIcons === "function") refreshIcons();
   agWire();
   agScrollToEnd();
   agSyncFloatHeader();
@@ -285,7 +301,7 @@ function agEnsureStyles() {
     .ag-card-outer input,.ag-card-outer button,.ag-card-outer textarea{font-family:inherit}
     .ag-glow{position:absolute;top:-70px;right:-60px;width:240px;height:240px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,90,31,0.28),transparent 70%)}
     .ag-header-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative}
-    .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--gradient);color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
+    .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
     .ag-header-text{display:flex;flex-direction:column;gap:3px;min-width:0}
     .ag-eyebrow{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,90,31,0.9)}
     .ag-title{font-size:17.5px;font-weight:700;color:#fff;margin:0;letter-spacing:-0.01em;line-height:1.25}
@@ -295,7 +311,7 @@ function agEnsureStyles() {
     .ag-msg{font-size:14px;line-height:1.6;max-width:82%;padding:11px 15px;border-radius:17px}
     .ag-msg p{margin:0}
     .ag-msg-bot{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.92);align-self:flex-start;border:1px solid rgba(255,255,255,0.07);border-bottom-left-radius:5px}
-    .ag-msg-user{background:var(--gradient);color:#fff;align-self:flex-end;border-bottom-right-radius:5px;box-shadow:0 6px 16px -4px rgba(255,90,31,0.35)}
+    .ag-msg-user{background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff;align-self:flex-end;border-bottom-right-radius:5px;box-shadow:0 6px 16px -4px rgba(255,90,31,0.35)}
     .ag-typing{display:inline-flex;gap:4px;padding:2px 0}
     .ag-typing span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:agBlink 1.2s infinite ease-in-out}
     .ag-typing span:nth-child(2){animation-delay:.15s}
@@ -304,16 +320,16 @@ function agEnsureStyles() {
     .ag-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
     .ag-card{background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:13px 14px 12px;transition:transform .22s cubic-bezier(.22,1,.36,1),border-color .22s ease,background .22s ease}
     .ag-card:hover{transform:translateY(-2px);border-color:rgba(255,90,31,0.35);background:rgba(255,255,255,0.07)}
-    .ag-card-cat{font-size:9.5px;font-family:monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--orange);margin-bottom:4px}
+    .ag-card-cat{font-size:9.5px;font-family:monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--orange, #FF5A1F);margin-bottom:4px}
     .ag-card-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.3}
     .ag-card-desc{font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.45;margin-bottom:10px}
     .ag-card-row{display:flex;gap:6px}
-    .ag-card-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;padding:7px 8px;border-radius:9px;border:none;cursor:pointer;transition:opacity .18s ease,transform .18s ease}
+    .ag-card-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;padding:7px 8px;border-radius:99px;border:none;cursor:pointer;transition:opacity .18s ease,transform .18s ease}
     .ag-card-btn:hover{transform:translateY(-1px)}
-    .ag-card-add{background:var(--gradient);color:#fff}
+    .ag-card-add{background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff}
     .ag-card-add:disabled{opacity:.6;cursor:default;transform:none}
     .ag-card-details{background:rgba(255,255,255,0.1);color:#fff}
-    .ag-see-catalog{display:inline-flex;align-items:center;gap:4px;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--orange);text-decoration:none;transition:gap .18s ease}
+    .ag-see-catalog{display:inline-flex;align-items:center;gap:4px;margin-top:12px;font-size:12.5px;font-weight:600;color:var(--orange, #FF5A1F);text-decoration:none;transition:gap .18s ease}
     .ag-see-catalog:hover{gap:8px}
     .ag-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
     .ag-chip{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:8px 16px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03));box-shadow:0 1px 2px rgba(0,0,0,0.12);transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease,border-color .22s ease,background .22s ease}
@@ -324,7 +340,7 @@ function agEnsureStyles() {
     .ag-form:focus-within{border-color:rgba(255,90,31,0.55);box-shadow:0 0 0 4px rgba(255,90,31,0.13)}
     .ag-main-input{flex:1;min-width:0;background:transparent;border:none;padding:11px 0;font-size:14px;color:#fff;outline:none}
     .ag-main-input::placeholder{color:rgba(255,255,255,0.4)}
-    .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .18s cubic-bezier(.22,1,.36,1)}
+    .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .18s cubic-bezier(.22,1,.36,1)}
     .ag-send-btn:hover{transform:scale(1.08)}
     .ag-send-btn:active{transform:scale(.94)}
     .ag-capture-form{display:flex;flex-direction:column;gap:9px;margin-top:10px}
@@ -334,29 +350,27 @@ function agEnsureStyles() {
     .ag-input:focus{border-color:rgba(255,90,31,0.55);box-shadow:0 0 0 3px rgba(255,90,31,0.12)}
     .ag-input::placeholder{color:rgba(255,255,255,0.4)}
     .ag-capture-row{display:flex;gap:10px;align-items:center}
-    .ag-capture-send{flex:1;background:var(--gradient);color:#fff;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;transition:transform .18s ease}
+    .ag-capture-send{flex:1;background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;transition:transform .18s ease}
     .ag-capture-send:hover{transform:translateY(-1px)}
     .ag-capture-skip{background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer}
-    .ag-capture-err{font-size:11.5px;color:var(--orange)}
+    .ag-capture-err{font-size:11.5px;color:var(--orange, #FF5A1F)}
     @media (max-width:520px){.ag-card-outer{padding:20px 18px 16px;border-radius:22px}.ag-body{max-height:320px}}
     .ag-chip:focus-visible,.ag-card-btn:focus-visible,.ag-send-btn:focus-visible,.ag-capture-send:focus-visible,.ag-capture-skip:focus-visible{outline:2px solid rgba(255,90,31,0.7);outline-offset:2px}
     .ag-main-input:focus-visible,.ag-input:focus-visible{outline:none}
 
-    /* ---------- Floating launcher (new) ----------
-       Same widget node, relocated — not a second chat instance, so there
-       is only ever one conversation and one set of form IDs on the page. */
-    .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s ease}
+    /* Floating launcher styles */
+    .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:var(--gradient, linear-gradient(135deg, #FF5A1F, #FF8A00));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s ease}
     .ag-fab:hover{transform:translateY(-3px) scale(1.05)}
-    .ag-fab.is-open{background:var(--ink)}
-    .ag-fab-pulse{position:absolute;inset:0;border-radius:50%;background:var(--orange);animation:agFabPulse 2.6s infinite;z-index:-1}
+    .ag-fab.is-open{background:var(--ink, #0B0B0C)}
+    .ag-fab-pulse{position:absolute;inset:0;border-radius:50%;background:var(--orange, #FF5A1F);animation:agFabPulse 2.6s infinite;z-index:-1}
     .ag-fab.is-open .ag-fab-pulse{animation:none;opacity:0}
     @keyframes agFabPulse{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.85);opacity:0}}
     .ag-fab-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center}
     .ag-fab-icon svg{width:100%;height:100%}
-    .ag-fab-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 3px;border-radius:9999px;background:#fff;color:var(--orange-deep);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;transition:transform .18s cubic-bezier(.22,1,.36,1)}
+    .ag-fab-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 3px;border-radius:9999px;background:#fff;color:var(--orange-deep, #E0480F);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;transition:transform .18s cubic-bezier(.22,1,.36,1)}
     .ag-fab-badge.ping{animation:agBadgePing .5s cubic-bezier(.22,1,.36,1)}
     @keyframes agBadgePing{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
-    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);transform:translateY(18px) scale(.96);opacity:0;pointer-events:none;transition:transform .24s cubic-bezier(.22,1,.36,1),opacity .2s ease;background:var(--ink);border-radius:24px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1)}
+    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);transform:translateY(18px) scale(.96);opacity:0;pointer-events:none;transition:transform .24s cubic-bezier(.22,1,.36,1),opacity .2s ease;background:var(--ink, #0B0B0C);border-radius:24px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1)}
     .ag-float-wrap.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
     .ag-float-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)}
     .ag-float-header-title{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.92);font-size:13px;font-weight:600;min-width:0}
@@ -364,9 +378,6 @@ function agEnsureStyles() {
     .ag-float-close{background:rgba(255,255,255,0.08);border:none;width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;transition:background .15s ease}
     .ag-float-close:hover{background:rgba(255,255,255,0.16)}
     .ag-float-body{max-height:min(560px,68vh);overflow-y:auto}
-    /* When the shared widget node is living inside the floating wrap, trim
-       its own outer chrome so it reads as one continuous panel rather than
-       a card nested in a card. */
     .ag-floating-mode .ag-card-outer{max-width:100%;margin:0;border-radius:0;border:none;box-shadow:none;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;padding:16px 16px 14px}
     .ag-floating-mode .ag-glow{display:none}
     @media (max-width:520px){
@@ -396,7 +407,7 @@ function agWire() {
   document.querySelectorAll("[data-add]").forEach(el => {
     el.addEventListener("click", () => {
       const id = el.dataset.add;
-      toggleService(id);
+      if (typeof toggleService === "function") toggleService(id);
       agent.addedIds.add(id);
       agBoostInterest(2);
     });
@@ -404,8 +415,8 @@ function agWire() {
 
   document.querySelectorAll("[data-details]").forEach(el => {
     el.addEventListener("click", () => {
-      state.openServiceId = el.dataset.details;
-      renderModals();
+      if (typeof state !== "undefined") state.openServiceId = el.dataset.details;
+      if (typeof renderModals === "function") renderModals();
       agBoostInterest(1);
     });
   });
@@ -432,7 +443,8 @@ function agHandleUserInput(val) {
   const query = undefined !== val ? val : input ? input.value.trim() : "";
   if (!query) return;
 
-  agPush("user", "text", { html: `<p>${esc(query)}</p>` });
+  const escFn = typeof esc === "function" ? esc : str => str;
+  agPush("user", "text", { html: `<p>${escFn(query)}</p>` });
   if (input) input.value = "";
 
   agBoostInterest(1);
@@ -481,19 +493,21 @@ function agHandleCapture() {
 
   const recommendedSvcs = agent.messages
     .filter(m => "cards" === m.kind)
-    .flatMap(m => m.payload.items.map(i => i.svc.name[agLang()]));
+    .flatMap(m => m.payload.items.map(i => i.svc.name?.[agLang()] || i.svc.id));
 
   const uniqueSvcs = recommendedSvcs.length ? [...new Set(recommendedSvcs)].join(", ") : "—";
 
-  sendNotification(
-    {
-      Име: name,
-      Имейл: email,
-      Интерес: userInterests,
-      Препоръчани_услуги: uniqueSvcs
-    },
-    `Нов лид от AI асистента — ${name}`
-  );
+  if (typeof sendNotification === "function") {
+    sendNotification(
+      {
+        Име: name,
+        Имейл: email,
+        Интерес: userInterests,
+        Препоръчани_услуги: uniqueSvcs
+      },
+      `Нов лид от AI асистента — ${name}`
+    );
+  }
 
   agent.captured = true;
   agent.messages = agent.messages.filter(m => "capture" !== m.kind);
@@ -502,19 +516,11 @@ function agHandleCapture() {
 
 function agMount() {
   const mountPoint = document.getElementById("agentMount");
-  // Don't move the widget out of the floating panel and back into the hero
-  // mid-interaction — only claim it for the hero if it isn't currently
-  // parked in the floating panel.
   if (mountPoint && agent._el && agent._el.parentElement !== document.getElementById("agFloatBody")) {
     if (mountPoint.firstChild !== agent._el) mountPoint.appendChild(agent._el);
     agHomeMount = mountPoint;
   }
 }
-
-/* ---------- Floating launcher ----------
-   Reuses the exact same agent._el node — the hero widget and the floating
-   panel are never two separate chats, just two places the one conversation
-   can live, so anything typed in either place is the same thread. */
 
 let agHomeMount = null;
 let agFloatOpen = false;
@@ -529,7 +535,7 @@ function agBuildFab() {
   fab.innerHTML = `<span class="ag-fab-pulse" aria-hidden="true"></span><span class="ag-fab-icon" aria-hidden="true">${AG_ROBOT_SVG}</span><span class="ag-fab-badge" id="agFabBadge">1</span>`;
   fab.addEventListener("click", agToggleFloating);
   document.body.appendChild(fab);
-  refreshIcons();
+  if (typeof refreshIcons === "function") refreshIcons();
 }
 
 function agBuildFloatWrap() {
@@ -580,8 +586,6 @@ function agCloseFloating() {
   if (wrap) wrap.classList.remove("open");
   agFloatOpen = false;
   document.getElementById("agFab")?.classList.remove("is-open");
-  // Wait for the close transition to finish before relocating the node,
-  // so the widget doesn't visibly jump before the panel has faded out.
   setTimeout(() => {
     if (!agFloatOpen && agent._el && agHomeMount && agent._el.parentElement !== agHomeMount) {
       agHomeMount.appendChild(agent._el);
@@ -596,7 +600,7 @@ function agPingFab() {
   if (!badge || badge.style.display === "none") return;
   badge.classList.remove("ping");
   // eslint-disable-next-line no-unused-expressions
-  badge.offsetWidth; // restart the animation
+  badge.offsetWidth;
   badge.classList.add("ping");
 }
 
@@ -605,8 +609,6 @@ function agWatchHero() {
   if (!mountPoint || !("IntersectionObserver" in window)) return;
   const io = new IntersectionObserver(
     entries => entries.forEach(entry => {
-      // If the hero widget scrolls back into view while the floating panel
-      // is open, close the panel so the same node doesn't render twice.
       if (entry.isIntersecting && agFloatOpen) agCloseFloating();
     }),
     { threshold: 0.35 }
@@ -614,11 +616,6 @@ function agWatchHero() {
   io.observe(mountPoint);
 }
 
-/* Universal "open chat" hook — wire ANY existing button/link on the site
-   to the floating chat by adding class="js-open-chat" (or attribute
-   data-open-chat) to it in the HTML. No JS changes needed per-button, and
-   it also catches accidental dead links (href="#", href="") that someone
-   intended to open the chat but never wired up. */
 function agWireOpenChatTriggers() {
   document.addEventListener("click", e => {
     const trigger = e.target.closest(".js-open-chat, [data-open-chat]");
