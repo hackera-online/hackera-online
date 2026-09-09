@@ -1267,10 +1267,10 @@ function renderFinalCTA() {
   </section>`;
 }
 function wireFinalCTA() {
-  document.getElementById("miniAuditForm")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    document.getElementById("audit")?.scrollIntoView({ behavior: "smooth" });
-  });
+ document.getElementById("miniAuditForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  window.hkCheckerOpen?.(document.getElementById("miniUrl")?.value);
+});
 }
 
 /* ---------- Footer ---------- */
