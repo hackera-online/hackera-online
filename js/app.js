@@ -201,7 +201,7 @@ function renderHero() {
     <div class="orb" style="width:340px;height:340px;top:-120px;left:8%;background:rgba(255,90,31,0.35)"></div>
     <div class="orb" style="width:260px;height:260px;top:20px;right:6%;background:rgba(255,90,31,0.2);animation-delay:-4s"></div>
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,90,31,0.16), transparent 70%)"></div>
-    <div class="max-w-3xl mx-auto px-5 pt-16 pb-8 relative text-center">
+    <div class="max-w-3xl mx-auto px-5 pt-16 pb-16 relative text-center">
       <span class="${rc(1)}inline-flex items-center gap-2 px-3 py-1 rounded-full mb-5" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14)">
         <span class="eyebrow-dot"></span>
         <span class="font-mono uppercase" style="font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:0.06em">${state.lang === "bg" ? `${TOTAL_SERVICES}+ услуги · 20 категории` : `${TOTAL_SERVICES}+ services · 20 categories`}</span>
@@ -214,13 +214,8 @@ function renderHero() {
         <button id="browseCtaBtn" class="btn-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${t("browseCta")}</button>
         <button id="checkCtaBtn" class="btn-ghost-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="border:1px solid rgba(255,255,255,0.4);color:#fff">${t("checkCta")}</button>
       </div>
+      <div class="${rc(5)}mt-9" id="agentMount"></div>
     </div>
-    <!-- The AI assistant gets its own, wider column (max-w-4xl vs the
-         max-w-3xl text column above it) so the widget itself can breathe
-         full-width under the header instead of being squeezed to hero
-         paragraph width. Same hero section/background, just a separate
-         row. -->
-    <div class="${rc(5)}max-w-4xl mx-auto px-5 pb-16 relative" id="agentMount"></div>
   </section>`;
 }
 
@@ -231,7 +226,9 @@ function renderHero() {
    first form submit threw a ReferenceError and silently died — nothing
    ever happened when someone clicked "Analyze for free". Replaced by the
    AI agent (js/agent.js), which mounts into the #agentMount div in the
-   hero above and actually works. */
+   hero above and actually works. The REAL site-check functionality (real
+   speed/SEO/GEO data) now lives in js/checker.js, wired to the
+   "checkCtaBtn" and "miniAuditForm" handlers at the bottom of this file. */
 
 /* ---------- Category dropdown ---------- */
 let catDropdownOpen = false;
@@ -1274,7 +1271,7 @@ function renderFinalCTA() {
 function wireFinalCTA() {
   document.getElementById("miniAuditForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
-    document.getElementById("audit")?.scrollIntoView({ behavior: "smooth" });
+    window.hkCheckerOpen?.(document.getElementById("miniUrl")?.value);
   });
 }
 
@@ -1556,9 +1553,7 @@ function renderApp() {
   document.getElementById("cartBtn")?.addEventListener("click", openDrawer);
   document.getElementById("browseCtaBtn")?.addEventListener("click", () => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   document.getElementById("checkCtaBtn")?.addEventListener("click", () => {
-    const el = document.getElementById("agentMount");
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => window.hkAgentFocus?.(), 450);
+    window.hkCheckerOpen?.();
   });
   document.getElementById("consultCtaBtn")?.addEventListener("click", () => {
     const el = document.getElementById("agentMount");
@@ -1613,8 +1608,3 @@ if (document.readyState === "loading") {
 } else {
   renderApp();
 }
-
-
-
-
-
