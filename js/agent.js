@@ -1,4 +1,6 @@
-/* Hackera — AI recommendation agent (embedded, full-width, hero) */
+/* Hackera — AI recommendation agent (embedded, full-width, hero)
+   + floating launcher that surfaces the SAME conversation from anywhere
+   on the page (see "Floating launcher" section near the bottom). */
 
 const AG_T = {
   eyebrow: { bg: "Hackera Agent", en: "Hackera Agent" },
@@ -40,7 +42,9 @@ const AG_T = {
   pkgHit: {
     bg: 'Между другото — ако търсиш цялостно решение (сайт + хостинг + поддръжка), имаме и пакет "Сайт като услуга" на €13/месец по-надолу.',
     en: 'By the way — if you want an all-in-one solution (site + hosting + maintenance), we also have a "Website as a Service" package at €13/month, further down the page.'
-  }
+  },
+  fabLabel: { bg: "Отвори асистента", en: "Open assistant" },
+  fabClose: { bg: "Затвори", en: "Close" }
 };
 
 const AG_STOPWORDS = new Set([
@@ -140,6 +144,9 @@ function agPush(from, kind, payload) {
   agent.messages.push({ id: agent.seq, from, kind, payload });
   agRender();
   agScrollToEnd();
+  // Any new message is a good moment to draw a first-time visitor's eye to
+  // the floating launcher too, in case they've scrolled past the hero.
+  agPingFab();
 }
 
 function agScrollToEnd() {
@@ -245,6 +252,7 @@ function agRender() {
   refreshIcons();
   agWire();
   agScrollToEnd();
+  agSyncFloatHeader();
 }
 
 function agEnsureStyles() {
@@ -312,7 +320,41 @@ function agEnsureStyles() {
     .ag-capture-err{font-size:11.5px;color:var(--orange)}
     @media (max-width:520px){.ag-card-outer{padding:20px 18px 16px;border-radius:22px}.ag-body{max-height:320px}}
     .ag-chip:focus-visible,.ag-card-btn:focus-visible,.ag-send-btn:focus-visible,.ag-capture-send:focus-visible,.ag-capture-skip:focus-visible{outline:2px solid rgba(255,90,31,0.7);outline-offset:2px}
-    .ag-main-input:focus-visible,.ag-input:focus-visible{outline:none}`;
+    .ag-main-input:focus-visible,.ag-input:focus-visible{outline:none}
+
+    /* ---------- Floating launcher (new) ----------
+       Same widget node, relocated — not a second chat instance, so there
+       is only ever one conversation and one set of form IDs on the page. */
+    .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s ease}
+    .ag-fab:hover{transform:translateY(-3px) scale(1.05)}
+    .ag-fab.is-open{background:var(--ink)}
+    .ag-fab-pulse{position:absolute;inset:0;border-radius:50%;background:var(--orange);animation:agFabPulse 2.6s infinite;z-index:-1}
+    .ag-fab.is-open .ag-fab-pulse{animation:none;opacity:0}
+    @keyframes agFabPulse{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.85);opacity:0}}
+    .ag-fab-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 3px;border-radius:9999px;background:#fff;color:var(--orange-deep);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;transition:transform .18s cubic-bezier(.22,1,.36,1)}
+    .ag-fab-badge.ping{animation:agBadgePing .5s cubic-bezier(.22,1,.36,1)}
+    @keyframes agBadgePing{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
+    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);transform:translateY(18px) scale(.96);opacity:0;pointer-events:none;transition:transform .24s cubic-bezier(.22,1,.36,1),opacity .2s ease;background:var(--ink);border-radius:24px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1)}
+    .ag-float-wrap.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
+    .ag-float-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)}
+    .ag-float-header-title{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.92);font-size:13px;font-weight:600;min-width:0}
+    .ag-float-header-title .dot{width:6px;height:6px;border-radius:50%;background:#2ECC71;flex-shrink:0}
+    .ag-float-close{background:rgba(255,255,255,0.08);border:none;width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;transition:background .15s ease}
+    .ag-float-close:hover{background:rgba(255,255,255,0.16)}
+    .ag-float-body{max-height:min(560px,68vh);overflow-y:auto}
+    /* When the shared widget node is living inside the floating wrap, trim
+       its own outer chrome so it reads as one continuous panel rather than
+       a card nested in a card. */
+    .ag-floating-mode .ag-card-outer{max-width:100%;margin:0;border-radius:0;border:none;box-shadow:none;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;padding:16px 16px 14px}
+    .ag-floating-mode .ag-glow{display:none}
+    @media (max-width:520px){
+      .ag-float-wrap{right:10px;left:10px;width:auto;bottom:82px}
+      .ag-fab{right:16px;bottom:16px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .ag-fab-pulse{animation:none;opacity:.35}
+      .ag-fab,.ag-float-wrap,.ag-fab-badge{transition:none}
+    }`;
   document.head.appendChild(style);
 }
 
@@ -438,9 +480,116 @@ function agHandleCapture() {
 
 function agMount() {
   const mountPoint = document.getElementById("agentMount");
-  if (mountPoint && agent._el && mountPoint.firstChild !== agent._el) {
-    mountPoint.appendChild(agent._el);
+  // Don't move the widget out of the floating panel and back into the hero
+  // mid-interaction — only claim it for the hero if it isn't currently
+  // parked in the floating panel.
+  if (mountPoint && agent._el && agent._el.parentElement !== document.getElementById("agFloatBody")) {
+    if (mountPoint.firstChild !== agent._el) mountPoint.appendChild(agent._el);
+    agHomeMount = mountPoint;
   }
+}
+
+/* ---------- Floating launcher ----------
+   Reuses the exact same agent._el node — the hero widget and the floating
+   panel are never two separate chats, just two places the one conversation
+   can live, so anything typed in either place is the same thread. */
+
+let agHomeMount = null;
+let agFloatOpen = false;
+
+function agBuildFab() {
+  if (document.getElementById("agFab")) return;
+  const fab = document.createElement("button");
+  fab.id = "agFab";
+  fab.type = "button";
+  fab.className = "ag-fab";
+  fab.setAttribute("aria-label", agt("fabLabel"));
+  fab.innerHTML = `<span class="ag-fab-pulse" aria-hidden="true"></span>${icon("sparkles", "w-5 h-5")}<span class="ag-fab-badge" id="agFabBadge">1</span>`;
+  fab.addEventListener("click", agToggleFloating);
+  document.body.appendChild(fab);
+  refreshIcons();
+}
+
+function agBuildFloatWrap() {
+  let wrap = document.getElementById("agFloatWrap");
+  if (wrap) return wrap;
+  wrap = document.createElement("div");
+  wrap.id = "agFloatWrap";
+  wrap.className = "ag-float-wrap";
+  wrap.innerHTML = `
+    <div class="ag-float-header">
+      <div class="ag-float-header-title"><span class="dot" aria-hidden="true"></span><span id="agFloatHeaderText">${agt("eyebrow")}</span></div>
+      <button type="button" class="ag-float-close" id="agFloatClose" aria-label="${agt("fabClose")}">✕</button>
+    </div>
+    <div class="ag-float-body" id="agFloatBody"></div>`;
+  document.body.appendChild(wrap);
+  document.getElementById("agFloatClose").addEventListener("click", agCloseFloating);
+  return wrap;
+}
+
+function agSyncFloatHeader() {
+  const t = document.getElementById("agFloatHeaderText");
+  if (t) t.textContent = agt("eyebrow");
+}
+
+function agToggleFloating() {
+  agFloatOpen ? agCloseFloating() : agOpenFloating();
+}
+
+function agOpenFloating() {
+  const wrap = agBuildFloatWrap();
+  const body = document.getElementById("agFloatBody");
+  if (!agHomeMount) agHomeMount = agent._el ? agent._el.parentElement : null;
+  if (agent._el && body && agent._el.parentElement !== body) {
+    body.appendChild(agent._el);
+    agent._el.classList.add("ag-floating-mode");
+  }
+  wrap.classList.add("open");
+  agFloatOpen = true;
+  document.getElementById("agFab")?.classList.add("is-open");
+  const badge = document.getElementById("agFabBadge");
+  if (badge) badge.style.display = "none";
+  agScrollToEnd();
+  setTimeout(() => document.getElementById("agInput")?.focus(), 260);
+}
+
+function agCloseFloating() {
+  const wrap = document.getElementById("agFloatWrap");
+  if (wrap) wrap.classList.remove("open");
+  agFloatOpen = false;
+  document.getElementById("agFab")?.classList.remove("is-open");
+  // Wait for the close transition to finish before relocating the node,
+  // so the widget doesn't visibly jump before the panel has faded out.
+  setTimeout(() => {
+    if (!agFloatOpen && agent._el && agHomeMount && agent._el.parentElement !== agHomeMount) {
+      agHomeMount.appendChild(agent._el);
+      agent._el.classList.remove("ag-floating-mode");
+    }
+  }, 240);
+}
+
+function agPingFab() {
+  if (agFloatOpen) return;
+  const badge = document.getElementById("agFabBadge");
+  if (!badge || badge.style.display === "none") return;
+  badge.classList.remove("ping");
+  // eslint-disable-next-line no-unused-expressions
+  badge.offsetWidth; // restart the animation
+  badge.classList.add("ping");
+}
+
+function agWatchHero() {
+  const mountPoint = document.getElementById("agentMount");
+  if (!mountPoint || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    entries => entries.forEach(entry => {
+      // If the hero widget scrolls back into view while the floating panel
+      // is open, close the panel so the same node doesn't render twice.
+      if (entry.isIntersecting && agFloatOpen) agCloseFloating();
+    }),
+    { threshold: 0.35 }
+  );
+  io.observe(mountPoint);
 }
 
 function agBoot() {
@@ -450,6 +599,8 @@ function agBoot() {
   }
   agMount();
   agRender();
+  agBuildFab();
+  agWatchHero();
 
   if (typeof window.renderApp === "function" && !window.renderApp.__agentWrapped) {
     const origRenderApp = window.renderApp;
@@ -477,6 +628,8 @@ window.hkAgentSeed = function (text) {
     input.value = text;
   }
 };
+
+window.hkAgentOpenFloating = agOpenFloating;
 
 // Auto-initialize
 if (document.readyState === "loading") {
