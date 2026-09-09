@@ -68,6 +68,19 @@ const AG_SYNONYMS = [
 
 const AG_PRICE_WORDS = ["price", "cost", "how much", "quote", "консултация", "цена", "струва", "оферта", "обадете", "call me", "talk to"];
 
+/* Hand-drawn robot mark for the floating launcher — plain white line-art,
+   no emoji font (renders identically across every OS/browser instead of
+   depending on each platform's emoji set). */
+const AG_ROBOT_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2.2v2.1" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="12" cy="1.75" r="1.05" fill="#fff"/>
+  <rect x="4.4" y="5.6" width="15.2" height="12.1" rx="4.2" stroke="#fff" stroke-width="1.6"/>
+  <path d="M4.4 9.7H3.1M20.9 9.7h-1.3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="9.15" cy="11.75" r="1.3" fill="#fff"/>
+  <circle cx="14.85" cy="11.75" r="1.3" fill="#fff"/>
+  <path d="M9 15.3c1.05.95 4.95.95 6 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
 const agent = {
   messages: [],
   interest: 0,
@@ -331,6 +344,8 @@ function agEnsureStyles() {
     .ag-fab-pulse{position:absolute;inset:0;border-radius:50%;background:var(--orange);animation:agFabPulse 2.6s infinite;z-index:-1}
     .ag-fab.is-open .ag-fab-pulse{animation:none;opacity:0}
     @keyframes agFabPulse{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.85);opacity:0}}
+    .ag-fab-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center}
+    .ag-fab-icon svg{width:100%;height:100%}
     .ag-fab-badge{position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 3px;border-radius:9999px;background:#fff;color:var(--orange-deep);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;transition:transform .18s cubic-bezier(.22,1,.36,1)}
     .ag-fab-badge.ping{animation:agBadgePing .5s cubic-bezier(.22,1,.36,1)}
     @keyframes agBadgePing{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
@@ -504,7 +519,7 @@ function agBuildFab() {
   fab.type = "button";
   fab.className = "ag-fab";
   fab.setAttribute("aria-label", agt("fabLabel"));
-  fab.innerHTML = `<span class="ag-fab-pulse" aria-hidden="true"></span>${icon("sparkles", "w-5 h-5")}<span class="ag-fab-badge" id="agFabBadge">1</span>`;
+  fab.innerHTML = `<span class="ag-fab-pulse" aria-hidden="true"></span><span class="ag-fab-icon" aria-hidden="true">${AG_ROBOT_SVG}</span><span class="ag-fab-badge" id="agFabBadge">1</span>`;
   fab.addEventListener("click", agToggleFloating);
   document.body.appendChild(fab);
   refreshIcons();
@@ -592,6 +607,20 @@ function agWatchHero() {
   io.observe(mountPoint);
 }
 
+/* Universal "open chat" hook — wire ANY existing button/link on the site
+   to the floating chat by adding class="js-open-chat" (or attribute
+   data-open-chat) to it in the HTML. No JS changes needed per-button, and
+   it also catches accidental dead links (href="#", href="") that someone
+   intended to open the chat but never wired up. */
+function agWireOpenChatTriggers() {
+  document.addEventListener("click", e => {
+    const trigger = e.target.closest(".js-open-chat, [data-open-chat]");
+    if (!trigger) return;
+    e.preventDefault();
+    agOpenFloating();
+  });
+}
+
 function agBoot() {
   if (!agent._el) {
     agent._el = document.createElement("div");
@@ -601,6 +630,7 @@ function agBoot() {
   agRender();
   agBuildFab();
   agWatchHero();
+  agWireOpenChatTriggers();
 
   if (typeof window.renderApp === "function" && !window.renderApp.__agentWrapped) {
     const origRenderApp = window.renderApp;
