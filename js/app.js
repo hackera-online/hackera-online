@@ -1551,9 +1551,8 @@ function renderApp() {
   document.getElementById("cartBtn")?.addEventListener("click", openDrawer);
   document.getElementById("browseCtaBtn")?.addEventListener("click", () => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   document.getElementById("checkCtaBtn")?.addEventListener("click", () => {
-    const el = document.getElementById("agentMount");
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => window.hkAgentFocus?.(), 450);
+  window.hkCheckerOpen?.();
+});
   });
   document.getElementById("consultCtaBtn")?.addEventListener("click", () => {
     const el = document.getElementById("agentMount");
