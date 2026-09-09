@@ -1553,7 +1553,6 @@ function renderApp() {
   document.getElementById("checkCtaBtn")?.addEventListener("click", () => {
   window.hkCheckerOpen?.();
 });
-  });
   document.getElementById("consultCtaBtn")?.addEventListener("click", () => {
     const el = document.getElementById("agentMount");
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
