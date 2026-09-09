@@ -90,6 +90,12 @@ const agent = {
   seq: 0
 };
 
+// FIX: the previous guard used `void 0 !== typeof state`, which compares
+// `undefined` to a STRING (typeof always returns a string) and is therefore
+// always true — it never actually protected against `state` being
+// undeclared, and threw "ReferenceError: state is not defined" the moment
+// this ran before the host page's `state` global existed. The correct
+// idiom compares two strings: `typeof state !== "undefined"`.
 function agLang() {
   return (typeof state !== "undefined" && state.lang) || document.documentElement.lang || "en";
 }
@@ -196,6 +202,7 @@ function agBubble(m) {
       <p>${agt("matchIntro")}</p>
       <div class="ag-cards">
         ${cards.map(({ svc, cat }) => {
+          // FIX: same typeof bug as agLang() — corrected below.
           const added = agent.addedIds.has(svc.id) || (typeof state !== "undefined" && state.selectedIds.has(svc.id));
           return `<div class="ag-card">
             <div class="ag-card-cat">${cat?.name?.[agLang()] || ""}</div>
