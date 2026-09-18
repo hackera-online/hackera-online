@@ -59,6 +59,7 @@ const AG_T = {
   errName: { bg: "Въведи име.", en: "Enter your name." },
   capturedThanks: { bg: "Готово! Ще се свържем с теб скоро на посочения имейл с персонална оферта.", en: "Done! We'll reach out soon at that email with a tailored offer." },
   typing: { bg: "пише…", en: "typing…" },
+  operatorLabel: { bg: "Оператор", en: "Operator" },
   pkgHit: {
     bg: 'Между другото — ако търсиш цялостно решение (сайт + хостинг + поддръжка), имаме и пакет "Сайт като услуга" на €13/месец по-надолу.',
     en: 'By the way — if you want an all-in-one solution (site + hosting + maintenance), we also have a "Website as a Service" package at €13/month, further down the page.'
@@ -88,6 +89,7 @@ const AG_SYNONYMS = [
 
 const AG_PRICE_WORDS = ["price", "cost", "how much", "quote", "консултация", "цена", "струва", "оферта", "обадете", "call me", "talk to"];
 
+/* Assistant FAB icon — friendly spark/bot mark in brand orange */
 const AG_ROBOT_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M12 2.2v2.1" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
   <circle cx="12" cy="1.75" r="1.05" fill="#fff"/>
@@ -96,6 +98,14 @@ const AG_ROBOT_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.
   <circle cx="9.15" cy="11.75" r="1.3" fill="#fff"/>
   <circle cx="14.85" cy="11.75" r="1.3" fill="#fff"/>
   <path d="M9 15.3c1.05.95 4.95.95 6 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+/* Operator icon — headset mark used to flag messages from a human agent */
+const AG_HEADSET_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 13v-1a8 8 0 0 1 16 0v1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  <rect x="3" y="13" width="4.2" height="6.2" rx="1.8" stroke="currentColor" stroke-width="1.7"/>
+  <rect x="16.8" y="13" width="4.2" height="6.2" rx="1.8" stroke="currentColor" stroke-width="1.7"/>
+  <path d="M19.9 19.2v.6a3 3 0 0 1-3 3h-3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 
 const agent = {
@@ -293,16 +303,20 @@ function agEnsureStyles() {
     .ag-card-outer input,.ag-card-outer button,.ag-card-outer textarea{font-family:inherit}
     .ag-glow{position:absolute;top:-70px;right:-60px;width:240px;height:240px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,90,31,0.28),transparent 70%)}
     .ag-header-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative}
-    .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #2563eb, #ff5a1f);color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
+    .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
     .ag-header-text{display:flex;flex-direction:column;gap:3px;min-width:0}
-    .ag-eyebrow{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,90,31,0.9)}
+    .ag-eyebrow{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,138,61,0.95)}
     .ag-title{font-size:17.5px;font-weight:700;color:#fff;margin:0;letter-spacing:-0.01em;line-height:1.25}
     .ag-body{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px 4px 2px 2px;margin-bottom:14px;}
     .ag-msg{font-size:14px;line-height:1.6;max-width:82%;padding:11px 15px;border-radius:17px}
     .ag-msg p{margin:0}
     .ag-msg-bot{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.92);align-self:flex-start;border:1px solid rgba(255,255,255,0.07);border-bottom-left-radius:5px}
-    .ag-msg-user{background:linear-gradient(135deg, #2563eb, #ff5a1f);color:#fff;align-self:flex-end;border-bottom-right-radius:5px;}
-    .ag-msg-admin{background:#2563eb;color:#fff;align-self:flex-start;border-bottom-left-radius:5px;}
+    .ag-msg-user{background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;align-self:flex-end;border-bottom-right-radius:5px;}
+    .ag-msg-admin{background:rgba(255,90,31,0.12);color:#fff;align-self:flex-start;border:1px solid rgba(255,90,31,0.38);border-bottom-left-radius:5px;}
+    .ag-operator-line{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+    .ag-operator-icon{width:16px;height:16px;color:#ff8a3d;flex-shrink:0;display:flex}
+    .ag-operator-icon svg{width:100%;height:100%}
+    .ag-operator-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#ff8a3d}
     .ag-typing{display:inline-flex;gap:4px;padding:2px 0}
     .ag-typing span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);animation:agBlink 1.2s infinite ease-in-out}
     .ag-typing span:nth-child(2){animation-delay:.15s}
@@ -315,18 +329,18 @@ function agEnsureStyles() {
     .ag-card-desc{font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.45;margin-bottom:10px}
     .ag-card-row{display:flex;gap:6px}
     .ag-card-btn{flex:1;padding:7px 8px;border-radius:9px;border:none;cursor:pointer;font-size:11px;font-weight:600;}
-    .ag-card-add{background:linear-gradient(135deg, #2563eb, #ff5a1f);color:#fff}
+    .ag-card-add{background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff}
     .ag-card-details{background:rgba(255,255,255,0.1);color:#fff}
     .ag-see-catalog{display:inline-flex;margin-top:12px;font-size:12.5px;font-weight:600;color:#ff5a1f;text-decoration:none;}
     .ag-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
     .ag-chip{padding:8px 16px;border-radius:999px;cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.05);color:#fff;font-size:12px;}
     .ag-form{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:5px 5px 5px 18px;}
     .ag-main-input{flex:1;background:transparent;border:none;padding:11px 0;font-size:14px;color:#fff;outline:none}
-    .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:linear-gradient(135deg, #2563eb, #ff5a1f);color:#fff;cursor:pointer;}
-    .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg, #2563eb, #ff5a1f);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);}
-    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:all .24s ease;background:#090d16;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)}
+    .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;cursor:pointer;}
+    .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);}
+    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:all .24s ease;background:#0b0b0c;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)}
     .ag-float-wrap.open{opacity:1;pointer-events:all}
-    .ag-float-header{display:flex;align-items:center;justify-space-between:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);color:#fff;}
+    .ag-float-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);color:#fff;}
     .ag-float-close{background:transparent;border:none;color:#fff;cursor:pointer;font-size:16px;}
   `;
   document.head.appendChild(style);
@@ -388,7 +402,9 @@ const chatRef = ref(db, `chats/${visitorId}/messages`);
 onChildAdded(chatRef, (snapshot) => {
   const msg = snapshot.val();
   if (msg && msg.sender === 'admin') {
-    agPush("admin", "text", { html: `<p><strong>Operator:</strong> ${msg.text}</p>` });
+    agPush("admin", "text", {
+      html: `<div class="ag-operator-line"><span class="ag-operator-icon">${AG_HEADSET_SVG}</span><span class="ag-operator-label">${agt("operatorLabel")}</span></div><p>${msg.text}</p>`
+    });
   }
 });
 
