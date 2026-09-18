@@ -1,6 +1,6 @@
 /* Hackera — AI recommendation agent + Live Firebase Operator Streaming */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, push, update, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, push, update, onChildAdded, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCA3l30MgYwEg-fxs7_cBBgNdVhxCREwdI",
@@ -60,6 +60,10 @@ const AG_T = {
   capturedThanks: { bg: "Готово! Ще се свържем с теб скоро на посочения имейл с персонална оферта.", en: "Done! We'll reach out soon at that email with a tailored offer." },
   typing: { bg: "пише…", en: "typing…" },
   operatorLabel: { bg: "Оператор", en: "Operator" },
+  operatorJoined: {
+    bg: "Свързахме те с наш екип — от тук нататък ти отговаря човек на живо.",
+    en: "You're now connected with a member of our team — a human will take it from here."
+  },
   pkgHit: {
     bg: 'Между другото — ако търсиш цялостно решение (сайт + хостинг + поддръжка), имаме и пакет "Сайт като услуга" на €13/месец по-надолу.',
     en: 'By the way — if you want an all-in-one solution (site + hosting + maintenance), we also have a "Website as a Service" package at €13/month, further down the page.'
@@ -114,8 +118,11 @@ const agent = {
   captureShown: false,
   captured: false,
   addedIds: new Set(),
-  seq: 0
+  seq: 0,
+  operatorActive: false
 };
+
+let agOperatorAnnounced = false;
 
 function agLang() {
   return (typeof state !== "undefined" && state.lang) || document.documentElement.lang || "en";
@@ -369,11 +376,13 @@ async function agHandleUserInput(val) {
   agPush("user", "text", { html: `<p>${query}</p>` });
   if (input) input.value = "";
 
-  // 2. Update session metadata and push user message to Firebase
+  // 2. Update session metadata and push user message to Firebase.
+  // Once a human operator owns this chat, don't stomp the "with_operator"
+  // status back to "pending_agent" on every message.
   const sessionRef = ref(db, `chats/${visitorId}`);
   await update(sessionRef, {
     visitorId: visitorId,
-    status: "pending_agent",
+    ...(agent.operatorActive ? {} : { status: "pending_agent" }),
     lastMessage: query,
     lastUpdated: Date.now()
   });
@@ -385,23 +394,51 @@ async function agHandleUserInput(val) {
     timestamp: Date.now()
   });
 
+  // If a human operator has taken over, the message above is enough to
+  // reach them — the AI stays quiet and does not generate its own reply.
+  if (agent.operatorActive) return;
+
   agBoostInterest(1);
   if (agLooksLikePriceIntent(query)) agBoostInterest(3);
 
   agPush("bot", "typing", {});
 
   setTimeout(() => {
+    if (agent.operatorActive) {
+      // Operator joined while the "typing…" delay was running — drop the
+      // AI's canned reply instead of racing it against the human.
+      agent.messages = agent.messages.filter(m => "typing" !== m.kind);
+      agRender();
+      return;
+    }
     agent.messages = agent.messages.filter(m => "typing" !== m.kind);
     const matches = agMatchServices(query, 4);
     agPush("bot", "cards", { items: matches });
   }, 600);
 }
 
+// Keep operatorActive in sync with Firebase — covers page reloads and a
+// second browser tab, not just messages received in this session.
+const statusRef = ref(db, `chats/${visitorId}/status`);
+onValue(statusRef, (snapshot) => {
+  const isOperator = snapshot.val() === "with_operator";
+  if (isOperator && !agent.operatorActive) agOperatorAnnounced = false; // allow re-announcing a fresh handoff
+  agent.operatorActive = isOperator;
+});
+
 // Realtime Listener for Live Replies from Operator Dashboard
 const chatRef = ref(db, `chats/${visitorId}/messages`);
 onChildAdded(chatRef, (snapshot) => {
   const msg = snapshot.val();
   if (msg && msg.sender === 'admin') {
+    if (!agent.operatorActive) {
+      agent.operatorActive = true;
+      update(ref(db, `chats/${visitorId}`), { status: "with_operator" });
+    }
+    if (!agOperatorAnnounced) {
+      agOperatorAnnounced = true;
+      agPush("bot", "text", { html: `<p>${agt("operatorJoined")}</p>` });
+    }
     agPush("admin", "text", {
       html: `<div class="ag-operator-line"><span class="ag-operator-icon">${AG_HEADSET_SVG}</span><span class="ag-operator-label">${agt("operatorLabel")}</span></div><p>${msg.text}</p>`
     });
