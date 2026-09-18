@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator Console | Hackera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --panel-bg: rgba(15, 23, 42, 0.75);
+      --border-color: rgba(51, 65, 85, 0.6);
+      --accent-blue: #2563eb;
+      --accent-orange: #ff5a1f;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      height: 60px;
+      padding: 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(9, 13, 22, 0.95);
+    }
+    .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-orange); background: rgba(255,90,31,0.1); padding: 2px 6px; border-radius: 4px; }
+    .logout-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    .logout-btn:hover { color: #fff; border-color: #fff; }
+    .dashboard-container { display: flex; flex: 1; overflow: hidden; }
+    .sidebar { width: 300px; border-right: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.4); overflow-y: auto; }
+    .sidebar-header { padding: 1rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-color); }
+    .thread-item { padding: 1rem; border-bottom: 1px solid rgba(51, 65, 85, 0.3); cursor: pointer; transition: background 0.15s; }
+    .thread-item:hover, .thread-item.active { background: rgba(37, 99, 235, 0.15); }
+    .thread-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; display: flex; justify-content: space-between; }
+    .thread-time { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .thread-preview { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .chat-view { flex: 1; display: flex; flex-direction: column; background: var(--bg-dark); }
+    .chat-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); font-weight: 600; font-size: 0.95rem; }
+    .messages-list { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; }
+    .msg { max-width: 70%; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; }
+    .msg-visitor { background: rgba(255,255,255,0.08); align-self: flex-start; border-bottom-left-radius: 2px; }
+    .msg-admin { background: var(--accent-blue); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+    .msg-meta { font-size: 0.65rem; opacity: 0.7; margin-top: 4px; text-align: right; }
+    .reply-box { padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.75rem; }
+    .reply-input { flex: 1; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; color: #fff; outline: none; }
+    .reply-input:focus { border-color: var(--accent-blue); }
+    .send-btn { background: var(--accent-blue); color: #fff; border: none; padding: 0 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .empty-state { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Hackera Live Operator <span class="badge">Online</span></div>
+    <button class="logout-btn" id="logoutBtn">Sign Out</button>
+  </header>
+
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <div class="sidebar-header">Active Visitor Chats</div>
+      <div id="threadList"></div>
+    </div>
+    <div class="chat-view">
+      <div class="chat-header" id="activeVisitorHeader">Select a conversation to start chatting</div>
+      <div class="messages-list" id="messagesList"><div class="empty-state">No chat selected</div></div>
+      <form class="reply-box" id="replyForm" style="display:none;">
+        <input type="text" class="reply-input" id="replyInput" placeholder="Type response..." autocomplete="off">
+        <button type="submit" class="send-btn">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCA3l30MgYwEg-fxs7_cBBgNdVhxCREwdI",
+      authDomain: "hackera-chat.firebaseapp.com",
+      databaseURL: "https://hackera-chat-default-rtdb.firebaseio.com",
+      projectId: "hackera-chat",
+      storageBucket: "hackera-chat.firebasestorage.app",
+      messagingSenderId: "1015905933117",
+      appId: "1:1015905933117:web:7f328a7cd33c9eb9335754"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    let currentVisitorId = null;
+    let allChats = {};
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = '/login.html';
+      } else {
+        initDashboard();
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+    function initDashboard() {
+      const chatsRef = ref(db, 'chats');
+      onValue(chatsRef, (snapshot) => {
+        allChats = snapshot.val() || {};
+        renderThreads();
+        if (currentVisitorId) renderMessages(currentVisitorId);
+      });
+    }
+
+    function renderThreads() {
+      const container = document.getElementById('threadList');
+      container.innerHTML = '';
+      const ids = Object.keys(allChats);
+      
+      if (ids.length === 0) {
+        container.innerHTML = '<div style="padding:1rem;color:var(--text-muted);font-size:0.85rem;">No active visitors yet.</div>';
+        return;
+      }
+
+      ids.forEach(id => {
+        const msgs = allChats[id]?.messages ? Object.values(allChats[id].messages) : [];
+        const lastMsg = msgs[msgs.length - 1] || { text: 'No messages', timestamp: Date.now() };
+        
+        const div = document.createElement('div');
+        div.className = `thread-item ${id === currentVisitorId ? 'active' : ''}`;
+        div.innerHTML = `
+          <div class="thread-title">
+            <span>${id}</span>
+            <span class="thread-time">${new Date(lastMsg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+          </div>
+          <div class="thread-preview">${lastMsg.text || 'Message attached'}</div>
+        `;
+        div.onclick = () => selectVisitor(id);
+        container.appendChild(div);
+      });
+    }
+
+    function selectVisitor(id) {
+      currentVisitorId = id;
+      document.getElementById('activeVisitorHeader').innerText = `Chatting with: ${id}`;
+      document.getElementById('replyForm').style.display = 'flex';
+      renderThreads();
+      renderMessages(id);
+    }
+
+    function renderMessages(id) {
+      const container = document.getElementById('messagesList');
+      container.innerHTML = '';
+      const rawMsgs = allChats[id]?.messages || {};
+      const msgs = Object.values(rawMsgs);
+
+      msgs.forEach(m => {
+        const div = document.createElement('div');
+        div.className = `msg ${m.sender === 'admin' ? 'msg-admin' : 'msg-visitor'}`;
+        div.innerHTML = `
+          <div>${m.text}</div>
+          <div class="msg-meta">${new Date(m.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+        `;
+        container.appendChild(div);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    document.getElementById('replyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('replyInput');
+      const text = input.value.trim();
+      if (!text || !currentVisitorId) return;
+
+      const msgsRef = ref(db, `chats/${currentVisitorId}/messages`);
+      push(msgsRef, {
+        sender: 'admin',
+        text: text,
+        timestamp: Date.now()
+      });
+
+      input.value = '';
+    });
+  </script>
+</body>
+</html>
