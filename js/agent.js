@@ -1,6 +1,6 @@
 /* Hackera — AI recommendation agent + Live Firebase Operator Streaming */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, push, update, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCA3l30MgYwEg-fxs7_cBBgNdVhxCREwdI",
@@ -346,18 +346,26 @@ function agWire() {
   });
 }
 
-function agHandleUserInput(val) {
+async function agHandleUserInput(val) {
   const input = document.getElementById("agInput");
   const query = undefined !== val ? val : input ? input.value.trim() : "";
   if (!query) return;
 
-  // 1. Push user message locally to UI
+  // 1. Render message locally in chat window
   agPush("user", "text", { html: `<p>${query}</p>` });
   if (input) input.value = "";
 
-  // 2. Stream user message live to Firebase Realtime Database
+  // 2. Update session metadata and push user message to Firebase
+  const sessionRef = ref(db, `chats/${visitorId}`);
+  await update(sessionRef, {
+    visitorId: visitorId,
+    status: "pending_agent",
+    lastMessage: query,
+    lastUpdated: Date.now()
+  });
+
   const messagesRef = ref(db, `chats/${visitorId}/messages`);
-  push(messagesRef, {
+  await push(messagesRef, {
     sender: 'visitor',
     text: query,
     timestamp: Date.now()
@@ -375,11 +383,11 @@ function agHandleUserInput(val) {
   }, 600);
 }
 
-// Realtime Listener for Live Replies from Admin Dashboard
+// Realtime Listener for Live Replies from Operator Dashboard
 const chatRef = ref(db, `chats/${visitorId}/messages`);
 onChildAdded(chatRef, (snapshot) => {
   const msg = snapshot.val();
-  if (msg.sender === 'admin') {
+  if (msg && msg.sender === 'admin') {
     agPush("admin", "text", { html: `<p><strong>Operator:</strong> ${msg.text}</p>` });
   }
 });
