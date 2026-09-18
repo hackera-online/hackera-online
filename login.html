@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | Hackera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --border-color: rgba(51, 65, 85, 0.6);
+      --border-focus: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-blue: #2563eb;
+      --primary-hover: #1d4ed8;
+      --error-red: #ef4444;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    /* Top Navigation Back to Main Site */
+    .nav-back {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+
+    .nav-back a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .nav-back a:hover {
+      color: var(--text-main);
+    }
+
+    /* Login Card */
+    .login-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-glow);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brand-header h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .brand-header p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 0.35rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(9, 13, 22, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--primary-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--primary-hover);
+    }
+
+    button[type="submit"]:active {
+      transform: scale(0.99);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--error-red);
+      color: var(--error-red);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      text-align: center;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-back">
+    <a href="https://www.hackera.online">← Back to hackera.online</a>
+  </div>
+
+  <div class="login-card">
+    <div class="brand-header">
+      <span class="brand-badge">Internal Security</span>
+      <h1>Hackera Console</h1>
+      <p>Authenticate to open live operator chat</p>
+    </div>
+
+    <div id="errorBox" class="error-box"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Admin Email</label>
+        <input type="email" id="email" required autocomplete="username" placeholder="admin@hackera.online">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="current-password" placeholder="••••••••••••">
+      </div>
+
+      <button type="submit" id="submitBtn">Sign In to Dashboard</button>
+    </form>
+
+    <div class="footer-note">
+      SECURE HTTPS ENCRYPTED SESSION
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorBox = document.getElementById('errorBox');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      showError('');
+      setLoading(true);
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Invalid authorization credentials.');
+        }
+
+        localStorage.setItem('admin_token', data.token);
+        window.location.href = '/admin.html';
+
+      } catch (err) {
+        showError(err.message || 'Unable to connect to hackera authentication server.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Verifying Credentials...';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Sign In to Dashboard';
+      }
+    }
+
+    function showError(message) {
+      if (message) {
+        errorBox.innerText = message;
+        errorBox.style.display = 'block';
+      } else {
+        errorBox.innerText = '';
+        errorBox.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
