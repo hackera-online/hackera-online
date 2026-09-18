@@ -287,7 +287,7 @@ function agRender() {
       <div id="agBody" class="ag-body"${agent.messages.length ? "" : ' style="display:none"'}>
         ${agent.messages.map(agBubble).join("")}
       </div>
-      <div class="ag-chip-row">
+      <div class="ag-chip-row"${agent.operatorActive ? ' style="display:none"' : ""}>
         ${agt("chips").map(c => `<button class="ag-chip" data-chip="${c.l}"><span class="ag-chip-label">${c.l}</span></button>`).join("")}
       </div>
       <form id="agForm" class="ag-form">
@@ -423,7 +423,9 @@ const statusRef = ref(db, `chats/${visitorId}/status`);
 onValue(statusRef, (snapshot) => {
   const isOperator = snapshot.val() === "with_operator";
   if (isOperator && !agent.operatorActive) agOperatorAnnounced = false; // allow re-announcing a fresh handoff
+  const changed = agent.operatorActive !== isOperator;
   agent.operatorActive = isOperator;
+  if (changed && agent._el) agRender();
 });
 
 // Realtime Listener for Live Replies from Operator Dashboard
