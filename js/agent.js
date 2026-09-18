@@ -187,6 +187,50 @@ function agLooksLikePriceIntent(query) {
   return AG_PRICE_WORDS.some(w => q.includes(w));
 }
 
+// Add a service to the visitor's order. We don't know the exact name of the
+// host page's own add-to-cart function, so we try the most likely candidates
+// first (keeps totals/state in sync with the rest of the site), then fall
+// back to clicking the matching control already in the on-page catalog
+// (reuses whatever handler is wired there), and only as a last resort track
+// the selection locally.
+function agAddToOrder(id) {
+  if (typeof window.addServiceToOrder === "function") { window.addServiceToOrder(id); return true; }
+  if (typeof window.toggleService === "function") { window.toggleService(id); return true; }
+  if (typeof window.addToCart === "function") { window.addToCart(id); return true; }
+  if (typeof window.selectService === "function") { window.selectService(id); return true; }
+
+  const catalogBtn = document.querySelector(
+    `#catalog [data-add="${id}"], #catalog [data-service-id="${id}"], [data-add="${id}"]:not(#hkAgentWidget [data-add])`
+  );
+  if (catalogBtn) { catalogBtn.click(); return true; }
+
+  if (typeof state !== "undefined" && state.selectedIds instanceof Set) {
+    state.selectedIds.add(id);
+    if (typeof renderCatalog === "function") renderCatalog();
+    if (typeof updateOrderSummary === "function") updateOrderSummary();
+    if (typeof saveState === "function") saveState();
+    return true;
+  }
+  return false;
+}
+
+// Pull the real description/price for a service straight from the site's own
+// SERVICES data and show it as a chat message, instead of a dead "details" button.
+function agShowDetails(id) {
+  if (typeof SERVICES === "undefined") return;
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  const lang = agLang();
+  const cat = typeof catOf === "function" ? catOf(svc.cat) : null;
+  const name = typeof esc === "function" ? esc(svc.name[lang]) : svc.name[lang];
+  const desc = typeof esc === "function" ? esc(svc.desc[lang]) : svc.desc[lang];
+  const catName = cat?.name?.[lang] || "";
+  const priceLine = svc.price ? `<br><strong>${typeof esc === "function" ? esc(svc.price) : svc.price}</strong>` : "";
+  agPush("bot", "text", {
+    html: `<p><strong>${name}</strong>${catName ? ` — ${catName}` : ""}</p><p>${desc}${priceLine}</p>`
+  });
+}
+
 function agPush(from, kind, payload) {
   agent.seq++;
   agent.messages.push({ id: agent.seq, from, kind, payload });
@@ -281,7 +325,6 @@ function agRender() {
         <div class="ag-avatar">✦</div>
         <div class="ag-header-text">
           <span class="ag-eyebrow">${agt("eyebrow")}</span>
-          <h3 class="ag-title">${agt("title")}</h3>
         </div>
       </div>
       <div id="agBody" class="ag-body"${agent.messages.length ? "" : ' style="display:none"'}>
@@ -309,12 +352,12 @@ function agEnsureStyles() {
     .ag-card-outer{position:relative;font-family:var(--ag-font);border-radius:28px;padding:26px 26px 20px;width:100%;max-width:820px;margin:0 auto;overflow:hidden;text-align:left;background:linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.035));-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);border:1px solid rgba(255,255,255,0.14);box-shadow:0 1px 0 0 rgba(255,255,255,0.08) inset,0 24px 60px -16px rgba(0,0,0,0.55),0 8px 22px -10px rgba(0,0,0,0.35)}
     .ag-card-outer input,.ag-card-outer button,.ag-card-outer textarea{font-family:inherit}
     .ag-glow{position:absolute;top:-70px;right:-60px;width:240px;height:240px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,90,31,0.28),transparent 70%)}
-    .ag-header-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative}
+    .ag-header-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;position:relative}
     .ag-avatar{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;box-shadow:0 6px 16px -4px rgba(255,90,31,0.55)}
     .ag-header-text{display:flex;flex-direction:column;gap:3px;min-width:0}
     .ag-eyebrow{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,138,61,0.95)}
     .ag-title{font-size:17.5px;font-weight:700;color:#fff;margin:0;letter-spacing:-0.01em;line-height:1.25}
-    .ag-body{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px 4px 2px 2px;margin-bottom:14px;}
+    .ag-body{max-height:min(58vh, 420px);overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px 4px 2px 2px;margin-bottom:14px;}
     .ag-msg{font-size:14px;line-height:1.6;max-width:82%;padding:11px 15px;border-radius:17px}
     .ag-msg p{margin:0}
     .ag-msg-bot{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.92);align-self:flex-start;border:1px solid rgba(255,255,255,0.07);border-bottom-left-radius:5px}
@@ -345,9 +388,10 @@ function agEnsureStyles() {
     .ag-main-input{flex:1;background:transparent;border:none;padding:11px 0;font-size:14px;color:#fff;outline:none}
     .ag-send-btn{width:40px;height:40px;border-radius:50%;border:none;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;cursor:pointer;}
     .ag-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg, #ff8a3d, #ff5a1f);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 32px -10px rgba(255,90,31,0.55);}
-    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:400px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:all .24s ease;background:#0b0b0c;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)}
+    .ag-float-wrap{position:fixed;right:22px;bottom:90px;z-index:79;width:min(400px, calc(100vw - 32px));max-height:min(78vh, 640px);opacity:0;pointer-events:none;transition:all .24s ease;background:#0b0b0c;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column}
     .ag-float-wrap.open{opacity:1;pointer-events:all}
-    .ag-float-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);color:#fff;}
+    .ag-float-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);color:#fff;flex-shrink:0}
+    #agFloatBody{overflow-y:auto}
     .ag-float-close{background:transparent;border:none;color:#fff;cursor:pointer;font-size:16px;}
   `;
   document.head.appendChild(style);
@@ -365,6 +409,24 @@ function agWire() {
   document.querySelectorAll("[data-chip]").forEach(el => {
     el.addEventListener("click", () => agHandleUserInput(el.dataset.chip));
   });
+
+  if (agent._el) {
+    agent._el.querySelectorAll("[data-add]").forEach(el => {
+      el.addEventListener("click", () => {
+        const id = el.dataset.add;
+        if (el.disabled) return;
+        const ok = agAddToOrder(id);
+        if (ok) {
+          agent.addedIds.add(id);
+          agRender();
+        }
+      });
+    });
+
+    agent._el.querySelectorAll("[data-details]").forEach(el => {
+      el.addEventListener("click", () => agShowDetails(el.dataset.details));
+    });
+  }
 }
 
 async function agHandleUserInput(val) {
