@@ -1,45 +1,45 @@
 # Hackera
 
-> Hackera е дигитална агенция от България, предлагаща 250+ дигитални услуги в 20 категории на едно място — уеб разработка, SEO, дизайн, маркетинг, e-commerce, AI автоматизация, киберсигурност, GDPR съответствие и още. Прозрачни цени, един контакт за всичко.
+> Hackera is a digital agency from Bulgaria offering 250+ digital services in 20 categories in one place: web development, SEO, design, marketing, e-commerce, AI automation, cybersecurity, GDPR compliance and more. Transparent pricing, one contact for everything.
 
-**За кого е:** малки и средни бизнеси в България, които искат професионално дигитално присъствие (сайт, магазин, маркетинг) без да наемат отделен изпълнител за всяка задача.
+**Who it is for:** small and medium businesses in Bulgaria that want a professional digital presence (website, online store, marketing) without hiring a separate contractor for every task.
 
-**Основен пакет:** „Сайт като услуга“ — старт от 15€/месец, 12-месечен договор. Включва фирмен сайт до 5 страници, лого, текстове, хостинг, домейн, SSL, GDPR документи и месечна техническа поддръжка.
+**Main package:** "Website as a Service" - from 15 EUR/month, 12-month contract. Includes a company website of up to 5 pages, logo, copywriting, hosting, domain, SSL, GDPR documents and monthly technical support.
 
-**Фирма:** „Имоти 98“ ЕООД, ЕИК 207210213. ул. 340 №3, София, България. Тел.: +359 87 901 8593.
+**Company:** Imoti 98 EOOD, company ID (EIK) 207210213. ul. 340 No. 3, Sofia, Bulgaria. Phone: +359 87 901 8593.
 
-Категории услуги (250 общо):
+Service categories (250 in total):
 
-- Уеб разработка (Web Development) — 20 услуги
-- SEO услуги (SEO Services) — 15 услуги
-- Дигитален маркетинг (Digital Marketing) — 20 услуги
-- Социални медии (Social Media) — 15 услуги
-- Съдържание и копирайтинг (Content & Copywriting) — 15 услуги
-- Дизайн и графика (Design & Graphics) — 15 услуги
-- Видео и аудио продукция (Video & Audio Production) — 15 услуги
-- Фотография (Photography) — 10 услуги
-- Мобилни приложения (Mobile Apps) — 10 услуги
-- E-commerce (E-commerce) — 12 услуги
-- IT и облачни услуги (IT & Cloud Services) — 12 услуги
-- Киберсигурност (Cybersecurity) — 12 услуги
-- Данни и анализ (Data & Analytics) — 12 услуги
-- Изкуствен интелект и автоматизация (AI & Automation) — 12 услуги
-- CRM и продажби (CRM & Sales) — 10 услуги
-- PR и комуникации (PR & Communications) — 10 услуги
-- Преводи и локализация (Translation & Localization) — 8 услуги
-- Обучение и консултации (Training & Consulting) — 8 услуги
-- Абонаментни и поддръжка услуги (Subscription & Maintenance) — 8 услуги
-- GDPR и правни услуги (GDPR & Legal) — 11 услуги
+- Web Development - 20 services
+- SEO Services - 15 services
+- Digital Marketing - 20 services
+- Social Media - 15 services
+- Content & Copywriting - 15 services
+- Design & Graphics - 15 services
+- Video & Audio Production - 15 services
+- Photography - 10 services
+- Mobile Apps - 10 services
+- E-commerce - 12 services
+- IT & Cloud Services - 12 services
+- Cybersecurity - 12 services
+- Data & Analytics - 12 services
+- AI & Automation - 12 services
+- CRM & Sales - 10 services
+- PR & Communications - 10 services
+- Translation & Localization - 8 services
+- Training & Consulting - 8 services
+- Subscription & Maintenance - 8 services
+- GDPR & Legal - 11 services
 
-## Услуги
+## Services
 
-- [Каталог с всички услуги](https://hackera.online/bg/#catalog): Пълният списък с 250 услуги в 20 категории, с цени и поръчка директно от сайта.
-- [Безплатен анализ на сайт](https://hackera.online/bg/): Безплатен анализ на съществуващ сайт, достъпен на началната страница.
+- [Service catalog](https://hackera.online/#catalog): The full list of 250 services in 20 categories, with prices and ordering directly on the site.
+- [Free website analysis](https://hackera.online/): Free analysis of an existing website, available on the home page.
 
-## Контакт
+## Contact
 
-- [ivan@hackera.online](mailto:ivan@hackera.online): Имейл за запитвания и поръчки.
+- [ivan@hackera.online](mailto:ivan@hackera.online): Email for inquiries and orders.
 
 ## Optional
 
-- [English version](https://hackera.online/): Същият каталог на английски.
+- [Bulgarian version](https://hackera.online/bg/): The same catalog in Bulgarian.
