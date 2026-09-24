@@ -1524,7 +1524,6 @@ function renderApp() {
     ${renderHero()}
     ${renderCategoryMarquee()}
     ${renderTrustBar()}
-    ${renderBigStats()}
     <div id="catalog" style="background:var(--pearl);border-bottom:1px solid var(--line-soft)">
       <div class="max-w-6xl mx-auto px-5 py-4">${renderCatDropdown()}</div>
     </div>
