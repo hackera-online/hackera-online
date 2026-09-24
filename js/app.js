@@ -217,7 +217,6 @@ function renderHero() {
       <h1 class="${rc(2)}font-display font-bold" style="font-size:clamp(30px,5vw,46px);color:#fff;letter-spacing:-0.02em;line-height:1.12">
         ${t("heroLine1")}<br/><span class="hero-shimmer-text">${t("heroLine2")}</span>
       </h1>
-      <p class="${rc(3)}mt-3 mx-auto" style="font-size:15px;color:rgba(255,255,255,0.65);max-width:460px;line-height:1.6">${t("heroSub")}</p>
       <div class="${rc(4)}flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
         <button id="browseCtaBtn" class="btn-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${t("browseCta")}</button>
         <button id="checkCtaBtn" class="btn-ghost-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="border:1px solid rgba(255,255,255,0.4);color:#fff">${t("checkCta")}</button>
