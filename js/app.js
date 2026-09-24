@@ -836,7 +836,8 @@ function renderAddDemo() {
       <div class="px-3 py-1.5 rounded-full" style="background:${addDemo.added.length ? "var(--gradient)" : "var(--pearl)"}">
         <span class="font-mono" style="font-size:9.5px;color:${addDemo.added.length ? "#fff" : "var(--muted)"};font-weight:600">${t("sendRequest")}</span>
       </div>
-    </div>`);
+    </div>
+  </div>`);
 }
 function runAddDemoLoop() {
   clearTimeout(addDemo.timer);
@@ -1619,18 +1620,6 @@ function mountPayPalButton() {
     createSubscription: function (data, actions) {
       return actions.subscription.create({ plan_id: "P-9E058101AK592533PNK2NQAA" });
     },
-    onApprove: function (data) {
-      sendNotification(
-        { "PayPal Subscription ID": data.subscriptionID },
-        "Нов PayPal абонамент — пакет 13€/месец"
-      );
-      alert(state.lang === "bg"
-        ? "Абонаментът е активиран успешно! Ще се свържем с теб скоро."
-        : "Subscription activated! We'll be in touch soon.");
-    },
-    onError: function (err) { console.error("PayPal error:", err); },
-  }).render("#paypalButtonContainer");
-}
     onApprove: function (data) {
       sendNotification(
         { "PayPal Subscription ID": data.subscriptionID },
