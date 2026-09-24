@@ -1581,9 +1581,9 @@ function renderApp() {
   rerenderAddDemo();
   runAuditDemoLoop();
   runAddDemoLoop();
+  mountPayPalButton();
   renderModals();
 }
-
 function renderModals() {
   let host = document.getElementById("modalsRoot");
   if (!host) { host = document.createElement("div"); host.id = "modalsRoot"; document.body.appendChild(host); }
