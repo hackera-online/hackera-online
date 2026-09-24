@@ -41,6 +41,18 @@
      Main app assembly                 — renderApp(), renderModals()
    ========================================================================= */
 
+/* Auto language: Bulgarian browsers landing on "/" go to "/bg/" once.
+   A manual EN/BG click is remembered and never redirected again. */
+(function () {
+  try {
+    var path = location.pathname.replace(/index\.html$/, "");
+    var saved = localStorage.getItem("hkLang");
+    if (!saved && path === "/" && /^bg/i.test(navigator.language || "")) {
+      location.replace("/bg/");
+    }
+  } catch (e) {}
+})();
+
 const STRIPE_CHECKOUT_ENABLED = false;
 
 const state = {
@@ -1553,6 +1565,7 @@ function renderApp() {
   document.querySelectorAll(".lang-btn").forEach((b) => b.addEventListener("click", () => {
     const target = b.dataset.lang;
     if (target === state.lang) return;
+    try { localStorage.setItem("hkLang", target); } catch (e) {}
     location.href = target === "bg" ? "/bg/" : "/";
   }));
   document.getElementById("cartBtn")?.addEventListener("click", openDrawer);
@@ -1616,7 +1629,8 @@ function mountPayPalButton() {
 
   container.innerHTML = "";
   window.paypal.Buttons({
-style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe", tagline: false },    createSubscription: function (data, actions) {
+    style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe", tagline: false },
+    createSubscription: function (data, actions) {
       return actions.subscription.create({ plan_id: "P-9E058101AK592533PNK2NQAA" });
     },
     onApprove: function (data) {
