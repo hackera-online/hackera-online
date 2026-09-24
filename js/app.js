@@ -214,10 +214,6 @@ function renderHero() {
     <div class="orb" style="width:260px;height:260px;top:20px;right:6%;background:rgba(255,90,31,0.2);animation-delay:-4s"></div>
     <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,90,31,0.16), transparent 70%)"></div>
     <div class="max-w-3xl mx-auto px-5 pt-16 pb-16 relative text-center">
-      <span class="${rc(1)}inline-flex items-center gap-2 px-3 py-1 rounded-full mb-5" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14)">
-        <span class="eyebrow-dot"></span>
-        <span class="font-mono uppercase" style="font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:0.06em">${state.lang === "bg" ? `${TOTAL_SERVICES}+ услуги · 20 категории` : `${TOTAL_SERVICES}+ services · 20 categories`}</span>
-      </span>
       <h1 class="${rc(2)}font-display font-bold" style="font-size:clamp(30px,5vw,46px);color:#fff;letter-spacing:-0.02em;line-height:1.12">
         ${t("heroLine1")}<br/><span class="hero-shimmer-text">${t("heroLine2")}</span>
       </h1>
