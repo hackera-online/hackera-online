@@ -1616,8 +1616,7 @@ function mountPayPalButton() {
 
   container.innerHTML = "";
   window.paypal.Buttons({
-    style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe" },
-    createSubscription: function (data, actions) {
+style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe", tagline: false },    createSubscription: function (data, actions) {
       return actions.subscription.create({ plan_id: "P-9E058101AK592533PNK2NQAA" });
     },
     onApprove: function (data) {
