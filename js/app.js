@@ -1611,11 +1611,24 @@ function renderModals() {
 function mountPayPalButton() {
   const container = document.getElementById("paypalButtonContainer");
   if (!container) return;
-  if (!window.paypal || !window.paypal.HostedButtons) { setTimeout(mountPayPalButton, 300); return; }
+  if (!window.paypal) { setTimeout(mountPayPalButton, 300); return; }
 
   container.innerHTML = "";
-  window.paypal.HostedButtons({
-    hostedButtonId: "YOUR_HOSTED_BUTTON_ID",
+  window.paypal.Buttons({
+    style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe" },
+    createSubscription: function (data, actions) {
+      return actions.subscription.create({ plan_id: "P-9E058101AK592533PNK2NQAA" });
+    },
+    onApprove: function (data) {
+      sendNotification(
+        { "PayPal Subscription ID": data.subscriptionID },
+        "Нов PayPal абонамент — пакет 13€/месец"
+      );
+      alert(state.lang === "bg"
+        ? "Абонаментът е активиран успешно! Ще се свържем с теб скоро."
+        : "Subscription activated! We'll be in touch soon.");
+    },
+    onError: function (err) { console.error("PayPal error:", err); },
   }).render("#paypalButtonContainer");
 }
     onApprove: function (data) {
