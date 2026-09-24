@@ -1607,6 +1607,31 @@ function renderModals() {
    document (including the large JSON-LD blocks further down the page) has
    been parsed, which would delay the swap from the static snapshot to the
    interactive app for no reason. */
+/* ---------- PayPal — recurring 13€/month subscription button ---------- */
+function mountPayPalButton() {
+  const container = document.getElementById("paypalButtonContainer");
+  if (!container) return;
+  if (!window.paypal) { setTimeout(mountPayPalButton, 300); return; }
+
+  container.innerHTML = "";
+  window.paypal.Buttons({
+    style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe" },
+    createSubscription: function (data, actions) {
+      return actions.subscription.create({ plan_id: "YOUR_PLAN_ID" });
+    },
+    onApprove: function (data) {
+      sendNotification(
+        { "PayPal Subscription ID": data.subscriptionID },
+        "Нов PayPal абонамент — пакет 13€/месец"
+      );
+      alert(state.lang === "bg"
+        ? "Абонаментът е активиран успешно! Ще се свържем с теб скоро."
+        : "Subscription activated! We'll be in touch soon.");
+    },
+    onError: function (err) { console.error("PayPal error:", err); },
+  }).render("#paypalButtonContainer");
+}
+
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", renderApp);
 } else {
