@@ -1111,8 +1111,12 @@ function renderPricing() {
           <span style="font-size:13.5px;color:var(--ink)">${item}</span>
         </div>`).join("")}
       </div>
-      <div class="px-8 pb-8 pt-2 text-center" style="background:var(--paper)">
+          <div class="px-8 pb-8 pt-2 text-center" style="background:var(--paper)">
                 <button id="consultCtaBtn" class="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${state.lang === "bg" ? "Заяви безплатна консултация" : "Request a free consultation"}</button>
+                <div class="mt-4 pt-4" style="border-top:1px solid var(--line-soft);max-width:320px;margin-left:auto;margin-right:auto">
+                  <div class="font-mono" style="font-size:11px;color:var(--muted);margin-bottom:10px">${state.lang === "bg" ? "или поръчай директно" : "or order directly"}</div>
+                  <div id="paypalButtonContainer"></div>
+                </div>
       </div>
     </div>
   </section>`;
