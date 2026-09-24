@@ -1611,14 +1611,13 @@ function renderModals() {
 function mountPayPalButton() {
   const container = document.getElementById("paypalButtonContainer");
   if (!container) return;
-  if (!window.paypal) { setTimeout(mountPayPalButton, 300); return; }
+  if (!window.paypal || !window.paypal.HostedButtons) { setTimeout(mountPayPalButton, 300); return; }
 
   container.innerHTML = "";
-  window.paypal.Buttons({
-    style: { shape: "pill", color: "gold", layout: "horizontal", label: "subscribe" },
-    createSubscription: function (data, actions) {
-      return actions.subscription.create({ plan_id: "YOUR_PLAN_ID" });
-    },
+  window.paypal.HostedButtons({
+    hostedButtonId: "YOUR_HOSTED_BUTTON_ID",
+  }).render("#paypalButtonContainer");
+}
     onApprove: function (data) {
       sendNotification(
         { "PayPal Subscription ID": data.subscriptionID },
