@@ -1,0 +1,454 @@
+{
+  "ai-and-automation/chatbot-development": {
+    "bg": {
+      "who": "За фирми, които получават едни и същи въпроси всеки ден — за цени, срокове, наличности или работно време — и искат клиентите да получават отговор веднага, без да чакат човек.",
+      "included": [
+        "Подготовка на отговорите въз основа на вашия сайт, услуги и често задавани въпроси",
+        "Чат асистент, вграден на сайта ви, с дизайн в цветовете на марката",
+        "Събиране на контактите на заинтересованите посетители и изпращането им на вашия имейл",
+        "Тестване с реални въпроси преди пускане на живо",
+        "Настройка кога асистентът да предава разговора на човек"
+      ],
+      "outcome": "Клиентите получават отговор по всяко време, а екипът ви се занимава само със запитвания, които наистина изискват човек.",
+      "faq": [
+        { "q": "Може ли асистентът да отговаря само за моя бизнес?", "a": "Да. Отговорите се изграждат върху информацията за вашите услуги, цени и условия, така че асистентът да не говори за неща извън нея." },
+        { "q": "Какво става, ако асистентът не знае отговора?", "a": "Може да предложи на посетителя да остави контакт, а запитването стига до вас по имейл." },
+        { "q": "Трябва ли да имам сайт, за да ползвам чат асистент?", "a": "Най-удобно е асистентът да е на сайта ви, защото там идват клиентите. Ако още нямате сайт, можем да го направим заедно." }
+      ],
+      "meta": "Чат асистент за сайта ви: отговаря на въпросите на клиентите по всяко време и събира запитвания. Разработка по мярка от Hackera."
+    },
+    "en": {
+      "who": "For businesses that get the same questions every day — about prices, timelines, availability or opening hours — and want customers to get an answer right away instead of waiting for a person.",
+      "included": [
+        "Answers prepared from your website, services and frequently asked questions",
+        "A chat assistant built into your site, styled in your brand colors",
+        "Collecting contact details from interested visitors and sending them to your email",
+        "Testing with real questions before going live",
+        "Rules for when the assistant hands the conversation over to a person"
+      ],
+      "outcome": "Customers get an answer at any hour, and your team only deals with inquiries that truly need a person.",
+      "faq": [
+        { "q": "Can the assistant answer only about my business?", "a": "Yes. Answers are built on the information about your services, prices and terms, so the assistant does not talk about things outside it." },
+        { "q": "What happens if the assistant doesn't know the answer?", "a": "It can invite the visitor to leave their contact details, and the inquiry reaches you by email." },
+        { "q": "Do I need a website to use a chat assistant?", "a": "It works best on your site, because that's where your customers arrive. If you don't have a site yet, we can build it together." }
+      ],
+      "meta": "A chat assistant for your website: it answers customer questions at any hour and collects inquiries. Custom-built by Hackera."
+    }
+  },
+  "web-development/business-website-development": {
+    "bg": {
+      "who": "За бизнеси, които още нямат сайт или имат остарял, и искат да представят услугите си ясно и да улеснят клиентите да се свържат с тях.",
+      "included": [
+        "Основни страници: начало, услуги, за нас и контакти",
+        "Дизайн, който изглежда добре на телефон, таблет и компютър",
+        "Структура, подготвена за търсачките: заглавия, описания и бързо зареждане",
+        "Формуляр за контакт с известие на имейл",
+        "Свързване с Google Analytics и Search Console",
+        "Кратко обяснение как да променяте текстовете сами"
+      ],
+      "outcome": "Получавате сайт, който представя бизнеса ви ясно, зарежда се бързо и можете да поддържате без технически познания.",
+      "faq": [
+        { "q": "Колко страници трябва да има сайтът?", "a": "Зависи от бизнеса. За повечето малки фирми са достатъчни 4-6 страници. Пакетът „Сайт като услуга“ включва сайт до 5 страници." },
+        { "q": "Мога ли сам да сменям текстовете?", "a": "Да. Показваме как се редактира съдържанието, а при желание поемаме промените вместо вас." },
+        { "q": "Трябва ли ми хостинг и домейн?", "a": "Да, но можем да ги подберем и настроим заедно. В пакета „Сайт като услуга“ хостингът и домейнът са включени." }
+      ],
+      "meta": "Изработка на фирмен сайт: ясно представяне на услугите, бърз, удобен на телефон и подготвен за Google. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For businesses that don't have a website yet, or have an outdated one, and want to present their services clearly and make it easy for customers to get in touch.",
+      "included": [
+        "Core pages: home, services, about and contact",
+        "A design that looks good on phone, tablet and desktop",
+        "A structure prepared for search engines: titles, descriptions and fast loading",
+        "A contact form with email notifications",
+        "Connection to Google Analytics and Search Console",
+        "A short walkthrough on how to edit the text yourself"
+      ],
+      "outcome": "You get a site that presents your business clearly, loads fast, and that you can maintain without technical knowledge.",
+      "faq": [
+        { "q": "How many pages should the site have?", "a": "It depends on the business. For most small companies 4-6 pages are enough. The Website as a Service package includes a site of up to 5 pages." },
+        { "q": "Can I change the text myself?", "a": "Yes. We show you how to edit the content, and if you prefer, we handle the changes for you." },
+        { "q": "Do I need hosting and a domain?", "a": "Yes, but we can choose and set them up together. In the Website as a Service package, hosting and domain are included." }
+      ],
+      "meta": "Business website development: clear presentation of your services, fast, mobile-friendly and ready for Google. Request a quote from Hackera."
+    }
+  },
+  "web-development/online-stores": {
+    "bg": {
+      "who": "За търговци, които искат да продават в интернет със собствен магазин — с каталог, количка и плащане.",
+      "included": [
+        "Каталог с категории, продукти и снимки",
+        "Количка и поръчване, удобни от телефон",
+        "Свързване със система за плащане и с доставка",
+        "Основна SEO настройка на продуктовите страници",
+        "Кратко обучение как да добавяте и променяте продукти"
+      ],
+      "outcome": "Магазин, готов да приема поръчки и плащания още от старта, който можете да управлявате сами.",
+      "faq": [
+        { "q": "На каква платформа се прави магазинът?", "a": "Според нуждите ви — например WordPress или Shopify. Избираме заедно, като гледаме колко продукта имате и как искате да управлявате магазина." },
+        { "q": "Мога ли да приемам плащане с карта?", "a": "Да, чрез свързване със система за плащане в интернет. Условията зависят от доставчика, който изберете." },
+        { "q": "Колко продукта може да има в магазина?", "a": "И двете платформи се справят както с малък, така и с голям каталог." }
+      ],
+      "meta": "Изработка на онлайн магазин с каталог, количка и плащане, удобен от телефон и готов за първите поръчки. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For merchants who want to sell online with their own store — with a catalog, cart and checkout.",
+      "included": [
+        "A catalog with categories, products and photos",
+        "A cart and checkout that work well on a phone",
+        "Connection to a payment system and to shipping",
+        "Basic SEO setup of the product pages",
+        "A short training on adding and editing products"
+      ],
+      "outcome": "A store ready to accept orders and payments from day one, which you can manage yourself.",
+      "faq": [
+        { "q": "What platform is the store built on?", "a": "It depends on your needs — for example WordPress or Shopify. We choose together, based on how many products you have and how you want to manage the store." },
+        { "q": "Can I accept card payments?", "a": "Yes, by connecting an online payment system. The terms depend on the provider you choose." },
+        { "q": "How many products can the store have?", "a": "Both platforms handle small and large catalogs alike." }
+      ],
+      "meta": "Online store development with catalog, cart and checkout, mobile-friendly and ready for your first orders. Request a quote from Hackera."
+    }
+  },
+  "web-development/wordpress-development": {
+    "bg": {
+      "who": "За бизнеси, които искат сайт, който сами да редактират, без всеки път да търсят програмист.",
+      "included": [
+        "Инсталиране и настройка на WordPress",
+        "Тема, съобразена с вашата марка",
+        "Нужните добавки, без излишни",
+        "Настройки за сигурност и резервни копия",
+        "Обяснение как се добавят страници и текстове"
+      ],
+      "outcome": "Сайт, в който сами сменяте текстове и снимки и който е подготвен да расте заедно с бизнеса ви.",
+      "faq": [
+        { "q": "Подходящ ли е WordPress за малка фирма?", "a": "Да. Това е една от най-разпространените платформи за сайтове — гъвкава и с много готови възможности." },
+        { "q": "Трябва ли да обновявам нещо редовно?", "a": "WordPress и добавките му се обновяват редовно. Можем да поемем това в месечна поддръжка." },
+        { "q": "Мога ли да сменя дизайна по-късно?", "a": "В повечето случаи да — темата може да се смени или преработи, без да губите съдържанието." }
+      ],
+      "meta": "Разработка на WordPress сайт, който сами можете да редактирате: тема по марката, сигурност и резервни копия. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For businesses that want a site they can edit themselves, without looking for a developer every time.",
+      "included": [
+        "WordPress installation and setup",
+        "A theme matched to your brand",
+        "The plugins you need, without extras",
+        "Security settings and backups",
+        "A walkthrough on adding pages and text"
+      ],
+      "outcome": "A site where you change text and photos yourself, prepared to grow with your business.",
+      "faq": [
+        { "q": "Is WordPress suitable for a small business?", "a": "Yes. It is one of the most widely used website platforms — flexible and with many ready-made features." },
+        { "q": "Do I need to update anything regularly?", "a": "WordPress and its plugins are updated regularly. We can take this on as part of monthly maintenance." },
+        { "q": "Can I change the design later?", "a": "In most cases yes — the theme can be replaced or reworked without losing your content." }
+      ],
+      "meta": "WordPress development for a site you can edit yourself: a brand-matched theme, security and backups. Request a quote from Hackera."
+    }
+  },
+  "seo-services/seo-audit": {
+    "bg": {
+      "who": "За собственици на сайтове, които не се появяват високо в Google и не знаят защо.",
+      "included": [
+        "Проверка за технически проблеми: скорост, индексиране и мобилна версия",
+        "Преглед на заглавията, описанията и структурата на страниците",
+        "Кратък анализ на ключовите думи и конкурентите",
+        "Списък с проблемите по важност",
+        "Ясни препоръки какво да се поправи първо"
+      ],
+      "outcome": "Получавате разбираем доклад, от който знаете какво пречи на сайта ви да се класира и с какво да започнете.",
+      "faq": [
+        { "q": "Колко време отнема одитът?", "a": "Зависи от големината на сайта. След като го видим, посочваме срок." },
+        { "q": "Вие ли ще поправите откритите проблеми?", "a": "Одитът показва какво е нужно. Поправките можем да поемем ние или вашият разработчик — както предпочитате." },
+        { "q": "Гарантира ли одитът първо място в Google?", "a": "Не. Никой не може да гарантира позиция, но одитът премахва пречките и повишава шансовете ви." }
+      ],
+      "meta": "SEO одит на сайта ви: технически проблеми, заглавия, структура и конкуренти — с ясни препоръки какво да поправите първо. От Hackera."
+    },
+    "en": {
+      "who": "For website owners who don't rank high in Google and don't know why.",
+      "included": [
+        "A check for technical problems: speed, indexing and mobile version",
+        "A review of titles, descriptions and page structure",
+        "A short analysis of keywords and competitors",
+        "A list of issues ordered by importance",
+        "Clear recommendations on what to fix first"
+      ],
+      "outcome": "You get an easy-to-read report that shows what holds your site back from ranking and where to start.",
+      "faq": [
+        { "q": "How long does the audit take?", "a": "It depends on the size of the site. Once we see it, we give you a timeline." },
+        { "q": "Will you fix the problems you find?", "a": "The audit shows what is needed. We can do the fixes, or your developer can — whichever you prefer." },
+        { "q": "Does the audit guarantee first place in Google?", "a": "No. Nobody can guarantee a position, but the audit removes the obstacles and improves your chances." }
+      ],
+      "meta": "An SEO audit of your site: technical issues, titles, structure and competitors — with clear recommendations on what to fix first. By Hackera."
+    }
+  },
+  "seo-services/e-commerce-seo": {
+    "bg": {
+      "who": "За онлайн магазини, чиито продуктови и категорийни страници не се намират в Google.",
+      "included": [
+        "Оптимизация на заглавията и описанията на категории и продукти",
+        "Подреждане на структурата и вътрешните връзки",
+        "Проверка за повтарящо се съдържание и технически грешки",
+        "Маркиране на структурирани данни за продуктите",
+        "Проучване на ключовите думи, които клиентите реално търсят"
+      ],
+      "outcome": "Повече посетители, които търсят точно това, което продавате.",
+      "faq": [
+        { "q": "Подходящо ли е за малък магазин?", "a": "Да. И при малък каталог правилната структура и описания имат голямо значение." },
+        { "q": "След колко време ще се видят резултати?", "a": "SEO работи постепенно — обикновено са нужни от седмици до месеци. Не обещаваме бързи чудеса." },
+        { "q": "Трябва ли да сменя платформата на магазина?", "a": "Обикновено не. Повечето подобрения се правят върху сегашната платформа." }
+      ],
+      "meta": "SEO за онлайн магазини: оптимизация на продуктови и категорийни страници, структура и ключови думи. Повече посетители от Google. От Hackera."
+    },
+    "en": {
+      "who": "For online stores whose product and category pages can't be found in Google.",
+      "included": [
+        "Optimizing titles and descriptions of categories and products",
+        "Organizing the structure and internal links",
+        "A check for duplicate content and technical errors",
+        "Structured data markup for products",
+        "Research on the keywords customers actually search for"
+      ],
+      "outcome": "More visitors who are looking for exactly what you sell.",
+      "faq": [
+        { "q": "Is it suitable for a small store?", "a": "Yes. Even with a small catalog, the right structure and descriptions matter a lot." },
+        { "q": "How soon will I see results?", "a": "SEO works gradually — it usually takes weeks to months. We don't promise quick miracles." },
+        { "q": "Do I need to change my store platform?", "a": "Usually not. Most improvements are made on your current platform." }
+      ],
+      "meta": "E-commerce SEO: optimizing product and category pages, structure and keywords. More visitors from Google. By Hackera."
+    }
+  },
+  "digital-marketing/ppc-ads": {
+    "bg": {
+      "who": "За бизнеси, които искат клиенти още сега, като се показват в Google точно когато някой търси тяхната услуга.",
+      "included": [
+        "Избор на ключови думи и аудитория",
+        "Изготвяне на рекламите и на страницата, към която водят",
+        "Настройка на проследяване на запитвания и обаждания",
+        "Следене и корекции на бюджета",
+        "Редовен отчет какво е дало резултат"
+      ],
+      "outcome": "Реклами, които водят към запитвания, и ясна картина колко струва всяко запитване.",
+      "faq": [
+        { "q": "Колко да е рекламният бюджет?", "a": "Зависи от нишата и конкуренцията. Определяме го заедно след кратък анализ. Рекламният бюджет се плаща на Google и е отделен от възнаграждението за управление." },
+        { "q": "Колко бързо идват резултати?", "a": "Рекламите могат да започнат да водят посетители веднага, но първите седмици са за тестване и настройка." },
+        { "q": "Мога ли да спра рекламите по всяко време?", "a": "Да, рекламите могат да се спрат или променят, когато поискате." }
+      ],
+      "meta": "Платени реклами в Google: показвате се точно когато клиентите търсят вашата услуга, с проследяване на запитванията. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For businesses that want customers now, by appearing in Google exactly when someone searches for their service.",
+      "included": [
+        "Choosing keywords and audience",
+        "Creating the ads and the page they lead to",
+        "Setting up tracking of inquiries and calls",
+        "Monitoring and adjusting the budget",
+        "A regular report on what produced results"
+      ],
+      "outcome": "Ads that lead to inquiries, and a clear picture of what each inquiry costs.",
+      "faq": [
+        { "q": "How big should the ad budget be?", "a": "It depends on the niche and the competition. We set it together after a short analysis. The ad budget is paid to Google and is separate from the management fee." },
+        { "q": "How fast do results come?", "a": "Ads can start bringing visitors right away, but the first weeks are for testing and tuning." },
+        { "q": "Can I stop the ads at any time?", "a": "Yes, ads can be paused or changed whenever you like." }
+      ],
+      "meta": "Paid ads in Google: appear exactly when customers search for your service, with inquiry tracking. Request a quote from Hackera."
+    }
+  },
+  "social-media/social-media-management": {
+    "bg": {
+      "who": "За бизнеси, които искат активни профили в социалните мрежи, но нямат време да публикуват и да отговарят редовно.",
+      "included": [
+        "Месечен план за публикациите",
+        "Изработка на текстове и изображения в стила на марката",
+        "Публикуване по предварително уточнен график",
+        "Отговори на коментари и съобщения",
+        "Кратък месечен отчет за резултатите"
+      ],
+      "outcome": "Последователно присъствие в социалните мрежи, което изгражда доверие, без да ви отнема време всеки ден.",
+      "faq": [
+        { "q": "В кои социални мрежи работите?", "a": "Най-често във Facebook, Instagram, LinkedIn и TikTok. Избираме там, където е вашата аудитория." },
+        { "q": "Кой одобрява публикациите?", "a": "Вие, ако желаете. Можем да съгласуваме плана преди публикуване." },
+        { "q": "Има ли минимален срок?", "a": "Условията се уточняват в офертата." }
+      ],
+      "meta": "Управление на социални мрежи: план, текстове, изображения, публикуване и отговори на коментари. Постоянно присъствие без загуба на време."
+    },
+    "en": {
+      "who": "For businesses that want active social media profiles but don't have time to post and respond regularly.",
+      "included": [
+        "A monthly content plan",
+        "Creating text and visuals in your brand's style",
+        "Publishing on an agreed schedule",
+        "Replies to comments and messages",
+        "A short monthly performance report"
+      ],
+      "outcome": "A consistent presence on social media that builds trust, without taking up your time every day.",
+      "faq": [
+        { "q": "Which social networks do you work with?", "a": "Most often Facebook, Instagram, LinkedIn and TikTok. We choose where your audience is." },
+        { "q": "Who approves the posts?", "a": "You, if you wish. We can agree on the plan before anything is published." },
+        { "q": "Is there a minimum term?", "a": "The terms are set out in the offer." }
+      ],
+      "meta": "Social media management: plan, copy, visuals, publishing and replies to comments. A steady presence without the time drain."
+    }
+  },
+  "design-and-graphics/logo-design": {
+    "bg": {
+      "who": "За нови бизнеси и за такива, които искат да изглеждат по-професионално.",
+      "included": [
+        "Кратък разговор за марката, аудиторията и желания стил",
+        "Няколко първоначални предложения",
+        "Корекции по вашите бележки",
+        "Файлове във формати за печат и за екран",
+        "Кратки насоки за употреба: цветове и шрифтове"
+      ],
+      "outcome": "Ясен, запомнящ се знак, готов за употреба на сайта, визитките и в социалните мрежи.",
+      "faq": [
+        { "q": "Колко варианта получавам?", "a": "Започваме с няколко първоначални предложения. Броят им и корекциите се уточняват в офертата." },
+        { "q": "Мои ли са правата върху логото?", "a": "След пълно заплащане правата върху финалния резултат преминават към вас, освен ако не е уговорено друго." },
+        { "q": "В какви формати получавам логото?", "a": "Във формати, подходящи както за печат, така и за екран." }
+      ],
+      "meta": "Дизайн на лого: разпознаваем знак за вашата марка, готов за сайт, печат и социални мрежи. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For new businesses, and for those that want to look more professional.",
+      "included": [
+        "A short conversation about the brand, audience and desired style",
+        "A few initial concepts",
+        "Revisions based on your notes",
+        "Files in print and screen formats",
+        "Short usage guidelines: colors and fonts"
+      ],
+      "outcome": "A clear, memorable mark, ready to use on your site, business cards and social media.",
+      "faq": [
+        { "q": "How many concepts do I get?", "a": "We start with a few initial concepts. Their number and the revisions are set out in the offer." },
+        { "q": "Do I own the rights to the logo?", "a": "After full payment, the rights to the final result pass to you, unless agreed otherwise." },
+        { "q": "What formats do I receive the logo in?", "a": "In formats suited to both print and screen." }
+      ],
+      "meta": "Logo design: a recognizable mark for your brand, ready for web, print and social media. Request a quote from Hackera."
+    }
+  },
+  "subscription-and-maintenance/monthly-website-maintenance": {
+    "bg": {
+      "who": "За собственици на сайтове, които искат спокойствие — някой друг да се грижи за техническата част.",
+      "included": [
+        "Редовни актуализации и проверки за сигурност",
+        "Резервни копия при всяка промяна",
+        "Бърза реакция при проблем",
+        "Дребни промени по съдържанието",
+        "Месечен отчет за състоянието на сайта",
+        "Един контакт за всички технически въпроси"
+      ],
+      "outcome": "Сайт, който работи гладко и се обновява редовно, без да се тревожите за него.",
+      "faq": [
+        { "q": "Какво става, ако сайтът ми спре да работи?", "a": "Реагираме бързо и при нужда го възстановяваме от резервно копие." },
+        { "q": "Поддържате ли сайтове, правени от други?", "a": "Обикновено да. Първо го преглеждаме, за да видим в какво състояние е." },
+        { "q": "Колко струва поддръжката?", "a": "Цената зависи от сайта и обема на работата. Пакетът „Сайт като услуга“ включва месечна поддръжка в цената си." }
+      ],
+      "meta": "Месечна поддръжка на сайт: обновявания, сигурност, резервни копия и бърза реакция при проблем. Един контакт за всичко. От Hackera."
+    },
+    "en": {
+      "who": "For website owners who want peace of mind — someone else taking care of the technical side.",
+      "included": [
+        "Regular updates and security checks",
+        "Backups with every change",
+        "Fast response if something breaks",
+        "Small content changes",
+        "A monthly site-health report",
+        "One contact for all technical questions"
+      ],
+      "outcome": "A site that runs smoothly and gets updated regularly, without you having to worry about it.",
+      "faq": [
+        { "q": "What happens if my site stops working?", "a": "We respond quickly and, if needed, restore it from a backup." },
+        { "q": "Do you maintain sites built by others?", "a": "Usually yes. We review the site first to see what condition it is in." },
+        { "q": "How much does maintenance cost?", "a": "The price depends on the site and the amount of work. The Website as a Service package includes monthly maintenance in its price." }
+      ],
+      "meta": "Monthly website maintenance: updates, security, backups and fast response when something breaks. One contact for everything. By Hackera."
+    }
+  },
+  "subscription-and-maintenance/website-as-a-service": {
+    "bg": {
+      "who": "За малки бизнеси, които искат професионален сайт без голяма първоначална сума.",
+      "included": [
+        "Фирмен сайт до 5 страници",
+        "Скорост и техническа оптимизация",
+        "Професионално лого",
+        "Текстове за сайта",
+        "Основно SEO",
+        "Профил в Google за бизнеса (Google Business Profile)",
+        "Политика по GDPR и за бисквитките",
+        "Общи условия",
+        "Хостинг и домейн",
+        "SSL сертификат",
+        "Месечни актуализации",
+        "Резервни копия и наблюдение"
+      ],
+      "outcome": "Един месечен разход от 13 евро вместо голяма еднократна сума, като всичко нужно за онлайн присъствие е включено.",
+      "faq": [
+        { "q": "Колко струва пакетът?", "a": "13 евро на месец, с минимален срок 12 месеца." },
+        { "q": "Какво включва?", "a": "Сайт до 5 страници, лого, текстове, основно SEO, хостинг, домейн, SSL, документи по GDPR и месечна техническа поддръжка." },
+        { "q": "Мога ли да поръчам и други услуги?", "a": "Да. Добавяте ги от каталога и получавате индивидуална оферта." }
+      ],
+      "meta": "Сайт като услуга за 13 евро на месец: сайт до 5 страници, лого, текстове, хостинг, домейн и поддръжка — без голяма първоначална сума."
+    },
+    "en": {
+      "who": "For small businesses that want a professional website without a large upfront sum.",
+      "included": [
+        "A business website of up to 5 pages",
+        "Speed and technical optimization",
+        "A professional logo",
+        "Website copy",
+        "Basic SEO",
+        "Google Business Profile",
+        "GDPR policy and cookies",
+        "Terms of service",
+        "Hosting and domain",
+        "SSL certificate",
+        "Monthly updates",
+        "Backup and monitoring"
+      ],
+      "outcome": "One monthly cost of 13 euros instead of a large one-time sum, with everything needed for an online presence included.",
+      "faq": [
+        { "q": "How much does the package cost?", "a": "13 euros per month, with a minimum term of 12 months." },
+        { "q": "What's included?", "a": "A site of up to 5 pages, logo, copy, basic SEO, hosting, domain, SSL, GDPR documents and monthly technical maintenance." },
+        { "q": "Can I order other services too?", "a": "Yes. Add them from the catalog and get a tailored offer." }
+      ],
+      "meta": "Website as a service for 13 euros a month: a site of up to 5 pages, logo, copy, hosting, domain and maintenance — with no large upfront sum."
+    }
+  },
+  "gdpr-and-legal/gdpr-policy-and-cookies": {
+    "bg": {
+      "who": "За собственици на сайтове, които събират данни — чрез формуляри, статистика или бисквитки — и искат документите им да са в ред.",
+      "included": [
+        "Политика за поверителност, съобразена с вашата дейност",
+        "Политика за бисквитките",
+        "Банер за съгласие с бисквитки",
+        "Обяснение на съдържанието на разбираем език",
+        "Документи, готови за публикуване на сайта",
+        "Препоръка за преглед от юрист при сложни случаи"
+      ],
+      "outcome": "Документи, които обясняват ясно как обработвате личните данни, и сайт, който иска съгласие така, както се изисква.",
+      "faq": [
+        { "q": "Това юридически съвет ли е?", "a": "Не. Документите са съобразени с изискванията на GDPR, но при сложни случаи препоръчваме преглед от юрист." },
+        { "q": "Задължително ли е за всеки сайт?", "a": "Ако сайтът събира лични данни или ползва бисквитки за статистика и реклама, е необходимо да информирате посетителите и да поискате съгласие." },
+        { "q": "Колко често трябва да се обновяват документите?", "a": "При всяка промяна в начина, по който обработвате данни." }
+      ],
+      "meta": "Политика по GDPR и за бисквитките за вашия сайт: ясни документи, банер за съгласие и готовност за публикуване. Поискайте оферта от Hackera."
+    },
+    "en": {
+      "who": "For website owners who collect data — through forms, analytics or cookies — and want their documents in order.",
+      "included": [
+        "A privacy policy matched to your business",
+        "A cookie policy",
+        "A cookie consent banner",
+        "The content explained in plain language",
+        "Documents ready to publish on your site",
+        "A lawyer-review recommendation for complex cases"
+      ],
+      "outcome": "Documents that clearly explain how you handle personal data, and a site that asks for consent the way it should.",
+      "faq": [
+        { "q": "Is this legal advice?", "a": "No. The documents are aligned with GDPR requirements, but for complex cases we recommend a review by a lawyer." },
+        { "q": "Is it mandatory for every site?", "a": "If your site collects personal data or uses cookies for analytics and advertising, you need to inform visitors and ask for consent." },
+        { "q": "How often should the documents be updated?", "a": "Whenever the way you handle data changes." }
+      ],
+      "meta": "GDPR policy and cookies for your website: clear documents, a consent banner and ready to publish. Request a quote from Hackera."
+    }
+  }
+}
