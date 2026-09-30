@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 /* Hackera static page generator. Run from the repo root: node build.js
-   Reads js/data.js and js/app.js, writes static pages, sitemap.xml and llms.txt. */
+   Reads js/data.js and js/app.js (+ optional content/services.json), writes static pages,
+   sitemap.xml and llms.txt, and fills the <!--CATEGORIES--> marker in index.html and bg/index.html.
+
+   Thin-content protection: a service page is indexable ONLY if content/services.json has
+   hand-written text for it in BOTH languages. Every other service page is generated with
+   <meta name="robots" content="noindex, follow"> and is left out of sitemap.xml and llms.txt,
+   until you write real content for it. */
 "use strict";
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const ROOT = process.cwd();
@@ -20,6 +26,12 @@ const appSrc = fs.readFileSync(path.join(ROOT, "js/app.js"), "utf8");
 const a = appSrc.indexOf("const CATEGORY_DETAIL = {"), b = appSrc.indexOf("function getCategoryDetail");
 if (a < 0 || b < 0) throw new Error("CATEGORY_DETAIL not found in js/app.js");
 const DETAIL = runIn(appSrc.slice(a, b), "CATEGORY_DETAIL");
+
+/* Hand-written per-service content. Key = "<category-slug>/<service-slug>".
+   { "seo/seo-audit": { "bg": { who, included:[..], outcome, faq:[{q,a}], meta }, "en": { ... } } } */
+let OVERRIDES = {};
+const ovFile = path.join(ROOT, "content/services.json");
+if (fs.existsSync(ovFile)) OVERRIDES = JSON.parse(fs.readFileSync(ovFile, "utf8"));
 
 /* ---------- helpers ---------- */
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -41,16 +53,18 @@ const cats = CATS.map((c) => {
   return { id: c.id, slug: cslug, name: c.name, items, detail: DETAIL[c.id] || DETAIL.web };
 });
 const TOTAL = cats.reduce((n, c) => n + c.items.length, 0);
+const isReady = (c, s) => { const o = OVERRIDES[c.slug + "/" + s.slug]; return !!(o && o.bg && o.en); };
+const READY = cats.reduce((n, c) => n + c.items.filter((s) => isReady(c, s)).length, 0);
 
 /* ---------- language config ---------- */
 const L = { en: { base: "/services/", home: "/", loc: "en_US" }, bg: { base: "/bg/uslugi/", home: "/bg/", loc: "bg_BG" } };
 const T = {
-  bg: { home: "Начало", all: "Всички услуги", who: "За кого е подходяща", included: "Какво включва", outcome: "Резултат", cta: "Поискай оферта",
+  bg: { home: "Начало", all: "Всички услуги", who: "За кого е подходяща", included: "Какво включва", outcome: "Резултат", faq: "Често задавани въпроси", cta: "Поискай оферта",
     ctaText: "Добави услугата към запитване в каталога и получи индивидуална оферта.", more: "Още в тази категория", others: "Други категории",
     count: (n) => `${n} ${n === 1 ? "услуга" : "услуги"}`, sw: "English", tagline: "Дигиталните услуги на бизнеса ти на едно място.", contact: "Контакт",
     hubH1: "Каталог с дигитални услуги", hubTitle: "Каталог с дигитални услуги | Hackera",
     hubDesc: `${TOTAL} дигитални услуги в ${cats.length} категории: уеб разработка, SEO, маркетинг, дизайн, киберсигурност, AI и още.`, rights: "Всички права запазени." },
-  en: { home: "Home", all: "All services", who: "Who it's for", included: "What's included", outcome: "The result", cta: "Request a quote",
+  en: { home: "Home", all: "All services", who: "Who it's for", included: "What's included", outcome: "The result", faq: "FAQ", cta: "Request a quote",
     ctaText: "Add this service to a request in the catalog and get a tailored offer.", more: "More in this category", others: "Other categories",
     count: (n) => `${n} ${n === 1 ? "service" : "services"}`, sw: "Български", tagline: "Your business's digital services in one place.", contact: "Contact",
     hubH1: "Digital services catalog", hubTitle: "Digital services catalog | Hackera",
@@ -77,7 +91,7 @@ h1{font-size:clamp(26px,4vw,38px);line-height:1.2;margin:0 0 10px;letter-spacing
 .chips{display:flex;flex-wrap:wrap;gap:8px;padding:0;list-style:none}.chips a{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:5px 14px;font-size:13px;text-decoration:none}
 footer{background:var(--pearl);border-top:1px solid var(--line);font-size:14px;color:var(--muted)}footer .in{padding-top:28px;padding-bottom:28px}`;
 
-function shell({ lang, rel, title, desc, body, schema }) {
+function shell({ lang, rel, title, desc, body, schema, robots }) {
   const t = T[lang], path_ = P(lang, rel), url = SITE + path_;
   const enUrl = SITE + P("en", rel), bgUrl = SITE + P("bg", rel);
   const catLinks = cats.map((c) => `<li><a href="${P(lang, c.slug + "/")}">${esc(c.name[lang])}</a></li>`).join("");
@@ -86,7 +100,7 @@ function shell({ lang, rel, title, desc, body, schema }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${url}">
+${robots ? `<meta name="robots" content="${robots}">\n` : ""}<link rel="canonical" href="${url}">
 <link rel="alternate" hreflang="en" href="${enUrl}">
 <link rel="alternate" hreflang="bg" href="${bgUrl}">
 <link rel="alternate" hreflang="x-default" href="${enUrl}">
@@ -113,13 +127,11 @@ const provider = { "@type": "Organization", name: "Hackera", legalName: "Имо�
 
 /* ---------- generate ---------- */
 ["services", "bg/uslugi"].forEach((d) => fs.rmSync(path.join(ROOT, d), { recursive: true, force: true }));
-const written = [];
 function write(lang, rel, page) {
   const f = path.join(ROOT, P(lang, rel), "index.html");
   fs.mkdirSync(path.dirname(f), { recursive: true });
   fs.writeFileSync(f, shell({ lang, rel, ...page }));
 }
-const sitemap = [];
 
 for (const lang of ["en", "bg"]) {
   const t = T[lang];
@@ -148,14 +160,22 @@ for (const lang of ["en", "bg"]) {
 
     for (const s of c.items) {
       const rel = c.slug + "/" + s.slug + "/", sUrl = P(lang, rel);
-      const n = c.detail.bullets.length, bullets = [0, 1, 2].map((k) => d.bullets[(s.idx + k) % n]);
+      const ready = isReady(c, s), ov = ready ? OVERRIDES[c.slug + "/" + s.slug][lang] : null;
+      const n = d.bullets.length;
+      const bullets = ov && ov.included ? ov.included : [0, 1, 2].map((k) => d.bullets[(s.idx + k) % n][lang]);
+      const who = (ov && ov.who) || d.forWhom[lang];
+      const outcome = (ov && ov.outcome) || d.outcome[lang];
+      const faq = (ov && ov.faq) || [];
       write(lang, rel, {
-        title: `${s.name[lang]} | ${c.name[lang]} | Hackera`, desc: cut(`${s.desc[lang]} ${d.forWhom[lang]}`, 158),
+        title: `${s.name[lang]} | ${c.name[lang]} | Hackera`,
+        desc: cut((ov && ov.meta) || `${s.desc[lang]} ${d.forWhom[lang]}`, 158),
+        robots: ready ? "" : "noindex, follow",
         body: `${crumbsHtml([home, hub, { name: c.name[lang], url: cUrl }, { name: s.name[lang] }])}<h1>${esc(s.name[lang])}</h1>
 <p class="lead">${esc(s.desc[lang])}</p>
-<h2>${t.who}</h2><p>${esc(d.forWhom[lang])}</p>
-<h2>${t.included}</h2><ul class="ck">${bullets.map((x) => `<li>${esc(x[lang])}</li>`).join("")}</ul>
-<h2>${t.outcome}</h2><p>${esc(d.outcome[lang])}</p>
+<h2>${t.who}</h2><p>${esc(who)}</p>
+<h2>${t.included}</h2><ul class="ck">${bullets.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+<h2>${t.outcome}</h2><p>${esc(outcome)}</p>
+${faq.length ? `<h2>${t.faq}</h2>${faq.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join("")}` : ""}
 <div class="cta"><p>${t.ctaText}</p><a class="btn" href="${L[lang].home}#catalog">${t.cta}</a></div>
 <h2>${t.more}</h2><ul class="chips">${c.items.filter((x) => x !== s).map((x) => `<li><a href="${P(lang, c.slug + "/" + x.slug + "/")}">${esc(x.name[lang])}</a></li>`).join("")}</ul>`,
         schema: [crumbsLd([home, { name: t.all, url: P(lang, "") }, { name: c.name[lang], url: cUrl }, { name: s.name[lang], url: sUrl }]),
@@ -165,8 +185,9 @@ for (const lang of ["en", "bg"]) {
   }
 }
 
-/* ---------- sitemap.xml ---------- */
-const rels = [""]; cats.forEach((c) => { rels.push(c.slug + "/"); c.items.forEach((s) => rels.push(c.slug + "/" + s.slug + "/")); });
+/* ---------- sitemap.xml (only indexable pages) ---------- */
+const rels = [""];
+cats.forEach((c) => { rels.push(c.slug + "/"); c.items.filter((s) => isReady(c, s)).forEach((s) => rels.push(c.slug + "/" + s.slug + "/")); });
 const entry = (loc, enP, bgP, prio) => `  <url>
     <loc>${SITE}${loc}</loc>
     <lastmod>${TODAY}</lastmod>
@@ -186,14 +207,29 @@ ${urls.join("\n")}
 </urlset>
 `);
 
-/* ---------- llms.txt ---------- */
+/* ---------- llms.txt (categories + services that have real content) ---------- */
 fs.writeFileSync(path.join(ROOT, "llms.txt"), `# Hackera
 
 > Hackera is a Bulgarian catalog of ${TOTAL} digital services in ${cats.length} categories (web development, SEO, marketing, design, cybersecurity, AI and more), plus a "Website as a Service" subscription. Operated by Имоти 98 ЕООД. Contact: ${EMAIL}
 
 Languages: English (${SITE}/services/) and Bulgarian (${SITE}/bg/uslugi/).
 
-${cats.map((c) => `## ${c.name.en}\n${c.items.map((s) => `- [${s.name.en}](${SITE}${P("en", c.slug + "/" + s.slug + "/")}): ${s.desc.en}`).join("\n")}`).join("\n\n")}
+${cats.map((c) => `## ${c.name.en}\n- [${c.name.en}: all ${c.items.length} services](${SITE}${P("en", c.slug + "/")})\n${c.items.filter((s) => isReady(c, s)).map((s) => `- [${s.name.en}](${SITE}${P("en", c.slug + "/" + s.slug + "/")}): ${s.desc.en}`).join("\n")}`.trimEnd()).join("\n\n")}
 `);
 
-console.log(`OK: ${TOTAL} services, ${cats.length} categories, ${rels.length * 2} generated pages, ${urls.length} sitemap URLs.`);
+/* ---------- fill <!--CATEGORIES--> in the homepage snapshots ---------- */
+for (const [file, lang] of [["index.html", "en"], ["bg/index.html", "bg"]]) {
+  const f = path.join(ROOT, file);
+  if (!fs.existsSync(f)) { console.warn("WARN: " + file + " not found"); continue; }
+  const html = fs.readFileSync(f, "utf8");
+  const re = /<!--CATEGORIES-->(?:[\s\S]*?<!--\/CATEGORIES-->)?/;
+  if (!re.test(html)) { console.warn("WARN: no <!--CATEGORIES--> marker in " + file); continue; }
+  const t = T[lang];
+  const block = `<!--CATEGORIES-->
+<p><a href="${P(lang, "")}">${t.all}</a></p>
+<ul style="columns:2;padding-left:18px;font-size:14px;line-height:1.9">${cats.map((c) => `<li><a href="${P(lang, c.slug + "/")}">${esc(c.name[lang])}</a> (${t.count(c.items.length)})</li>`).join("")}</ul>
+<!--/CATEGORIES-->`;
+  fs.writeFileSync(f, html.replace(re, () => block));
+}
+
+console.log(`OK: ${TOTAL} services, ${cats.length} categories, ${READY} with unique content (indexable), ${TOTAL - READY} set to noindex, ${urls.length} sitemap URLs.`);
