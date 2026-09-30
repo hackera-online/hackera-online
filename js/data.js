@@ -10,7 +10,7 @@ const CATS = [
     ["Уеб дизайн и удобство на ползване", "Визуален дизайн на интерфейса, съобразен с начина, по който хората наистина го ползват.", "Web Design (UI/UX)", "Interface design built around how people actually use it."],
     ["Адаптиране за мобилни устройства", "Преработване на съществуващ сайт, за да изглежда добре на всяко устройство.", "Responsive/Mobile Adaptation", "Adapting an existing site to look great on every device."],
     ["Поддръжка на сайтове", "Редовни технически грижи, за да работи сайтът ви гладко и сигурно.", "Website Maintenance", "Ongoing technical care so your site runs smoothly and safely."],
-    ["Преместване на сайтове", "Прехвърляне на сайт към нов хостинг или нова платформа без прекъсване.", "Website Migration", "Moving a site to new hosting or a new platform without downtime."],
+    ["Миграция на сайтове", "Прехвърляне на сайт към нов хостинг или нова платформа без прекъсване.", "Website Migration", "Moving a site to new hosting or a new platform without downtime."],
     ["Ускоряване на сайтове", "По-бързо зареждане на сайта за по-приятно изживяване и по-добро класиране в търсачките.", "Speed Optimization", "Faster load times for a better experience and better SEO."],
     ["Свързване с външни системи (API)", "Свързване на сайта с външни системи и услуги чрез програмни интерфейси.", "API Integrations", "Connecting your site to external systems and services."],
     ["Разработка на добавки", "Изработка на разширение по поръчка за конкретна функция на сайта.", "Plugin Development", "A custom plugin built for a specific site feature."],
