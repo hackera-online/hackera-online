@@ -1,90 +1,25 @@
 /* css/tokens.css - Hackera Online design tokens */
 :root {
   /* Бранд: оранжево (еднакво и в двете теми) */
-  --color-accent: #f7561c;
-  --color-accent-hover: #dc4711;
+  --color-accent: #ff5a1f;
+  --color-accent-hover: #d6440e;
   --color-accent-light: #ff8a65;
   --color-accent-icon: #ff7f36;
   --color-accent-label: #d6440e;     /* моно етикетите (WEB DEVELOPMENT) */
   --color-on-accent: #ffffff;
-  --gradient-accent: linear-gradient(135deg, #f7561c 0%, #dc4711 100%);
-  --gradient-accent-text: linear-gradient(90deg, #ff8a65 0%, #f7561c 100%);
-  --glow-accent: radial-gradient(circle at center, rgba(247, 86, 28, 0.35) 0%, transparent 70%);
+  --gradient-accent: linear-gradient(135deg, #ff5a1f 0%, #d6440e 100%);
+  --gradient-accent-text: linear-gradient(90deg, #ff8a65 0%, #ff5a1f 100%);
+  --glow-accent: radial-gradient(circle at center, rgba(255, 90, 31, 0.35) 0%, transparent 70%);
 
   /* ---------- СВЕТЛА тема (по подразбиране: услуги, карти, категории) ---------- */
-  --bg: #fafaf8;
+  --bg: #f7f6f2;
   --surface: #ffffff;                /* карти, dropdown, "Learn more" */
   --surface-2: #fafaf8;              /* "add" бутон */
-  --text: #111111;
-  --text-muted: #71706e;
+  --text: #0b0b0c;
+  --text-muted: #6b6a67;
   --border: #111111;                 /* контурът на картите и бутоните */
-  --border-soft: #d9d9d7;            /* разделителни линии на секции */
-  --focus-ring: 0 0 0 3px rgba(247, 86, 28, 0.45);
+  --border-soft: #e4e1d8;            /* разделителни линии на секции */
+  --focus-ring: 0 0 0 3px rgba(255, 90, 31, 0.45);
 
   /* Статуси */
-  --color-success: #10b981;
-  --color-danger: #ef4444;
-
-  /* Шрифтове */
-  --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace;
-
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
-  --text-3xl: clamp(1.875rem, 1.4rem + 2vw, 2.5rem);
-  --text-hero: clamp(2.25rem, 1.2rem + 4.5vw, 4rem);
-  --leading-tight: 1.1;
-  --leading-normal: 1.6;
-
-  /* Разстояния */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-24: 6rem;
-
-  /* Геометрия */
-  --container-max: 1200px;
-  --container-pad: clamp(1rem, 4vw, 2rem);
-  --radius-sm: 12px;                 /* бутони в картите, dropdown */
-  --radius-icon: 14px;               /* оранжевата иконка */
-  --radius-card: 20px;
-  --radius-pill: 9999px;             /* hero бутони, BG/EN превключвател */
-
-  /* Сенки и анимации */
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-accent: 0 8px 24px rgba(247, 86, 28, 0.35);
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-  --z-header: 100;
-  --z-modal: 1000;
-}
-
-/* ---------- ТЪМНА тема: hero, хедър, агент ---------- */
-.theme-dark {
-  --bg: #0b0b0c;
-  --surface: #232324;
-  --surface-2: #2d2d2e;
-  --surface-header: #161617;
-  --hero-tint: #24130e;
-  --text: #ffffff;
-  --text-muted: #a1a1a6;
-  --border: rgba(255, 255, 255, 0.28);
-  --border-soft: rgba(255, 255, 255, 0.12);
-  --grid-line: rgba(255, 255, 255, 0.04);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
-  background: var(--bg);
-  color: var(--text);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root { --transition: none; }
-}
+  --color-success:
