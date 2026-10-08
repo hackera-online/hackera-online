@@ -74,7 +74,7 @@ const P = (lang, rel) => L[lang].base + rel;
 const OTHER = { en: "bg", bg: "en" };
 
 /* ---------- page shell ---------- */
-const CSS = `:root{--ink:#0B0B0C;--orange:#FF5A1F;--orange-deep:#D6440E;--pearl:#F7F6F2;--paper:#fff;--line:#E4E1D8;--muted:#6B6A67}
+const CSS = `:root{--ink:var(--text,#0B0B0C);--orange:var(--color-accent,#FF5A1F);--orange-deep:var(--color-accent-label,#D6440E);--pearl:var(--bg,#F7F6F2);--paper:var(--surface,#fff);--line:var(--border-soft,#E4E1D8);--muted:var(--text-muted,#6B6A67)}
 @media (prefers-color-scheme:dark){:root{--ink:#F4F3EF;--pearl:#151516;--paper:#0B0B0C;--line:#2A2A28;--muted:#A5A39D}}
 *{box-sizing:border-box}body{margin:0;font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper)}
 a{color:var(--orange-deep)}header{background:#0B0B0C}header .in,main,footer .in{max-width:1000px;margin:0 auto;padding:0 20px}
