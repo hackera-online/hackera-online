@@ -53,4 +53,4 @@ Then open `http://localhost:8080/` (EN) or `http://localhost:8080/bg/` (BG).
 
 ## License
 
-Private/proprietary — © Hackera ("Имоти 98" EOOD). Not for reuse.
+Private/proprietary — © Hackera. ("Имоти 98" EOOD). Not for reuse.
