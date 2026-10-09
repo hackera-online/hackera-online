@@ -8,19 +8,10 @@
    Data sources:
      - Performance / SEO / Accessibility / Best Practices:
        Google's public PageSpeed Insights API — a real Lighthouse run.
-       No API key = works, but low rate limit (Google will 429 you if you
-       hit it a lot in a short window). Swap in a free Google Cloud API
-       key later by setting PSI_API_KEY below — one line change.
      - AI / "GEO" readiness (can ChatGPT/Claude/Perplexity actually read
-       and cite this site?): checks robots.txt for AI-crawler blocks,
-       checks for an llms.txt file, checks for JSON-LD structured data.
-       These require fetching a THIRD-PARTY site's files from the
-       browser, which CORS blocks by default — this site has no backend
-       to proxy through, so a public CORS proxy is used. If the proxy is
-       unreachable or rate-limited, this section reports "unknown" for
-       the affected checks — it never fabricates a pass/fail.
+       and cite this site?): checks robots.txt, llms.txt, JSON-LD.
 
-   Depends on globals already defined in app.js (loaded before this file):
+   Depends on globals already defined in app.js:
      state, icon(), esc(), refreshIcons(), sendNotification()
    ========================================================================= */
 
@@ -44,6 +35,7 @@ const CHK_T = {
   geoSub: { bg: "Дали ChatGPT, Claude и подобни AI могат реално да четат и цитират сайта.", en: "Whether ChatGPT, Claude and similar AI tools can actually read and cite the site." },
   llmsFound: { bg: "llms.txt е наличен", en: "llms.txt found" },
   llmsMissing: { bg: "llms.txt липсва", en: "llms.txt missing" },
+  llmsUnknown: { bg: "llms.txt — не можа да се провери", en: "llms.txt — couldn't be checked" },
   robotsOk: { bg: "robots.txt не блокира AI ботове", en: "robots.txt doesn't block AI bots" },
   robotsBlocking: { bg: "robots.txt блокира някои AI ботове", en: "robots.txt is blocking some AI bots" },
   robotsUnknown: { bg: "robots.txt — не можа да се провери", en: "robots.txt — couldn't be checked" },
@@ -60,6 +52,7 @@ const CHK_T = {
   errEmail: { bg: "Въведете валиден имейл.", en: "Enter a valid email." },
   close: { bg: "Затвори", en: "Close" },
 };
+
 function chkT(key) {
   const l = (typeof state !== "undefined" && state.lang) || document.documentElement.lang || "en";
   const entry = CHK_T[key];
@@ -134,8 +127,7 @@ async function chkGeoAudit(pageUrl) {
     const robots = await chkFetchTextViaProxy(origin + "/robots.txt");
     const blocked = [];
     AI_BOTS.forEach((bot) => {
-      // heuristic: look for a User-agent block for this bot followed by a Disallow: /
-      const re = new RegExp("user-agent:\\s*" + bot.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&") + "[^]*?(?=user-agent:|$)", "i");
+      const re = new RegExp("user-agent:\\s*" + bot.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[^]*?(?=user-agent:|$)", "i");
       const m = robots.match(re);
       if (m && /disallow:\s*\/\s*($|\n)/i.test(m[0])) blocked.push(bot);
     });
@@ -149,7 +141,7 @@ async function chkGeoAudit(pageUrl) {
     await chkFetchTextViaProxy(origin + "/llms.txt");
     out.llmsTxt = true;
   } catch (e) {
-    out.llmsTxt = false; // a clean 404 also throws — treat fetch failure as "not found" here since it's same-origin as the robots check that succeeded
+    out.llmsTxt = false;
   }
 
   try {
@@ -206,7 +198,6 @@ async function chkSendReport() {
   chkRender();
 
   const r = chk.result;
-  const scoreLine = (label, v) => `${label}: ${v === null || v === undefined ? "—" : v + "%"}`;
   const fields = {
     "Проверен сайт": chk.checkedUrl,
     [chkT("perfLabel")]: r.scores.performance ?? "—",
@@ -217,9 +208,7 @@ async function chkSendReport() {
     "AI bots blocked": r.geo.blockedBots.length ? r.geo.blockedBots.join(", ") : "none",
     "Structured data": r.geo.structuredData ? "yes" : "no",
   };
-  // send to the visitor
   await sendNotification(fields, `Hackera — website check report for ${chk.checkedUrl}`, email);
-  // also notify the business as a lead
   await sendNotification({ ...fields, "Visitor email": email }, `New site-check lead — ${chk.checkedUrl}`);
 
   chk.emailSending = false;
@@ -277,7 +266,7 @@ function chkRenderBody() {
         <strong>${chkT("geoTitle")}</strong>
         <span>${chkT("geoSub")}</span>
       </div>
-      ${chkGeoLine(r.geo.llmsTxt, chkT("llmsFound"), chkT("llmsMissing"), "")}
+      ${chkGeoLine(r.geo.llmsTxt, chkT("llmsFound"), chkT("llmsMissing"), chkT("llmsUnknown"))}
       ${chkGeoLine(geoOk, chkT("robotsOk"), chkT("robotsBlocking"), chkT("robotsUnknown"))}
       ${chkGeoLine(r.geo.structuredData, chkT("structDataFound"), chkT("structDataMissing"), chkT("structDataUnknown"))}
       ${r.geo.blockedBots && r.geo.blockedBots.length ? `<div class="chk-blocked-bots"><span>${chkT("blockedList")}</span> ${r.geo.blockedBots.join(", ")}</div>` : ""}
@@ -328,11 +317,13 @@ function chkRender() {
 function chkWire() {
   document.getElementById("chkCloseBtn")?.addEventListener("click", chkClose);
   document.getElementById("chkBackdrop")?.addEventListener("click", (e) => { if (e.target.id === "chkBackdrop") chkClose(); });
+  
   const form = document.getElementById("chkUrlForm");
   if (form) {
     document.getElementById("chkUrlInput").addEventListener("input", (e) => { chk.urlInput = e.target.value; });
     form.addEventListener("submit", (e) => { e.preventDefault(); chkRunCheck(); });
   }
+  
   const emailForm = document.getElementById("chkEmailForm");
   if (emailForm) {
     document.getElementById("chkEmailInput").addEventListener("input", (e) => { chk.emailValue = e.target.value; });
@@ -348,14 +339,14 @@ function chkEnsureStyles() {
     .chk-backdrop{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px;transition:background .25s ease}
     .chk-modal{width:100%;max-width:480px;max-height:88vh;overflow-y:auto;background:var(--paper);border-radius:24px;padding:28px 24px 24px;position:relative;box-shadow:0 30px 70px rgba(11,11,12,.35);transition:all .25s ease}
     .chk-close-btn{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:999px;border:none;background:var(--pearl);display:flex;align-items:center;justify-content:center;cursor:pointer}
-    .chk-title{font-family:inherit;font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;padding-right:30px}
+    .chk-title{font-family:'Open Sans', sans-serif;font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;padding-right:30px}
     .chk-sub{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 18px}
     .chk-url-form{display:flex;gap:8px;margin-bottom:16px}
-    .chk-url-input{flex:1;min-width:0;border-radius:12px;padding:11px 14px;font-size:13.5px;border:1px solid var(--line);background:var(--pearl);color:var(--ink);outline:none}
+    .chk-url-input{flex:1;min-width:0;border-radius:12px;padding:11px 14px;font-size:16px;border:1px solid var(--line-soft);background:var(--pearl);color:var(--ink);outline:none}
     .chk-url-btn{border:none;border-radius:12px;padding:0 18px;font-weight:600;font-size:13px;color:#fff;background:var(--gradient);cursor:pointer}
     .chk-url-btn:disabled{opacity:.6;cursor:default}
     .chk-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 10px;text-align:center}
-    .chk-spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--orange);animation:chkSpin .8s linear infinite}
+    .chk-spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--line-soft);border-top-color:var(--orange);animation:chkSpin .8s linear infinite}
     @keyframes chkSpin{to{transform:rotate(360deg)}}
     .chk-loading p{font-size:12.5px;color:var(--muted);margin:0}
     .chk-error{font-size:13px;color:var(--orange);line-height:1.5}
@@ -376,11 +367,14 @@ function chkEnsureStyles() {
     .chk-email-box{border-top:1px solid var(--line-soft);padding-top:14px}
     .chk-email-title{display:block;font-size:12.5px;color:var(--ink);font-weight:600;margin-bottom:8px}
     .chk-email-row{display:flex;gap:8px}
-    .chk-email-input{flex:1;min-width:0;border-radius:10px;padding:9px 12px;font-size:12.5px;border:1px solid var(--line);background:var(--pearl);color:var(--ink);outline:none}
+    .chk-email-input{flex:1;min-width:0;border-radius:10px;padding:9px 12px;font-size:16px;border:1px solid var(--line-soft);background:var(--pearl);color:var(--ink);outline:none}
     .chk-email-send{border:none;border-radius:10px;padding:0 14px;font-size:12px;font-weight:600;color:#fff;background:var(--gradient);cursor:pointer}
     .chk-email-send:disabled{opacity:.6}
     .chk-email-err{display:block;font-size:11px;color:var(--orange);margin-top:6px}
     .chk-email-sent{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#1FA463;margin:0}
+    @media (min-width: 640px) {
+      .chk-url-input, .chk-email-input { font-size: 13.5px; }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -393,10 +387,16 @@ window.hkCheckerOpen = function (prefillUrl) {
   chkRender();
   setTimeout(() => document.getElementById("chkUrlInput")?.focus(), 200);
 };
+
 function chkClose() {
   chk.open = false;
   chkRender();
 }
+
+/* Esc key handler */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && chk.open) chkClose();
+});
 
 /* boot: create the (initially hidden) modal host once */
 if (document.readyState === "loading") {
