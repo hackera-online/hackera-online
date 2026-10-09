@@ -1,8 +1,42 @@
-/*
-  X-Content-Type-Options: nosniff
+/* Global headers */
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: strict-origin-when-cross-origin
 
+/* CSS files */
 /css/*
-  Cache-Control: public, max-age=3600
+  Content-Type: text/css; charset=utf-8
+  Cache-Control: public, max-age=31536000, immutable
 
+/* JavaScript files */
 /js/*
-  Cache-Control: public, max-age=3600
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: public, max-age=31536000, immutable
+
+/* Icons */
+/favicon.svg
+  Content-Type: image/svg+xml; charset=utf-8
+  Cache-Control: public, max-age=31536000
+
+/* Images */
+/og-image.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000
+
+/* SVG files */
+/*.svg
+  Content-Type: image/svg+xml; charset=utf-8
+  Cache-Control: public, max-age=31536000
+
+/* HTML pages */
+/*.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/index.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/bg/index.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
