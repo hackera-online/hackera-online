@@ -226,17 +226,6 @@ function renderHero() {
   </section>`;
 }
 
-/* ---------- Audit widget ---------- REMOVED.
-   This used to be the "analyze my site" form. It's gone because it was
-   fully broken: rerenderAudit() and AUDIT_STEPS were called throughout
-   this section but never defined anywhere in the codebase, so the very
-   first form submit threw a ReferenceError and silently died — nothing
-   ever happened when someone clicked "Analyze for free". Replaced by the
-   AI agent (js/agent.js), which mounts into the #agentMount div in the
-   hero above and actually works. The REAL site-check functionality (real
-   speed/SEO/GEO data) now lives in js/checker.js, wired to the
-   "checkCtaBtn" and "miniAuditForm" handlers at the bottom of this file. */
-
 /* ---------- Category dropdown ---------- */
 let catDropdownOpen = false;
 let catSearchQ = "";
