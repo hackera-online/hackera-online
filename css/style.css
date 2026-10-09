@@ -17,12 +17,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
   background: var(--pearl);
-  .font-display { font-family: 'Poppins', sans-serif; }
+  font-family: var(--font-sans, 'Inter', sans-serif);
   color: var(--ink);
 }
 button { cursor: pointer; font: inherit; background: none; border: none; }
 ::selection { background: rgba(255,90,31,0.25); }
-.font-display { .font-display { font-family: 'Open Sans', sans-serif; }
+
+.font-display { font-family: var(--font-display, 'Open Sans', sans-serif); }
 .font-mono { font-family: 'IBM Plex Mono', monospace; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -108,8 +109,7 @@ button:active { transform: scale(0.96); }
   100% { box-shadow: 0 0 0 0 rgba(255,90,31,0); }
 }
 
-/* Hero entrance — staggered rise-and-fade on first paint (not scroll-
-   triggered like .reveal below, since the hero is visible immediately). */
+/* Hero entrance — staggered rise-and-fade on first paint */
 @keyframes heroRise {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -139,18 +139,18 @@ button:active { transform: scale(0.96); }
   .orb { animation: none; }
 }
 
-/* Elevated hover shadow for cards — replaces the flatter default lift */
+/* Elevated hover shadow for cards */
 .card-elevate { transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease, border-color 0.22s ease; }
 .card-elevate:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(11,11,12,0.12); border-color: var(--orange) !important; }
 .card-elevate-dark:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(0,0,0,0.35); border-color: rgba(255,90,31,0.5) !important; }
 
-/* Buttons: subtle lift + glow on hover, consistent across the site */
+/* Buttons: subtle lift + glow on hover */
 .btn-glow { transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.15s ease; }
 .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255,90,31,0.32); }
 .btn-ghost-glow { transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease; }
 .btn-ghost-glow:hover { transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.7) !important; }
 
-/* Cart "bag" trigger in the header — compact icon button with an overlapping count badge */
+/* Cart "bag" trigger in the header */
 .cart-bag-btn {
   position: relative;
   width: 40px;
@@ -192,7 +192,7 @@ button:active { transform: scale(0.96); }
 }
 .cart-bag-badge.pop { animation: badgePop 0.3s cubic-bezier(0.22,1,0.36,1); }
 
-/* Cursor-following spotlight glow on hover (light + dark card variants) */
+/* Cursor-following spotlight glow on hover */
 .spotlight, .spotlight-dark { position: relative; }
 .spotlight::before, .spotlight-dark::before {
   content: "";
@@ -215,7 +215,6 @@ button:active { transform: scale(0.96); }
 .marquee-row { display: flex; align-items: center; gap: 12px; padding-right: 12px; animation: marqueeScroll 42s linear infinite; }
 .marquee-wrap:hover .marquee-row { animation-play-state: paused; }
 @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
-/* Soft fade at both edges so the strip reads as an endless ribbon, not a cut-off row */
 .marquee-edge { position: absolute; top: 0; bottom: 0; width: 64px; z-index: 2; pointer-events: none; }
 .marquee-edge-l { left: 0; background: linear-gradient(90deg, var(--paper), rgba(255,255,255,0)); }
 .marquee-edge-r { right: 0; background: linear-gradient(270deg, var(--paper), rgba(255,255,255,0)); }
@@ -257,7 +256,7 @@ button:active { transform: scale(0.96); }
 }
 .marquee-chip:hover .marquee-chip-icon { background: var(--gradient); color: #fff; }
 
-/* Audit widget fields — one clean bordered group, thin divider between rows, no nested boxes */
+/* Audit widget fields */
 .audit-field-group {
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.16);
@@ -278,11 +277,6 @@ button:active { transform: scale(0.96); }
 .audit-field > svg,
 .audit-field > i { flex-shrink: 0; }
 .audit-field input {
-  /* 16px, not 14px: iOS Safari auto-zooms the whole page on focus for any
-     input with a computed font-size under 16px. On a 14px input that zoom
-     is what makes this section look "broken" on a phone — the layout is
-     fine, the browser is just zooming in on tap. Kept at 14px on ≥640px
-     (mouse/desktop) where the zoom bug doesn't apply, see media query below. */
   font-size: 16px;
   color: #fff;
   border: none;
@@ -300,7 +294,7 @@ button:active { transform: scale(0.96); }
   .audit-field { padding: 12px 14px; gap: 10px; }
 }
 
-/* Consent checkbox (privacy-policy agreement) in the cart contact form */
+/* Consent checkbox */
 .consent-check { position: relative; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; margin-top: 2px; }
 .consent-check input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
 .consent-box {
@@ -316,7 +310,7 @@ button:active { transform: scale(0.96); }
 .consent-label { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 .consent-link { color: var(--orange-deep); text-decoration: underline; font-weight: 600; font-size: inherit; }
 
-/* Service card description clamp (added for card polish) */
+/* Service card description clamp */
 .svc-desc {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -324,9 +318,7 @@ button:active { transform: scale(0.96); }
   overflow: hidden;
 }
 
-/* ---- Static utility classes (compiled equivalent of the Tailwind
-   Play CDN classes actually used on this page/app; replaces the
-   runtime JIT compiler for a much faster, non-blocking load). ---- */
+/* ---- Utility classes ---- */
 .-translate-x-1\/2 { transform: translateX(-50%); }
 .absolute { position: absolute; }
 .bg-transparent { background-color: transparent; }
