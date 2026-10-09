@@ -528,3 +528,19 @@ button:active { transform: scale(0.96); }
   .lg\:row-span-2 { grid-row: span 2 / span 2; }
 }
 .top-full { top: 100%; }
+
+/* ---- Missing utilities used by app.js (icon sizes, spacing, colors) ----
+   Without .w-4/.h-4 etc. the Lucide icons fall back to their default 24px. */
+.h-3 { height: 0.75rem; }
+.h-3\.5 { height: 0.875rem; }
+.h-4 { height: 1rem; }
+.h-4\.5 { height: 1.125rem; }
+.w-3 { width: 0.75rem; }
+.w-3\.5 { width: 0.875rem; }
+.w-4 { width: 1rem; }
+.w-4\.5 { width: 1.125rem; }
+.ml-3 { margin-left: 0.75rem; }
+.mt-0\.5 { margin-top: 0.125rem; }
+.text-gray-400 { color: #9ca3af; }
+.text-white { color: #fff; }
+.transition-transform { transition: transform 0.2s ease; }
