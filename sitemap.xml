@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://hackera.online/</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-09</lastmod>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/" />
     <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/" />
@@ -12,11 +10,538 @@
   </url>
   <url>
     <loc>https://hackera.online/bg/</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/" />
     <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/web-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/web-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/web-development/business-website-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/business-website-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/business-website-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/business-website-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/web-development/business-website-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/business-website-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/business-website-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/business-website-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/web-development/online-stores/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/online-stores/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/online-stores/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/online-stores/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/web-development/online-stores/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/online-stores/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/online-stores/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/online-stores/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/web-development/wordpress-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/wordpress-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/wordpress-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/wordpress-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/web-development/wordpress-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/web-development/wordpress-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/web-development/wordpress-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/web-development/wordpress-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/seo-services/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/seo-services/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/seo-services/seo-audit/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/seo-audit/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/seo-audit/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/seo-audit/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/seo-services/seo-audit/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/seo-audit/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/seo-audit/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/seo-audit/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/seo-services/e-commerce-seo/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/e-commerce-seo/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/e-commerce-seo/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/e-commerce-seo/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/seo-services/e-commerce-seo/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/seo-services/e-commerce-seo/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/seo-services/e-commerce-seo/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/seo-services/e-commerce-seo/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/digital-marketing/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/digital-marketing/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/digital-marketing/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/digital-marketing/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/digital-marketing/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/digital-marketing/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/digital-marketing/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/digital-marketing/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/digital-marketing/ppc-ads/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/digital-marketing/ppc-ads/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/digital-marketing/ppc-ads/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/digital-marketing/ppc-ads/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/digital-marketing/ppc-ads/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/digital-marketing/ppc-ads/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/digital-marketing/ppc-ads/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/digital-marketing/ppc-ads/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/social-media/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/social-media/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/social-media/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/social-media/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/social-media/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/social-media/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/social-media/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/social-media/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/social-media/social-media-management/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/social-media/social-media-management/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/social-media/social-media-management/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/social-media/social-media-management/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/social-media/social-media-management/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/social-media/social-media-management/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/social-media/social-media-management/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/social-media/social-media-management/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/content-and-copywriting/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/content-and-copywriting/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/content-and-copywriting/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/content-and-copywriting/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/content-and-copywriting/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/content-and-copywriting/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/content-and-copywriting/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/content-and-copywriting/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/design-and-graphics/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/design-and-graphics/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/design-and-graphics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/design-and-graphics/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/design-and-graphics/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/design-and-graphics/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/design-and-graphics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/design-and-graphics/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/design-and-graphics/logo-design/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/design-and-graphics/logo-design/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/design-and-graphics/logo-design/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/design-and-graphics/logo-design/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/design-and-graphics/logo-design/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/design-and-graphics/logo-design/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/design-and-graphics/logo-design/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/design-and-graphics/logo-design/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/video-and-audio-production/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/video-and-audio-production/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/video-and-audio-production/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/video-and-audio-production/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/video-and-audio-production/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/video-and-audio-production/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/video-and-audio-production/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/video-and-audio-production/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/photography/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/photography/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/photography/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/photography/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/photography/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/photography/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/photography/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/photography/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/mobile-apps/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/mobile-apps/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/mobile-apps/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/mobile-apps/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/mobile-apps/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/mobile-apps/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/mobile-apps/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/mobile-apps/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/e-commerce/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/e-commerce/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/e-commerce/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/e-commerce/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/e-commerce/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/e-commerce/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/e-commerce/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/e-commerce/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/it-and-cloud-services/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/it-and-cloud-services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/it-and-cloud-services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/it-and-cloud-services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/it-and-cloud-services/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/it-and-cloud-services/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/it-and-cloud-services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/it-and-cloud-services/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/cybersecurity/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/cybersecurity/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/cybersecurity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/cybersecurity/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/cybersecurity/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/cybersecurity/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/cybersecurity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/cybersecurity/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/data-and-analytics/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/data-and-analytics/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/data-and-analytics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/data-and-analytics/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/data-and-analytics/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/data-and-analytics/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/data-and-analytics/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/data-and-analytics/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/ai-and-automation/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/ai-and-automation/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/ai-and-automation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/ai-and-automation/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/ai-and-automation/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/ai-and-automation/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/ai-and-automation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/ai-and-automation/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/ai-and-automation/chatbot-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/ai-and-automation/chatbot-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/ai-and-automation/chatbot-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/ai-and-automation/chatbot-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/ai-and-automation/chatbot-development/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/ai-and-automation/chatbot-development/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/ai-and-automation/chatbot-development/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/ai-and-automation/chatbot-development/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/crm-and-sales/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/crm-and-sales/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/crm-and-sales/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/crm-and-sales/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/crm-and-sales/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/crm-and-sales/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/crm-and-sales/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/crm-and-sales/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/pr-and-communications/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/pr-and-communications/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/pr-and-communications/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/pr-and-communications/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/pr-and-communications/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/pr-and-communications/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/pr-and-communications/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/pr-and-communications/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/translation-and-localization/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/translation-and-localization/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/translation-and-localization/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/translation-and-localization/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/translation-and-localization/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/translation-and-localization/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/translation-and-localization/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/translation-and-localization/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/training-and-consulting/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/training-and-consulting/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/training-and-consulting/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/training-and-consulting/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/training-and-consulting/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/training-and-consulting/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/training-and-consulting/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/training-and-consulting/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/subscription-and-maintenance/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/subscription-and-maintenance/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/monthly-website-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/subscription-and-maintenance/monthly-website-maintenance/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/monthly-website-maintenance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/subscription-and-maintenance/website-as-a-service/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/website-as-a-service/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/website-as-a-service/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/website-as-a-service/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/subscription-and-maintenance/website-as-a-service/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/subscription-and-maintenance/website-as-a-service/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/subscription-and-maintenance/website-as-a-service/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/subscription-and-maintenance/website-as-a-service/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/gdpr-and-legal/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/gdpr-and-legal/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/gdpr-and-legal/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/gdpr-and-legal/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/gdpr-and-legal/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/gdpr-and-legal/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/gdpr-and-legal/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/gdpr-and-legal/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/gdpr-and-legal/gdpr-policy-and-cookies/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/" />
+  </url>
+  <url>
+    <loc>https://hackera.online/bg/uslugi/gdpr-and-legal/gdpr-policy-and-cookies/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://hackera.online/bg/uslugi/gdpr-and-legal/gdpr-policy-and-cookies/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/" />
   </url>
 </urlset>

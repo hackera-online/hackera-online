@@ -1,45 +1,77 @@
 # Hackera
 
-> Hackera е дигитална агенция от България, предлагаща 250+ дигитални услуги в 20 категории на едно място — уеб разработка, SEO, дизайн, маркетинг, e-commerce, AI автоматизация, киберсигурност, GDPR съответствие и още. Прозрачни цени, един контакт за всичко.
+> Hackera is a Bulgarian catalog of 250 digital services in 20 categories (web development, SEO, marketing, design, cybersecurity, AI and more), plus a "Website as a Service" subscription. Operated by Имоти 98 ЕООД. Contact: ivan@hackera.online
 
-## За кого е
+Languages: English (https://hackera.online/services/) and Bulgarian (https://hackera.online/bg/uslugi/).
 
-Малки и средни бизнеси в България, които искат професионално дигитално присъствие (сайт, магазин, маркетинг) без да наемат отделен изпълнител за всяка задача.
+## Web Development
+- [Web Development: all 20 services](https://hackera.online/services/web-development/)
+- [Business Website Development](https://hackera.online/services/web-development/business-website-development/): A modern site with all core pages, ready to represent your business online.
+- [Online Stores (E-commerce)](https://hackera.online/services/web-development/online-stores/): A full store with catalog, cart and checkout for selling online.
+- [WordPress Development](https://hackera.online/services/web-development/wordpress-development/): Building a site on WordPress — flexible and easy to maintain yourself.
 
-## Основен пакет
+## SEO Services
+- [SEO Services: all 15 services](https://hackera.online/services/seo-services/)
+- [SEO Audit](https://hackera.online/services/seo-services/seo-audit/): A full review of the site to find what's holding back its ranking.
+- [E-commerce SEO](https://hackera.online/services/seo-services/e-commerce-seo/): SEO strategy specifically for product and category pages.
 
-„Сайт като услуга“ — старт от 15€/месец, 12-месечен договор. Включва фирмен сайт до 5 страници, лого, текстове, хостинг, домейн, SSL, GDPR документи и месечна техническа поддръжка.
+## Digital Marketing
+- [Digital Marketing: all 20 services](https://hackera.online/services/digital-marketing/)
+- [PPC Ads (Google Ads)](https://hackera.online/services/digital-marketing/ppc-ads/): Paid ads that appear exactly when people search for your service.
 
-## Категории услуги (250 общо)
+## Social Media
+- [Social Media: all 15 services](https://hackera.online/services/social-media/)
+- [Social Media Management (SMM)](https://hackera.online/services/social-media/social-media-management/): Day-to-day management of your social media profiles.
 
-- **Уеб разработка** (Web Development) — 20 услуги
-- **SEO услуги** (SEO Services) — 15 услуги
-- **Дигитален маркетинг** (Digital Marketing) — 20 услуги
-- **Социални медии** (Social Media) — 15 услуги
-- **Съдържание и копирайтинг** (Content & Copywriting) — 15 услуги
-- **Дизайн и графика** (Design & Graphics) — 15 услуги
-- **Видео и аудио продукция** (Video & Audio Production) — 15 услуги
-- **Фотография** (Photography) — 10 услуги
-- **Мобилни приложения** (Mobile Apps) — 10 услуги
-- **E-commerce** (E-commerce) — 12 услуги
-- **IT и облачни услуги** (IT & Cloud Services) — 12 услуги
-- **Киберсигурност** (Cybersecurity) — 12 услуги
-- **Данни и анализ** (Data & Analytics) — 12 услуги
-- **Изкуствен интелект и автоматизация** (AI & Automation) — 12 услуги
-- **CRM и продажби** (CRM & Sales) — 10 услуги
-- **PR и комуникации** (PR & Communications) — 10 услуги
-- **Преводи и локализация** (Translation & Localization) — 8 услуги
-- **Обучение и консултации** (Training & Consulting) — 8 услуги
-- **Абонаментни и поддръжка услуги** (Subscription & Maintenance) — 8 услуги
-- **GDPR и правни услуги** (GDPR & Legal) — 11 услуги
+## Content & Copywriting
+- [Content & Copywriting: all 15 services](https://hackera.online/services/content-and-copywriting/)
 
-## Как да поръчаш
+## Design & Graphics
+- [Design & Graphics: all 15 services](https://hackera.online/services/design-and-graphics/)
+- [Logo Design](https://hackera.online/services/design-and-graphics/logo-design/): A clear, memorable mark that represents your brand visually.
 
-Заяви услуга директно на сайта (https://hackera.online/#catalog) или пиши на ivan@hackera.online. Безплатен анализ на съществуващ сайт достъпен на началната страница.
+## Video & Audio Production
+- [Video & Audio Production: all 15 services](https://hackera.online/services/video-and-audio-production/)
 
-## Контакт
+## Photography
+- [Photography: all 10 services](https://hackera.online/services/photography/)
 
-- Имейл: ivan@hackera.online
-- Телефон: +359 87 901 8593
-- Адрес: ул. 340 №3, София, България
-- Фирма: „Имоти 98“ ЕООД, ЕИК 207210213
+## Mobile Apps
+- [Mobile Apps: all 10 services](https://hackera.online/services/mobile-apps/)
+
+## E-commerce
+- [E-commerce: all 12 services](https://hackera.online/services/e-commerce/)
+
+## IT & Cloud Services
+- [IT & Cloud Services: all 12 services](https://hackera.online/services/it-and-cloud-services/)
+
+## Cybersecurity
+- [Cybersecurity: all 12 services](https://hackera.online/services/cybersecurity/)
+
+## Data & Analytics
+- [Data & Analytics: all 12 services](https://hackera.online/services/data-and-analytics/)
+
+## AI & Automation
+- [AI & Automation: all 12 services](https://hackera.online/services/ai-and-automation/)
+- [Chatbot Development](https://hackera.online/services/ai-and-automation/chatbot-development/): An automated assistant answering customer questions 24/7.
+
+## CRM & Sales
+- [CRM & Sales: all 10 services](https://hackera.online/services/crm-and-sales/)
+
+## PR & Communications
+- [PR & Communications: all 10 services](https://hackera.online/services/pr-and-communications/)
+
+## Translation & Localization
+- [Translation & Localization: all 8 services](https://hackera.online/services/translation-and-localization/)
+
+## Training & Consulting
+- [Training & Consulting: all 8 services](https://hackera.online/services/training-and-consulting/)
+
+## Subscription & Maintenance
+- [Subscription & Maintenance: all 8 services](https://hackera.online/services/subscription-and-maintenance/)
+- [Monthly Website Maintenance](https://hackera.online/services/subscription-and-maintenance/monthly-website-maintenance/): Ongoing technical care so your site runs without issues.
+- [Website-as-a-Service (WaaS)](https://hackera.online/services/subscription-and-maintenance/website-as-a-service/): A subscription site — everything included for one fixed monthly fee.
+
+## GDPR & Legal
+- [GDPR & Legal: all 11 services](https://hackera.online/services/gdpr-and-legal/)
+- [GDPR Policy & Cookies](https://hackera.online/services/gdpr-and-legal/gdpr-policy-and-cookies/): The required privacy policy and cookie consent documents.
