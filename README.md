@@ -1,38 +1,96 @@
 # hackera.online
 
-Marketing site for **Hackera** — 250+ digital services in one catalog
-(web development, design, marketing, SEO and more), plus a "Website as a
-Service" subscription package.
+Marketing site for Hackera — 250+ digital services in one catalog
+(web development, design, marketing, SEO, AI automation, legal compliance,
+photography, PR, and more), with a static, service-driven structure for
+both the English and Bulgarian versions.
 
-- **Live site:** https://hackera.online (EN) · https://hackera.online/bg/ (BG)
-- **Stack:** plain HTML + vanilla JS + hand-authored CSS. No framework, no
-  bundler, no `npm install` — the files in this repo are exactly what gets
-  served. That's intentional: it keeps hosting cheap and deploys instant
-  (see below).
-  
-## Structure
+- Live site: https://hackera.online (EN) · https://hackera.online/bg/ (BG)
+- Stack: plain HTML + vanilla JS + hand-authored CSS. No framework, no
+  bundler, no `npm install` — the code in this repo is what gets served.
+  That keeps hosting cheap and deployments fast.
 
+## Site structure
+
+The site is now organized around service categories and individual service
+landing pages instead of a single monolithic page structure.
+
+```text
+.
+├── index.html                     # English homepage (/)
+├── bg/
+│   └── index.html                 # Bulgarian homepage (/bg/)
+├── services/                      # English service category pages and service detail pages
+│   ├── web-development/
+│   ├── digital-marketing/
+│   ├── ai-and-automation/
+│   ├── seo-services/
+│   ├── social-media/
+│   ├── e-commerce/
+│   ├── design-and-graphics/
+│   ├── mobile-apps/
+│   ├── photography/
+│   ├── video-and-audio-production/
+│   ├── crm-and-sales/
+│   ├── it-and-cloud-services/
+│   ├── cybersecurity/
+│   ├── gdpr-and-legal/
+│   ├── translation-and-localization/
+│   ├── content-and-copywriting/
+│   ├── pr-and-communications/
+│   ├── training-and-consulting/
+│   ├── subscription-and-maintenance/
+│   └── data-and-analytics/
+├── bg/uslugi/                    # Bulgarian service category pages and detail pages
+│   └── ...
+├── content/
+│   └── services.json              # service catalog data used by the app
+├── css/
+│   ├── style.css                 # main site styling
+│   └── tokens.css                # design tokens / variables
+├── js/
+│   ├── app.js                    # main app logic and rendering
+│   ├── data.js                   # catalog and content data
+│   ├── agent.js                  # assistant/chat-related logic
+│   ├── checker.js                # validation/check logic
+│   ├── icons.js                  # self-hosted icon set
+│   └── ...
+├── admin.html                    # admin dashboard / management interface
+├── login.html                    # login page
+├── CNAME                         # custom domain mapping
+├── _headers                      # Cloudflare headers config
+├── build.js                      # build / generation helper
+├── favicon.svg
+├── og-image.png
+├── robots.txt
+├── sitemap.xml
+├── llms.txt
+├── README.md
+├── DEPLOY-GITHUB-CLOUDFLARE.txt
+├── DEPLOY-NAMECHEAP.txt
+└── LICENSE (if present in your hosting setup)
 ```
-index.html          English page (/)
-bg/index.html        Bulgarian page (/bg/)
-css/style.css        All styles (one file, hand-rolled utility classes)
-js/
-  data.js             Service catalog data (bilingual)
-  app.js              App logic — renders everything into #root
-  chatbot.js          Floating "AI assistant" chat widget
-  icons.js            Self-hosted icon set (no CDN)
-favicon.svg, og-image.png, robots.txt, sitemap.xml, llms.txt
-```
 
-`js/app.js` re-renders the whole `#root` on every state change (language
-switch, cart open, etc.) — see the table of contents comment at the top of
-that file to jump to any section (hero, pricing, FAQ, ...).
+Important: the website now uses a catalog-driven structure where categories and
+individual service pages live under `/services/` and `/bg/uslugi/`, while the
+frontend data is sourced from `content/services.json` and `js/data.js`.
+
+## How the site works
+
+- `index.html` is the English homepage.
+- `bg/index.html` is the Bulgarian homepage.
+- The service catalog is generated and rendered from structured data.
+- `js/app.js` handles rendering and UI state changes.
+- `js/data.js` defines the service content used by the app.
+- `content/services.json` acts as a central catalog source for service data.
+- The site is fully static; no Node.js app or build pipeline is required for
+  deployment.
 
 ## Local preview
 
-Because the pages reference assets by absolute path (`/css/style.css`,
-`/js/app.js`), opening `index.html` directly with `file://` will not load
-them correctly — serve the folder over HTTP instead:
+Because the pages reference assets with absolute paths such as `/css/style.css`
+and `/js/app.js`, opening the HTML files directly via `file://` will not load
+correctly. Serve the repo over HTTP instead:
 
 ```bash
 # from the repo root, pick whichever you have installed
@@ -41,16 +99,22 @@ npx serve .
 python3 -m http.server 8080
 ```
 
-Then open `http://localhost:8080/` (EN) or `http://localhost:8080/bg/` (BG).
+Then open:
+
+- http://localhost:8080/ for English
+- http://localhost:8080/bg/ for Bulgarian
 
 ## Deployment
 
-- **GitHub + Cloudflare Pages (current plan):** see
-  `DEPLOY-GITHUB-CLOUDFLARE.txt` — push to `main`, Cloudflare builds and
-  deploys automatically, usually in under a minute.
-- **Namecheap / cPanel (previous hosting):** see `DEPLOY-NAMECHEAP.txt`,
-  kept for reference.
+- GitHub + Cloudflare Pages (current setup): see `DEPLOY-GITHUB-CLOUDFLARE.txt`
+- Namecheap / cPanel (legacy hosting): see `DEPLOY-NAMECHEAP.txt`
 
 ## License
 
 Private/proprietary — © Hackera. ("Имоти 98" EOOD). Not for reuse.
+
+## Notes
+
+This repo is intentionally lightweight and static on purpose: it is designed to
+be cheap to host, quick to deploy, and easy to serve with a CDN or simple web
+server.
