@@ -21,11 +21,11 @@ $css = @'
   --grid-line: rgba(0, 0, 0, 0.04);
   --text: #0b0b0c;
   --text-muted: #6b6a67;
-  --border: #111111;
-  --border-soft: #e4e1d8;
+  --border: #111111;                 /* контурът на картите и бутоните */
+  --border-soft: #e4e1d8;            /* разделителни линии на секции */
   --focus-ring: 0 0 0 3px rgba(255, 90, 31, 0.45);
 
-  /* Status */
+  /* Статуси */
   --color-success: #10b981;
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
