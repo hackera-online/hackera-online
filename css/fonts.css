@@ -1,3 +1,5 @@
+/* IBM Plex Mono (етикети, чипове, значка на количката) - @import трябва да е първото правило */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 /* ==========================================
    1. Open Sans
    ========================================== */
