@@ -17,12 +17,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
   background: var(--pearl);
-  font-family: 'Poppins', sans-serif;
+  .font-display { font-family: 'Poppins', sans-serif; }
   color: var(--ink);
 }
 button { cursor: pointer; font: inherit; background: none; border: none; }
 ::selection { background: rgba(255,90,31,0.25); }
-.font-display { font-family: 'Poppins', sans-serif; }
+.font-display { .font-display { font-family: 'Open Sans', sans-serif; }
 .font-mono { font-family: 'IBM Plex Mono', monospace; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
