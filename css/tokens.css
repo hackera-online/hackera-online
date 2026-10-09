@@ -16,12 +16,9 @@ $css = @'
   --bg: #f7f6f2;
   --surface: #ffffff;
   --surface-2: #fafaf8;
-<<<<<<< HEAD
-=======
   --surface-header: #ffffff;
   --hero-tint: #fff1ea;
   --grid-line: rgba(0, 0, 0, 0.04);
->>>>>>> 924f23b (Fix truncated tokens.css and add missing tokens)
   --text: #0b0b0c;
   --text-muted: #6b6a67;
   --border: #111111;
@@ -31,11 +28,8 @@ $css = @'
   /* Status */
   --color-success: #10b981;
   --color-danger: #ef4444;
-<<<<<<< HEAD
-=======
   --color-warning: #f59e0b;
   --color-info: #3b82f6;
->>>>>>> 924f23b (Fix truncated tokens.css and add missing tokens)
 
   /* Fonts */
   --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -72,16 +66,10 @@ $css = @'
   --radius-pill: 9999px;
 
   /* Shadows and motion */
-<<<<<<< HEAD
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-accent: 0 8px 24px rgba(255, 90, 31, 0.35);
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-=======
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
   --shadow-accent: 0 8px 24px rgba(255, 90, 31, 0.35);
   --transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
->>>>>>> 924f23b (Fix truncated tokens.css and add missing tokens)
 
   --z-header: 100;
   --z-modal: 1000;
@@ -99,10 +87,7 @@ $css = @'
   --border: rgba(255, 255, 255, 0.28);
   --border-soft: rgba(255, 255, 255, 0.12);
   --grid-line: rgba(255, 255, 255, 0.04);
-<<<<<<< HEAD
-=======
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
->>>>>>> 924f23b (Fix truncated tokens.css and add missing tokens)
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
   background: var(--bg);
   color: var(--text);
@@ -110,11 +95,4 @@ $css = @'
 
 @media (prefers-reduced-motion: reduce) {
   :root { --transition: none; }
-<<<<<<< HEAD
 }
-'@
-[System.IO.File]::WriteAllText("$PWD\css\tokens.css", $css, (New-Object System.Text.UTF8Encoding($false)))
-Get-Content css\tokens.css -Tail 4
-=======
-}
->>>>>>> 924f23b (Fix truncated tokens.css and add missing tokens)
