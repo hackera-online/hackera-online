@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="bg">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hackera — digital services in one place</title>
-  <meta name="description" content="250 digital services in 20 categories: web development, design, marketing, SEO and more, in one place. Transparent pricing, one contact." />
-  <link rel="canonical" href="https://hackera.online/" />
+  <title>Hackera — дигитални услуги на едно място</title>
+  <meta name="description" content="250 дигитални услуги в 20 категории — уеб разработка, дизайн, маркетинг, SEO и още, на едно място. Прозрачни цени, един контакт." />
+  <link rel="canonical" href="https://hackera.online/bg/" />
   <link rel="alternate" hreflang="bg" href="https://hackera.online/bg/" />
   <link rel="alternate" hreflang="en" href="https://hackera.online/" />
   <link rel="alternate" hreflang="x-default" href="https://hackera.online/" />
@@ -15,17 +15,17 @@
   <!-- Open Graph / social previews (Facebook, Viber, LinkedIn) -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Hackera" />
-  <meta property="og:title" content="Hackera — digital services in one place" />
-  <meta property="og:description" content="250 digital services in 20 categories: web development, design, marketing, SEO and more, in one place." />
-  <meta property="og:url" content="https://hackera.online/" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:locale:alternate" content="bg_BG" />
+  <meta property="og:title" content="Hackera — дигитални услуги на едно място" />
+  <meta property="og:description" content="250 дигитални услуги в 20 категории — уеб разработка, дизайн, маркетинг, SEO и още, на едно място." />
+  <meta property="og:url" content="https://hackera.online/bg/" />
+  <meta property="og:locale" content="bg_BG" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:image" content="https://hackera.online/og-image.png" />
 
   <!-- Twitter/X card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Hackera — digital services in one place" />
-  <meta name="twitter:description" content="250 digital services in 20 categories: web development, design, marketing, SEO and more, in one place." />
+  <meta name="twitter:title" content="Hackera — дигитални услуги на едно място" />
+  <meta name="twitter:description" content="250 дигитални услуги в 20 категории — уеб разработка, дизайн, маркетинг, SEO и още, на едно място." />
   <meta name="twitter:image" content="https://hackera.online/og-image.png" />
 
   <!-- Fonts with font-display:swap for faster text rendering -->
@@ -52,6 +52,11 @@
   <link rel="preload" href="/js/icons.js?v=3" as="script" />
   <link rel="preload" href="/js/data.js?v=3" as="script" />
   <link rel="preload" href="/js/app.js?v=3" as="script" />
+  <!-- checker.js implements window.hkCheckerOpen(), което бутонът
+       "Провери сайта безплатно" от app.js вече вика. Трябва да се зареди
+       СЛЕД app.js (използва неговите state/icon()/esc()/refreshIcons()/
+       sendNotification()) и е независим от agent.js. -->
+  <link rel="preload" href="/js/checker.js?v=3" as="script" />
   <link rel="modulepreload" href="/js/agent.js?v=3" />
 </head>
 <body>
@@ -65,29 +70,32 @@
   <header style="max-width:1152px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--ink)">
     <span style="font-family:'Poppins',system-ui,sans-serif;font-weight:800;color:#fff">hackera.</span>
     <nav style="display:flex;align-items:center;gap:16px">
-      <a href="#catalog" style="color:#fff;font-size:13px;text-decoration:none">Service catalog</a>
-      <a href="/bg/" hreflang="bg" lang="bg" style="color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;font-family:'IBM Plex Mono',monospace">BG</a>
+      <a href="#catalog" style="color:#fff;font-size:13px;text-decoration:none">Каталог с услуги</a>
+      <a href="/" hreflang="en" lang="en" style="color:rgba(255,255,255,0.6);font-size:12px;text-decoration:none;font-family:'IBM Plex Mono',monospace">EN</a>
     </nav>
   </header>
   <section style="background:var(--ink);color:#fff;padding:56px 20px;text-align:center">
-    <h1 style="font-family:'Poppins',system-ui,sans-serif;font-weight:800;font-size:34px;margin:10px 0 0;line-height:1.2">Everything your business needs online. <span style="color:var(--orange)">In one place.</span></h1>
-    <p style="max-width:480px;margin:14px auto 0;opacity:0.75;font-size:15px;line-height:1.6">Hackera offers 250+ digital services in 20 categories: web development, design, marketing, SEO and more. Everything in one place.</p>
+    <h1 style="font-family:'Poppins',system-ui,sans-serif;font-weight:800;font-size:34px;margin:10px 0 0;line-height:1.2">Провери сайта си. <span style="color:var(--orange)">Получи отчета по имейл.</span></h1>
+    <p style="max-width:480px;margin:14px auto 0;opacity:0.75;font-size:15px;line-height:1.6">Hackera предлага 250+ дигитални услуги в 20 категории — уеб разработка, дизайн, маркетинг, SEO и други. Всичко на едно място.</p>
   </section>
   <section id="catalog" style="padding:44px 20px;max-width:960px;margin:0 auto;background:var(--paper)">
-    <h2 style="font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:26px;color:var(--ink);margin:0 0 8px">Full catalog of digital services</h2>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:24px">Hackera offers 250 digital services in 20 categories for businesses: from web development and SEO to AI automation, graphic design, video production and more.</p>
+    <h2 style="font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:26px;color:var(--ink);margin:0 0 8px">Пълен каталог с дигитални услуги</h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:24px">Hackera предлага 250 дигитални услуги в 20 категории за бизнеси в България — от уеб разработка и SEO до AI автоматизация, графика, видео продукция и други.</p>
     <!--CATEGORIES-->
-<p><a href="/services/">All services</a></p>
-<ul style="columns:2;padding-left:18px;font-size:14px;line-height:1.9"><li><a href="/services/web-development/">Web Development</a> (20 services)</li><li><a href="/services/seo-services/">SEO Services</a> (15 services)</li><li><a href="/services/digital-marketing/">Digital Marketing</a> (20 services)</li><li><a href="/services/social-media/">Social Media</a> (15 services)</li><li><a href="/services/content-and-copywriting/">Content &amp; Copywriting</a> (15 services)</li><li><a href="/services/design-and-graphics/">Design &amp; Graphics</a> (15 services)</li><li><a href="/services/video-and-audio-production/">Video &amp; Audio Production</a> (15 services)</li><li><a href="/services/photography/">Photography</a> (10 services)</li><li><a href="/services/mobile-apps/">Mobile Apps</a> (10 services)</li><li><a href="/services/e-commerce/">E-commerce</a> (12 services)</li><li><a href="/services/it-and-cloud-services/">IT &amp; Cloud Services</a> (12 services)</li><li><a href="/services/cybersecurity/">Cybersecurity</a> (12 services)</li><li><a href="/services/data-and-analytics/">Data &amp; Analytics</a> (12 services)</li><li><a href="/services/ai-and-automation/">AI &amp; Automation</a> (12 services)</li><li><a href="/services/crm-and-sales/">CRM &amp; Sales</a> (10 services)</li><li><a href="/services/pr-and-communications/">PR &amp; Communications</a> (10 services)</li><li><a href="/services/translation-and-localization/">Translation &amp; Localization</a> (8 services)</li><li><a href="/services/training-and-consulting/">Training &amp; Consulting</a> (8 services)</li><li><a href="/services/subscription-and-maintenance/">Subscription &amp; Maintenance</a> (8 services)</li><li><a href="/services/gdpr-and-legal/">GDPR &amp; Legal</a> (11 services)</li></ul>
+<p><a href="/bg/uslugi/">Всички услуги</a></p>
+<ul style="columns:2;padding-left:18px;font-size:14px;line-height:1.9"><li><a href="/bg/uslugi/web-development/">Разработка на сайтове</a> (20 услуги)</li><li><a href="/bg/uslugi/seo-services/">SEO услуги</a> (15 услуги)</li><li><a href="/bg/uslugi/digital-marketing/">Дигитален маркетинг</a> (20 услуги)</li><li><a href="/bg/uslugi/social-media/">Социални мрежи</a> (15 услуги)</li><li><a href="/bg/uslugi/content-and-copywriting/">Съдържание и копирайтинг</a> (15 услуги)</li><li><a href="/bg/uslugi/design-and-graphics/">Дизайн и графика</a> (15 услуги)</li><li><a href="/bg/uslugi/video-and-audio-production/">Видео и звукова продукция</a> (15 услуги)</li><li><a href="/bg/uslugi/photography/">Фотография</a> (10 услуги)</li><li><a href="/bg/uslugi/mobile-apps/">Мобилни приложения</a> (10 услуги)</li><li><a href="/bg/uslugi/e-commerce/">Електронна търговия</a> (12 услуги)</li><li><a href="/bg/uslugi/it-and-cloud-services/">Информационни технологии и облак</a> (12 услуги)</li><li><a href="/bg/uslugi/cybersecurity/">Киберсигурност</a> (12 услуги)</li><li><a href="/bg/uslugi/data-and-analytics/">Данни и анализи</a> (12 услуги)</li><li><a href="/bg/uslugi/ai-and-automation/">Изкуствен интелект и автоматизация</a> (12 услуги)</li><li><a href="/bg/uslugi/crm-and-sales/">Клиентски системи и продажби</a> (10 услуги)</li><li><a href="/bg/uslugi/pr-and-communications/">Връзки с обществеността и комуникации</a> (10 услуги)</li><li><a href="/bg/uslugi/translation-and-localization/">Преводи и езиково приспособяване</a> (8 услуги)</li><li><a href="/bg/uslugi/training-and-consulting/">Обучения и консултации</a> (8 услуги)</li><li><a href="/bg/uslugi/subscription-and-maintenance/">Абонаментни услуги и поддръжка</a> (8 услуги)</li><li><a href="/bg/uslugi/gdpr-and-legal/">GDPR и правни услуги</a> (11 услуги)</li></ul>
 <!--/CATEGORIES-->
   </section>
   </div>
 
-  <!-- Defer all app scripts to not block rendering. -->
+  <!-- Defer all app scripts to not block rendering. Редът е важен:
+       app.js трябва да се изпълни преди checker.js (той ползва неговите
+       глобални обекти). -->
   <script src="/js/icons.js?v=3" defer></script>
   <script src="/js/data.js?v=3" defer></script>
   <script src="/js/app.js?v=3" defer></script>
+  <script src="/js/checker.js?v=3" defer></script>
   <script type="module" src="/js/agent.js?v=3"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=AVaHymRYXc7nSCuFdIGqCFf5KQoA-uzk1DHzj2njgtSKcrKC6lgcUJM5nCZh7DVytAqHQfw3zwoS3N3g&vault=true&intent=subscription&currency=EUR&locale=en_US" defer></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"3d31c559ab5a4a80b92c005cc88406ff","r":1,"spa":2}' crossorigin="anonymous"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AVaHymRYXc7nSCuFdIGqCFf5KQoA-uzk1DHzj2njgtSKcrKC6lgcUJM5nCZh7DVytAqHQfw3zwoS3N3g&vault=true&intent=subscription&currency=EUR&locale=bg_BG" defer></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"3d31c559ab5a4a80b92c005cc88406ff","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
