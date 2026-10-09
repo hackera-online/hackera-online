@@ -52,11 +52,6 @@
   <link rel="preload" href="/js/icons.js?v=3" as="script" />
   <link rel="preload" href="/js/data.js?v=3" as="script" />
   <link rel="preload" href="/js/app.js?v=3" as="script" />
-  <!-- checker.js implements window.hkCheckerOpen(), което бутонът
-       "Провери сайта безплатно" от app.js вече вика. Трябва да се зареди
-       СЛЕД app.js (използва неговите state/icon()/esc()/refreshIcons()/
-       sendNotification()) и е независим от agent.js. -->
-  <link rel="preload" href="/js/checker.js?v=3" as="script" />
   <link rel="modulepreload" href="/js/agent.js?v=3" />
 </head>
 <body>
@@ -75,7 +70,7 @@
     </nav>
   </header>
   <section style="background:var(--ink);color:#fff;padding:56px 20px;text-align:center">
-    <h1 style="font-family:'Poppins',system-ui,sans-serif;font-weight:800;font-size:34px;margin:10px 0 0;line-height:1.2">Провери сайта си. <span style="color:var(--orange)">Получи отчета по имейл.</span></h1>
+    <h1 style="font-family:'Poppins',system-ui,sans-serif;font-weight:800;font-size:34px;margin:10px 0 0;line-height:1.2">Всичко, което бизнесът ви трябва онлайн. <span style="color:var(--orange)">На едно място.</span></h1>
     <p style="max-width:480px;margin:14px auto 0;opacity:0.75;font-size:15px;line-height:1.6">Hackera предлага 250+ дигитални услуги в 20 категории — уеб разработка, дизайн, маркетинг, SEO и други. Всичко на едно място.</p>
   </section>
   <section id="catalog" style="padding:44px 20px;max-width:960px;margin:0 auto;background:var(--paper)">
@@ -88,13 +83,10 @@
   </section>
   </div>
 
-  <!-- Defer all app scripts to not block rendering. Редът е важен:
-       app.js трябва да се изпълни преди checker.js (той ползва неговите
-       глобални обекти). -->
+  <!-- Defer all app scripts to not block rendering. -->
   <script src="/js/icons.js?v=3" defer></script>
   <script src="/js/data.js?v=3" defer></script>
   <script src="/js/app.js?v=3" defer></script>
-  <script src="/js/checker.js?v=3" defer></script>
   <script type="module" src="/js/agent.js?v=3"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=AVaHymRYXc7nSCuFdIGqCFf5KQoA-uzk1DHzj2njgtSKcrKC6lgcUJM5nCZh7DVytAqHQfw3zwoS3N3g&vault=true&intent=subscription&currency=EUR&locale=bg_BG" defer></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"3d31c559ab5a4a80b92c005cc88406ff","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
