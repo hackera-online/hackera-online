@@ -53,8 +53,6 @@
   } catch (e) {}
 })();
 
-const STRIPE_CHECKOUT_ENABLED = false;
-
 const state = {
   lang: location.pathname.replace(/\/index\.html$/, "").replace(/\/$/, "").split("/").pop() === "bg" ? "bg" : "en",
   catFilter: "all",
@@ -118,7 +116,6 @@ const UI = {
   heroLine2: { bg: "Получи репорт на имейл.", en: "Get a report by email." },
   heroSub: { bg: "Пусни линка на своя сайт — ще го прегледаме по скорост, SEO, сигурност и дизайн, и ще ти пратим пълния резултат.", en: "Submit your site's link — we'll review it for speed, SEO, security and design, and send you the full result." },
   browseCta: { bg: "Разгледай услугите", en: "Browse services" },
-  checkCta: { bg: "Провери сайта безплатно", en: "Check your site for free" },
   emptyGrid: { bg: "Нищо не съвпада — опитайте друга дума или категория.", en: "Nothing matches — try a different word or category." },
   clearFilters: { bg: "изчисти филтрите ✕", en: "clear filters ✕" },
   allCats: { bg: "Всички категории", en: "All categories" },
@@ -219,7 +216,6 @@ function renderHero() {
       </h1>
       <div class="${rc(4)}flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
         <button id="browseCtaBtn" class="btn-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${t("browseCta")}</button>
-        <button id="checkCtaBtn" class="btn-ghost-glow w-full sm:w-auto px-6 py-3 rounded-full font-semibold text-sm" style="border:1px solid rgba(255,255,255,0.4);color:#fff">${t("checkCta")}</button>
       </div>
       <div class="${rc(5)}mt-9" id="agentMount"></div>
     </div>
@@ -233,9 +229,7 @@ function renderHero() {
    first form submit threw a ReferenceError and silently died — nothing
    ever happened when someone clicked "Analyze for free". Replaced by the
    AI agent (js/agent.js), which mounts into the #agentMount div in the
-   hero above and actually works. The REAL site-check functionality (real
-   speed/SEO/GEO data) now lives in js/checker.js, wired to the
-   "checkCtaBtn" and "miniAuditForm" handlers at the bottom of this file. */
+   hero above and actually works. */
 
 /* ---------- Category dropdown ---------- */
 let catDropdownOpen = false;
@@ -1272,19 +1266,13 @@ function renderFinalCTA() {
     <div class="orb" style="width:320px;height:320px;top:-80px;left:50%;transform:translateX(-50%);background:rgba(255,90,31,0.28)"></div>
     <div class="max-w-2xl mx-auto px-5 text-center relative">
       <h2 class="font-display font-bold" style="font-size:clamp(26px,3.6vw,38px);color:#fff;letter-spacing:-0.02em;line-height:1.15">${state.lang === "bg" ? "Готови да изведете бизнеса си онлайн?" : "Ready to take your business online?"}</h2>
-      <p class="mt-3" style="font-size:14.5px;color:rgba(255,255,255,0.65)">${state.lang === "bg" ? "Пусни линка на сайта си за безплатна проверка, или разгледай каталога с услуги." : "Submit your site's link for a free check, or browse the service catalog."}</p>
-      <form id="miniAuditForm" class="flex flex-col sm:flex-row gap-2 mt-8 max-w-md mx-auto">
-        <input id="miniUrl" placeholder="${state.lang === "bg" ? "Адрес на твоя сайт" : "Your website address"}" class="flex-1 min-w-0 rounded-full px-5 py-3 outline-none" style="font-size:13.5px;background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2)"/>
-        <button type="submit" class="btn-glow px-6 py-3 rounded-full font-semibold text-sm shrink-0" style="background:var(--gradient);color:#fff">${state.lang === "bg" ? "Провери сега" : "Check now"}</button>
-      </form>
+      <p class="mt-3" style="font-size:14.5px;color:rgba(255,255,255,0.65)">${state.lang === "bg" ? "Разгледай каталога с услуги или заяви безплатна консултация." : "Browse the service catalog or request a free consultation."}</p>
+      <button id="finalCtaBtn" class="btn-glow mt-8 px-6 py-3 rounded-full font-semibold text-sm" style="background:var(--gradient);color:#fff">${t("browseCta")}</button>
     </div>
   </section>`;
 }
 function wireFinalCTA() {
-  document.getElementById("miniAuditForm")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    window.hkCheckerOpen?.(document.getElementById("miniUrl")?.value);
-  });
+  document.getElementById("finalCtaBtn")?.addEventListener("click", () => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
 }
 
 /* ---------- Footer ---------- */
@@ -1415,7 +1403,7 @@ const TERMS_MD = `# ОБЩИ УСЛОВИЯ
 
 ---
 
-*Този документ е изготвен като общ образец и не представлява правен съвет. Препоръчваме преглед от квалифициран юрист преди публикуване.*`;
+`;
 
 const PRIVACY_MD = `# ПОЛИТИКА ЗА ПОВЕРИТЕЛНОСТ
 
@@ -1459,7 +1447,7 @@ ivan@hackera.online, 0879 018 593.
 
 ---
 
-*Този документ е изготвен като общ образец, съобразен с GDPR, и не представлява правен съвет. Препоръчваме преглед от юрист преди публикуване.*`;
+`;
 
 function renderLegalModal() {
   if (!state.legalDoc) return "";
@@ -1564,9 +1552,6 @@ function renderApp() {
   }));
   document.getElementById("cartBtn")?.addEventListener("click", openDrawer);
   document.getElementById("browseCtaBtn")?.addEventListener("click", () => document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" }));
-  document.getElementById("checkCtaBtn")?.addEventListener("click", () => {
-    window.hkCheckerOpen?.();
-  });
   document.getElementById("consultCtaBtn")?.addEventListener("click", () => {
     const el = document.getElementById("agentMount");
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
